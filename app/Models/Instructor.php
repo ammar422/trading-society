@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
 
 class Instructor extends Model
 {
-    use HasFactory , HasApiTokens;
+    use HasFactory, HasApiTokens;
 
     protected $fillable = [
         'name',
@@ -28,4 +29,11 @@ class Instructor extends Model
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+    public function courses(): HasMany
+    {
+        return $this->hasMany(Course::class, 'instructor_id', 'id');
+    }
 }
