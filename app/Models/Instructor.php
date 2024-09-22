@@ -36,4 +36,9 @@ class Instructor extends Model
     {
         return $this->hasMany(Course::class, 'instructor_id', 'id');
     }
+
+    public function offers(): HasMany
+    {
+        return $this->hasMany(Offer::class, 'instructor_id', 'id');
+    }
 }

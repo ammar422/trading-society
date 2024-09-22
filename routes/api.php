@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CoursesAndCategories\CourseController;
 use App\Http\Controllers\Instructor\InstructorController;
+use App\Http\Controllers\Offer\OfferController;
 use App\Http\Controllers\OnlineSesions\ZoomController;
 
 route::prefix('v1')->group(function () {
@@ -27,15 +28,17 @@ route::prefix('v1')->group(function () {
 
 
         // instructor 
-        route::apiResource('instructor', InstructorController::class);
+        route::apiResource('instructor', InstructorController::class); //It needs to be divided
 
         //courses
-        route::apiResource('courses', CourseController::class);
+        route::apiResource('courses', CourseController::class); //It needs to be divided
+        route::post('complete_course/{course}', [CourseController::class, 'markComplete'])->name('courses.complete_course');
 
 
+        //offers
 
-
-
+        route::get('offers', [OfferController::class, 'index'])->name('offer.index');
+        route::get('offers/{offer}', [OfferController::class, 'show'])->name('offer.index');
 
 
 

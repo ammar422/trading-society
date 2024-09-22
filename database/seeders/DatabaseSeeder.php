@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Offer;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
             InstructorSeeder::class,
             CategorySeeder::class,
             CourseSeeder::class,
-            CourseVedioSeeder::class
+            CourseVedioSeeder::class,
+            OfferSeeder::class,
         ]);
     }
 }

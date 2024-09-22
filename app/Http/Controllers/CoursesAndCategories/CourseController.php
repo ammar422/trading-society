@@ -56,7 +56,7 @@ class CourseController extends Controller
 
         if ($currentCategoryIndex === 0) {
             return $this->successResponse(
-                $course,
+                new CoursesResource($course),
                 'course',
                 'Course can be accessed because there\'s no previous category.'
             );
@@ -71,7 +71,7 @@ class CourseController extends Controller
 
         if ($completedCourse) {
             return $this->successResponse(
-                $course,
+                new CoursesResource($course),
                 'course',
                 'Course can be accessed , User has completed at least one course in the previous category.'
             );
@@ -99,5 +99,15 @@ class CourseController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+
+    public function markComplete(Course $course)
+    {
+        $user = Auth::user();
+        if ($user->courses->contains($course->id))
+            return $this->failedResponse();
+        $user->courses()->attach($course->id);
+        return $this->successResponse(new CoursesResource($course), 'course', 'the course mark as completed');
     }
 }
