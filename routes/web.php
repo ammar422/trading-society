@@ -19,12 +19,14 @@ route::prefix('instructor')->group(function () {
 
     // route::middleware('auth:instructor')->group(function () {
 
-        Route::get('/', function () {
-            return view('dashboard');
-        })->name('instructor.dashboard');
+    Route::get('/', function () {
+        return view('dashboard');
+    })->name('instructor.dashboard');
 
 
-        // courses route
-        route::get('course', [CourseController::class, 'create'])->name('course.create');
+    // courses route
+    route::get('course/main', [ CourseController::class, 'courseMainPage'])->name('courses.mainPage');
+    route::get('course/add_video', [ CourseController::class, 'addVideoToCourse'])->name('courses.add_video');
+    route::get('course', [CourseController::class, 'create'])->name('course.create');
     // });
 });

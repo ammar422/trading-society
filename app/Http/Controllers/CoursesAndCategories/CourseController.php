@@ -7,6 +7,7 @@ use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CoursesResource;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Instructor;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,9 +32,26 @@ class CourseController extends Controller
     }
 
 
+    public function courseMainPage()
+    {
+        $courses = Course::all();
+        return view('courses', compact('courses'));
+    }
+
+
     public function create()
     {
-        return view('add_new_course');
+        $instructors = Instructor::all();
+        $categories = Category::all();
+        return view('add_new_course', compact('instructors', 'categories'));
+    }
+
+
+
+    public function addVideoToCourse()
+    {
+        $courses = Course::all();
+        return view('add_new_video_to_course', compact('courses'));
     }
 
 

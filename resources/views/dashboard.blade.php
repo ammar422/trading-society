@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-8 col-sm-12 col-xl-8 my-auto">
                             <div class="d-flex d-sm-block d-md-flex align-items-center">
-                                <h2 class="mb-0"><a href="{{ route('course.create') }}">Add New Course</a></h2>
+                                <h2 class="mb-0"><a href="{{ route('courses.mainPage') }}">Course</a></h2>
                             </div>
                             <h6 class="text-muted font-weight-normal">Number Of Courses So Far Is
                                 {{ App\models\Course::All()->count() }}</h6>
@@ -30,7 +30,7 @@
                     <div class="row">
                         <div class="col-8 col-sm-12 col-xl-8 my-auto">
                             <div class="d-flex d-sm-block d-md-flex align-items-center">
-                                <h2 class="mb-0"><a href="">Add New Level</a></h2>
+                                <h2 class="mb-0"><a href=""> New Level</a></h2>
                             </div>
                             <h6 class="text-muted font-weight-normal">Number Of Levels So Far Is
                                 {{ App\models\Category::All()->count() }}</h6>
@@ -49,7 +49,7 @@
                     <div class="row">
                         <div class="col-8 col-sm-12 col-xl-8 my-auto">
                             <div class="d-flex d-sm-block d-md-flex align-items-center">
-                                <h2 class="mb-0"><a href="">Add New Deal Post</a></h2>
+                                <h2 class="mb-0"><a href=""> New Deal Post</a></h2>
                             </div>
                             <h6 class="text-muted font-weight-normal">Number Of Active Deals So Far Is
                                 {{ App\models\Offer::All()->count() }}</h6>

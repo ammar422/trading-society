@@ -26,12 +26,21 @@
           <li class="nav-item nav-category">
               <span class="nav-link">Navigation</span>
           </li>
+          
           <li class="nav-item menu-items">
-              <a class="nav-link" href="{{ route('course.create') }}">
+              <a class="nav-link" href="{{ route('instructor.dashboard') }}">
                   <span class="menu-icon">
                       <i class="mdi mdi-speedometer"></i>
                   </span>
-                  <span class="menu-title">Add New Course</span>
+                  <span class="menu-title">DashBoard</span>
+              </a>
+          </li>
+          <li class="nav-item menu-items">
+              <a class="nav-link" href="{{ route("courses.mainPage") }}">
+                  <span class="menu-icon">
+                      <i class="mdi mdi-trophy-variant-outline"></i>
+                  </span>
+                  <span class="menu-title">Courses</span>
               </a>
           </li>
           <li class="nav-item menu-items">
@@ -39,7 +48,7 @@
                   <span class="menu-icon">
                       <i class="mdi mdi-trophy-variant-outline"></i>
                   </span>
-                  <span class="menu-title">Add New Level</span>
+                  <span class="menu-title">Levels</span>
               </a>
           </li>
           <li class="nav-item menu-items">
@@ -47,7 +56,7 @@
                   <span class="menu-icon">
                       <i class="mdi mdi-file-document"></i>
                   </span>
-                  <span class="menu-title">Add New Deal Post</span>
+                  <span class="menu-title">Deals Posts</span>
               </a>
           </li>
       </ul>

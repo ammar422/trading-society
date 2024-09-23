@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('course_id')->constrained()->on('courses')->onDelete('cascade'); // Assuming a foreign key to courses  
             $table->string('video_url');
-            $table->integer('time'); // Assuming time is in seconds or minutes  
+            $table->integer('duration'); // Assuming time is in seconds or minutes  
             $table->text('description');
             $table->string('image'); // Assuming this stores the path to the image  
             $table->timestamps();
