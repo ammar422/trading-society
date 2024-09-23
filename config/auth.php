@@ -45,7 +45,7 @@ return [
             'provider' => 'users',
         ],
         'instructor' => [
-            'driver' => 'sanctum',
+            'driver' => 'session',
             'provider' => 'instructors',
         ],
         'super_admin' => [

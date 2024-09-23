@@ -38,7 +38,7 @@ route::prefix('v1')->group(function () {
         //offers
 
         route::get('offers', [OfferController::class, 'index'])->name('offer.index');
-        route::get('offers/{offer}', [OfferController::class, 'show'])->name('offer.index');
+        route::get('offers/{offer}', [OfferController::class, 'show'])->name('offer.show');
 
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\CoursesAndCategories;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CourseStoreRequest;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CoursesResource;
 use App\Models\Category;
@@ -58,9 +59,12 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CourseStoreRequest $request)
     {
-        //
+        $course = Course::create($request->validated());
+        if ($course)
+            return redirect()->route('courses.mainPage')->with('success', 'the course addedd successfully');
+        return redirect()->route('courses.mainPage')->with('error', 'something went wrong , plz try again');
     }
 
     /**

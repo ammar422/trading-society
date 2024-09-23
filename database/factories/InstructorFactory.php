@@ -19,7 +19,7 @@ class InstructorFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->email(),
-            'password' => bcrypt('123465789'),
+            'password' => bcrypt('123456789'),
             'position' => $this->faker->randomElement(['CEO', 'CTO', 'COO', 'consultant', 'expert']),
             'description' => $this->faker->paragraph(),
             'photo' => $this->faker->image()
