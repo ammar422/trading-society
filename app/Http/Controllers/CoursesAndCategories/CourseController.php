@@ -30,6 +30,13 @@ class CourseController extends Controller
         );
     }
 
+
+    public function create()
+    {
+        return view('add_new_course');
+    }
+
+
     /**
      * Store a newly created resource in storage.
      */
