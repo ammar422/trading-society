@@ -82,7 +82,7 @@
                                     <th> Course Hours </th>
                                     <th> Instructor Name</th>
                                     <th> Category Name</th>
-                                    <th> Start Date </th>
+                                    <th> Creation Date </th>
                                     <th> Course Image </th>
                                     <th> Operations</th>
                                 </tr>
@@ -101,8 +101,22 @@
                                             <img src={{ $course->photo }} alt="image" />
                                         </td>
                                         <td>
-                                            <div class="badge badge-outline-danger" role="button"> Delete</div>
-                                            <div class="badge badge-outline-warning" role="button"> Update</div>
+                                            <div class="badge">
+                                                <form action="{{ route('course.delete', $course->id) }}" method="POST">
+                                                    @method('delete') @csrf
+                                                    <button class="badge badge-outline-danger" type="submit">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+
+                                            <div class="badge badge-outline-warning" role="button"> Edit</div>
+
+                                            <div class="badge badge-outline-info" role="button"><a
+                                                    href="{{ route('courses.content', $course->id) }}">
+                                                    View course content
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -112,6 +126,15 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            Showing {{ $courses->firstItem() }} to {{ $courses->lastItem() }} of {{ $courses->total() }}
+            results
+        </div>
+        <div>
+            {{ $courses->links('vendor.pagination.bootstrap-4') }} <!-- Use Bootstrap pagination -->
         </div>
     </div>
 

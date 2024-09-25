@@ -3,10 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\CoursesAndCategories\CourseController;
-use App\Http\Controllers\Instructor\InstructorController;
 use App\Http\Controllers\Offer\OfferController;
 use App\Http\Controllers\OnlineSesions\ZoomController;
+use App\Http\Controllers\Instructor\InstructorController;
+use App\Http\Controllers\CoursesAndCategories\CourseController;
+use App\Http\Controllers\CoursesAndCategories\CategoryController;
 
 route::prefix('v1')->group(function () {
 
@@ -39,6 +40,12 @@ route::prefix('v1')->group(function () {
 
         route::get('offers', [OfferController::class, 'index'])->name('offer.index');
         route::get('offers/{offer}', [OfferController::class, 'show'])->name('offer.show');
+
+
+
+        //category
+        route::get('category', [CategoryController::class, 'index'])->name('category.index');
+        route::get('category/{category}', [CategoryController::class, 'show'])->name('category.show');
 
 
 

@@ -13,9 +13,10 @@ class CourseVedio extends Model
     protected $fillable = [
         'course_id',
         'vedio_url',
-        'time',
+        'duration',
         'description',
         'image',
+        'order',
     ];
 
 

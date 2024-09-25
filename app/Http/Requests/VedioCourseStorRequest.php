@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CourseStoreRequest extends FormRequest
+class VedioCourseStorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,11 @@ class CourseStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'total_hours' => 'required|integer|min:1',
-            // 'instructor_id' => 'required|exists:instructors,id',
-            'category_id' => 'required|exists:categories,id',
-            'photo' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'course_id' => 'required|exists:courses,id', // Ensure course_id exists in the courses table  
+            'vedio_url' => 'required|file|mimes:mp4,avi,mov,mkv|max:10240',
+            'duration' => 'required|date_format:H:i', // Validate time format (24-hour format)  
+            'description' => 'required|string|max:1000', // Validate description length  
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate image file  
         ];
     }
 }

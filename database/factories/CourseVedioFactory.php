@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class CourseVedioFactory extends Factory
 {
+    protected static $order;
     /**
      * Define the model's default state.
      *
@@ -17,12 +18,15 @@ class CourseVedioFactory extends Factory
      */
     public function definition(): array
     {
+
+        self::$order = (self::$order % 6) + 1;
         return [
             'course_id' => Course::inRandomOrder()->first()->id,
-            'video_url' => $this->faker->url,
-            'duration' => $this->faker->numberBetween(10, 50), // Random time between 1 and 300 (e.g., seconds)  
-            'description' => $this->faker->text(200), // Random text for description  
-            'image' => $this->faker->imageUrl(), // Random image URL  
+            'vedio_url' => $this->faker->url,
+            'duration' => $this->faker->numberBetween(10, 50),
+            'description' => $this->faker->text(200),
+            'image' => $this->faker->imageUrl(),
+            'order' => self::$order
         ];
     }
 }

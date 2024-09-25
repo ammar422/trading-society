@@ -2,22 +2,25 @@
 
 namespace App\Http\Controllers\CoursesAndCategories;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\CourseStoreRequest;
-use App\Http\Resources\CategoryResource;
-use App\Http\Resources\CoursesResource;
-use App\Models\Category;
 use App\Models\Course;
+use App\Models\Category;
 use App\Models\Instructor;
-use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
+use App\Traits\ApiResponseTrait;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\CoursesResource;
+use App\Http\Resources\CategoryResource;
+use App\Http\Requests\CourseStoreRequest;
 
 use function PHPUnit\Framework\returnSelf;
+use App\Http\Requests\VedioCourseStorRequest;
+use App\Models\CourseVedio;
+use App\Traits\MediaTrait;
 
 class CourseController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait, MediaTrait;
     /**
      * Display a listing of the resource.
      */
@@ -35,24 +38,53 @@ class CourseController extends Controller
 
     public function courseMainPage()
     {
-        $courses = Course::all();
+        $instructor = auth('instructor')->user();
+        $courses = $instructor->courses()->paginate(5);
         return view('courses', compact('courses'));
     }
+
+    public function getCourseContent(Course $course)
+    {
+        $courseVedios = $course->courseVedios;
+        return view('course_content', compact('courseVedios'));
+    }
+
+
+
+    public function WatchVedio(CourseVedio $courseVedio)
+    {
+        return view('course_watch_vedio', compact('courseVedio'));
+    }
+
 
 
     public function create()
     {
-        $instructors = Instructor::all();
+
         $categories = Category::all();
-        return view('add_new_course', compact('instructors', 'categories'));
+        return view('add_new_course', compact('categories'));
     }
 
 
 
     public function addVideoToCourse()
     {
-        $courses = Course::all();
+        $instructor = auth('instructor')->user();
+        $courses = $instructor->courses;
         return view('add_new_video_to_course', compact('courses'));
+    }
+
+    public function storeVedioToCourse(VedioCourseStorRequest $request)
+    {
+        $data = $request->validated();
+        $vedio = $this->saveVideo('courses_videos', $request->vedio_url);
+        $image = $this->saveImage('courses_images', $request->validated('image'));
+        $data['vedio_url'] = $vedio;
+        $data['image'] = $image;
+        $vedio = CourseVedio::create($data);
+        if ($vedio)
+            return redirect()->route('courses.add_video')->with('success', 'vedio uploaded succesfully ');
+        return redirect()->route('courses.add_video')->with('error', 'sorry , vedio cant be uploaded');
     }
 
 
@@ -61,7 +93,10 @@ class CourseController extends Controller
      */
     public function store(CourseStoreRequest $request)
     {
-        $course = Course::create($request->validated());
+
+        $data = $request->validated();
+        $data['instructor_id'] = auth('instructor')->id();
+        $course = Course::create($data);
         if ($course)
             return redirect()->route('courses.mainPage')->with('success', 'the course addedd successfully');
         return redirect()->route('courses.mainPage')->with('error', 'something went wrong , plz try again');
@@ -125,9 +160,12 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Course $course)
     {
-        //
+        $deleted = $course->delete();
+        if ($deleted)
+            return redirect()->route('courses.mainPage')->with('success', 'the course delted successfully');
+        return redirect()->route('courses.mainPage')->with('error', 'something went wrong , plz try again');
     }
 
 

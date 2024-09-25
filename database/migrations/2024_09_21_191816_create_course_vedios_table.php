@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('course_vedios', function (Blueprint $table) {
             $table->id();
             $table->foreignId('course_id')->constrained()->on('courses')->onDelete('cascade'); // Assuming a foreign key to courses  
-            $table->string('video_url');
-            $table->integer('duration'); // Assuming time is in seconds or minutes  
+            $table->string('vedio_url');
+            $table->string('duration'); 
             $table->text('description');
-            $table->string('image'); // Assuming this stores the path to the image  
+            $table->string('image'); 
+            $table->integer('order'); 
             $table->timestamps();
         });
     }
