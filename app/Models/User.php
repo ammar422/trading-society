@@ -6,7 +6,6 @@ namespace App\Models;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -20,12 +19,21 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
-        'is_subscribed'
+        'phone_number',
+        'broker',
+        'broker_registration_email',
+        'country',
+        'id_number',
+        'id_photo_front',
+        'id_photo_back',
+        'selfie_with_id',
+        'sponsor_id',
+        'is_subscribed',
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *

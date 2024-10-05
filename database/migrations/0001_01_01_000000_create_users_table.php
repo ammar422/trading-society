@@ -13,10 +13,20 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone_number');
+            $table->string('broker')->nullable();
+            $table->string('broker_registration_email')->nullable();
+            $table->string('country')->default('egypt');
+            $table->bigInteger('id_number');
+            $table->string('id_photo_front');
+            $table->string('id_photo_back');
+            $table->string('selfie_with_id');
+            $table->string('sponsor_id')->nullable();
             $table->boolean('is_subscribed')->default(false); // Subscription status
             $table->rememberToken();
             $table->timestamps();
