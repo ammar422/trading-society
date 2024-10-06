@@ -27,6 +27,11 @@ class CategoryController extends Controller
         );
     }
 
+    public function categoryMainPage()
+    {
+        $categories = Category::paginate(config('constants.PAGINATE_COUNT'));
+        return view('levels' , compact('categories'));
+    }
     /**
      * Store a newly created resource in storage.
      */

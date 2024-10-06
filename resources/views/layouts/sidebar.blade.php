@@ -12,7 +12,8 @@
               <div class="profile-desc">
                   <div class="profile-pic">
                       <div class="count-indicator">
-                          <img class="img-xs rounded-circle " src="{{ asset("assets/images/faces/face15.jpg") }}" alt="">
+                          <img class="img-xs rounded-circle " src="{{ asset('assets/images/faces/face15.jpg') }}"
+                              alt="">
                           <span class="count bg-success"></span>
                       </div>
                       <div class="profile-name">
@@ -26,7 +27,7 @@
           <li class="nav-item nav-category">
               <span class="nav-link">Navigation</span>
           </li>
-          
+
           <li class="nav-item menu-items">
               <a class="nav-link" href="{{ route('instructor.dashboard') }}">
                   <span class="menu-icon">
@@ -36,7 +37,7 @@
               </a>
           </li>
           <li class="nav-item menu-items">
-              <a class="nav-link" href="{{ route("courses.mainPage") }}">
+              <a class="nav-link" href="{{ route('courses.mainPage') }}">
                   <span class="menu-icon">
                       <i class="mdi mdi-trophy-variant-outline"></i>
                   </span>
@@ -44,7 +45,7 @@
               </a>
           </li>
           <li class="nav-item menu-items">
-              <a class="nav-link" href="index.html">
+              <a class="nav-link" href="{{ route('level.mainpage') }}">
                   <span class="menu-icon">
                       <i class="mdi mdi-trophy-variant-outline"></i>
                   </span>
@@ -52,7 +53,7 @@
               </a>
           </li>
           <li class="nav-item menu-items">
-              <a class="nav-link" href="index.html">
+              <a class="nav-link" href="{{ route('offer.mainpage') }}">
                   <span class="menu-icon">
                       <i class="mdi mdi-file-document"></i>
                   </span>
