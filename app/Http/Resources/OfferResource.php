@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -29,7 +30,7 @@ class OfferResource extends JsonResource
             'tp5' => $this->tp5,
             'chart_image' => $this->chart,
             'offer_description' => $this->description,
-            'offer_creation_date' => $this->created_at,
+            'offer_creation_date' => Carbon::parse($this->created_at)->diffForHumans(),
         ];
     }
 }

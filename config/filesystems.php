@@ -53,14 +53,14 @@ return [
         ],
         'courses_videos' => [
             'driver' => 'local',
-            'root' => base_path('uploads/courses/courses_videos'),
+            'root' => base_path('uploads/vedios/courses_videos'),
             'url' => env('APP_URL') . '/uploads',
             'visibility' => 'public',
             'throw' => false,
         ],
         'courses_images' => [
             'driver' => 'local',
-            'root' => base_path('uploads/courses/courses_images'),
+            'root' => base_path('uploads/images/courses_images'),
             'url' => env('APP_URL') . '/uploads',
             'visibility' => 'public',
             'throw' => false,
@@ -80,7 +80,6 @@ return [
         ],
 
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Symbolic Links

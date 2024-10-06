@@ -92,15 +92,14 @@ class CourseController extends Controller
      */
     public function store(CourseStoreRequest $request)
     {
-
         $data = $request->validated();
         $data['instructor_id'] = auth('instructor')->id();
+        $data['photo']=$this->saveImage('courses_images', $request->photo);
         $course = Course::create($data);
         if ($course)
             return redirect()->route('courses.mainPage')->with('success', 'the course addedd successfully');
         return redirect()->route('courses.mainPage')->with('error', 'something went wrong , plz try again');
     }
-
     /**
      * Display the specified resource.
      */

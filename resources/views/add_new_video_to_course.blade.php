@@ -34,7 +34,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="exampleSelectGender">Select Course Name</label>
-                        <select class="form-control @error('course_id') is-invalid @enderror" id="exampleSelectGender"
+                        <select  class="form-control @error('course_id') is-invalid @enderror" id="exampleSelectGender"
                             name="course_id">
                             @foreach ($courses as $course)
                                 <option value="{{ $course->id }}">{{ $course->title }}</option>
@@ -50,7 +50,7 @@
                     <div class="form-group">
                         <label for="exampleInputName1">Duration</label>
                         <input type="text" name="duration" class="form-control @error('duration') is-invalid @enderror"
-                            id="exampleInputName1" placeholder="Video Duration">
+                            id="exampleInputName1" placeholder="Video Duration" value="{{ old("duration") }}">
                         @error('duration')
                             <span class="invalid-feedback" role="alert">
                                 <strong>
@@ -62,7 +62,7 @@
 
                     <div class="form-group">
                         <label for="exampleInputEmail3">Description</label>
-                        <input type="text" name="description"
+                        <input type="text" name="description" value="{{ old("description") }}"
                             class="form-control @error('description') is-invalid @enderror" id="exampleInputEmail3"
                             placeholder="Video Description">
                         @error('description')
@@ -78,7 +78,7 @@
                     <div class="form-group">
                         <label>Video Image</label>
                         <div class="input-group col-xs-12">
-                            <input type="file" name="image" class="form-control @error('image') is-invalid @enderror"
+                            <input type="file" name="image" value="{{ old("image") }}" class="form-control @error('image') is-invalid @enderror"
                                 value="{{ old('image') }}">
                             @error('image')
                                 <span class="invalid-feedback" role="alert">
@@ -95,7 +95,7 @@
                     <div class="form-group">
                         <label>Video</label>
                         <div class="input-group col-xs-12">
-                            <input type="file" name="vedio_url"
+                            <input type="file" name="vedio_url" value="{{ old("vedio_url") }}"
                                 class="form-control @error('vedio_url') is-invalid @enderror"
                                 value="{{ old('vedio_url') }}">
                             @error('vedio_url')

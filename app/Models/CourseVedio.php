@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Course;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CourseVedio extends Model
 {
@@ -18,6 +20,20 @@ class CourseVedio extends Model
         'image',
         'order',
     ];
+
+    public function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn($image) =>  env('APP_URL') . '/uploads/' . $image
+        );
+    }
+
+    public function vedio_url(): Attribute
+    {
+        return Attribute::make(
+            get: fn($vedio_url) =>  env('APP_URL') . '/uploads/' . $vedio_url
+        );
+    }
 
 
 

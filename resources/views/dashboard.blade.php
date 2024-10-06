@@ -14,7 +14,7 @@
                                 <h2 class="mb-0"><a href="{{ route('courses.mainPage') }}">Course</a></h2>
                             </div>
                             <h6 class="text-muted font-weight-normal">Number Of Courses So Far Is
-                                {{ App\models\Course::All()->count() }}</h6>
+                                {{-- {{ App\models\Course::All()->count() }}</h6> --}}
                         </div>
                         <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
                             <i class="icon-lg mdi mdi-codepen text-primary ml-auto"></i>
@@ -33,7 +33,7 @@
                                 <h2 class="mb-0"><a href=""> New Level</a></h2>
                             </div>
                             <h6 class="text-muted font-weight-normal">Number Of Levels So Far Is
-                                {{ App\models\Category::All()->count() }}</h6>
+                                {{-- {{ App\models\Category::All()->count() }}</h6> --}}
                         </div>
                         <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
                             <i class="icon-lg mdi mdi-wallet-travel text-danger ml-auto"></i>
@@ -52,7 +52,7 @@
                                 <h2 class="mb-0"><a href=""> New Deal Post</a></h2>
                             </div>
                             <h6 class="text-muted font-weight-normal">Number Of Active Deals So Far Is
-                                {{ App\models\Offer::All()->count() }}</h6>
+                                {{-- {{ App\models\Offer::All()->count() }}</h6> --}}
                         </div>
                         <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
                             <i class="icon-lg mdi mdi-monitor text-success ml-auto"></i>

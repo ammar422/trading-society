@@ -8,7 +8,7 @@ trait MediaTrait
     {
         $video->store('/', $folder);
         $filename = $video->hashName();
-        $path = 'courses/' . $folder . '/' . $filename;
+        $path = 'vedios/' . $folder . '/' . $filename;
         return $path;
     }
 

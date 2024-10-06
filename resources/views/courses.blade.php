@@ -35,7 +35,7 @@
                                 <h2 class="mb-0"><a href="{{ route('course.create') }}">Add New Course</a></h2>
                             </div>
                             <h6 class="text-muted font-weight-normal">Number Of Courses So Far Is
-                                {{ App\models\Course::All()->count() }}</h6>
+                                {{-- {{ App\models\Course::All()->count() }}</h6> --}}
                         </div>
                         <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
                             <i class="icon-lg mdi mdi-codepen text-primary ml-auto"></i>
@@ -55,7 +55,7 @@
                                         course </a></h2>
                             </div>
                             <h6 class="text-muted font-weight-normal">Number Of Videos So Far Is
-                                {{ App\models\CourseVedio::All()->count() }}</h6>
+                                {{-- {{ App\models\CourseVedio::All()->count() }}</h6> --}}
                         </div>
                         <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
                             <i class="icon-lg mdi mdi-wallet-travel text-danger ml-auto"></i>
@@ -98,7 +98,7 @@
                                         <td> {{ $course->category->name }}</td>
                                         <td> {{ $course->created_at }}</td>
                                         <td>
-                                            <img src={{ $course->photo }} alt="image" />
+                                            <img src="{{ $course->photo }}" alt="image" />
                                         </td>
                                         <td>
                                             <div class="badge">

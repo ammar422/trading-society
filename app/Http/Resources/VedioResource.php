@@ -17,8 +17,8 @@ class VedioResource extends JsonResource
         return [
             'id'  => $this->id,
             'course_name'  => $this->course->title,
-            'video_url'  => $this->video_url,
-            'vedio_time'  => $this->time,
+            'video_url'  =>  "https://tradingsociety.net/uploads/" . $this->vedio_url,
+            'vedio_time'  => $this->duration,
             'vedio_description'  => $this->description,
             'vedio_image'  => $this->image,
             'vedio_uploaded_at'  => $this->created_at,
