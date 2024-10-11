@@ -31,7 +31,7 @@
                     <div class="row">
                         <div class="col-8 col-sm-12 col-xl-8 my-auto">
                             <div class="d-flex d-sm-block d-md-flex align-items-center">
-                                <h2 class="mb-0"><a href="">Add New Trade ALert (Offer)</a></h2>
+                                <h2 class="mb-0"><a href="{{ route('offer.addNew') }}">Add New Trade ALert (Offer)</a></h2>
                             </div>
                             <h6 class="text-muted font-weight-normal">Number Of Trade ALerts (Offers) So Far Is
                             </h6>
@@ -51,8 +51,9 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Trade Alert Chart</h4>
-                    <canvas id="" class="transaction-chart"> <img src="{{ $offer->chart }}" alt="">
-                    </canvas>
+
+                     <img width="465" height="250" src="{{asset( $offer->chart )}}" alt="Chart Image">
+                    
                     <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
                         <div class="text-md-center text-xl-left">
                             <h6 class="mb-1">Instructor Name</h6>

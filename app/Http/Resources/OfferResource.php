@@ -29,6 +29,7 @@ class OfferResource extends JsonResource
             'tp4' => $this->tp4,
             'tp5' => $this->tp5,
             'chart_image' => $this->chart,
+            'instructor_image' => $this->instructor->photo,
             'offer_description' => $this->description,
             'offer_creation_date' => Carbon::parse($this->created_at)->diffForHumans(),
         ];

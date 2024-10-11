@@ -40,6 +40,7 @@ route::prefix('instructor')->group(function () {
 
         // category route
         route::get('levels', [CategoryController::class, 'categoryMainPage'])->name('level.mainpage');
+        route::get('levels_edit' , [CategoryController::class , 'edit'])->name('level.edit');
 
 
 

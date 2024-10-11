@@ -55,4 +55,10 @@ class InstructorController extends Controller
     {
         //
     }
+
+    public function instructorCourses(Instructor $instructor)
+    {
+        $instructor->load('courses.courseVedios');
+        return $this->successResponse(new InstructorResource($instructor), 'instructor_with_courses', 'all instructor\'s courses get successfully', 200);
+    }
 }

@@ -30,6 +30,7 @@ route::prefix('v1')->group(function () {
 
         // instructor 
         route::apiResource('instructor', InstructorController::class); //It needs to be divided
+        route::get('instructor_courses/{instructor}', [InstructorController::class, 'instructorCourses'])->name('instructor.courses');
 
         //courses
         route::apiResource('courses', CourseController::class); //It needs to be divided

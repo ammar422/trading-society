@@ -21,6 +21,7 @@ class CoursesResource extends JsonResource
             'course_description' => $this->description,
             'course_total_hours' => $this->total_hours,
             'course_instructor_name' => $this->instructor->name,
+            'instructor_photo' => $this->instructor->photo,
             'course_photo' => $this->photo,
             'course_vedios' => VedioResource::collection($this->whenLoaded('courseVedios'))
         ];

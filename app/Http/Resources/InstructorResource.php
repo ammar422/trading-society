@@ -14,15 +14,14 @@ class InstructorResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        // return parent::toArray($request);
         return [
             'id' => $this->id,
             'Instructor_name' => $this->name,
             'Instructor_position' => $this->position,
             'description' => $this->description,
             'Instructor_image' => $this->photo,
-            'rate' => '5 stars' ,
-            
+            'rate' => '5 stars',
+            'courses' => CoursesResource::collection($this->whenLoaded('courses'))
         ];
     }
 }

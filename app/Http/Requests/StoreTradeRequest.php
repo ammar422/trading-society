@@ -23,7 +23,7 @@ class StoreTradeRequest extends FormRequest
     {
         return [
             'instructor_id' => 'required|exists:instructors,id',  // Assuming there is an instructors table  
-            'order_status' => 'required|string|in:pending,completed,cancelled', // Example statuses  
+            'order_status' => 'required|string', // Example statuses  
             'pair' => 'required|string',  // Adjust max length and/or add regex for valid pairs  
             'price' => 'required|numeric|min:0.01', // Minimum price of 0.01  
             'order_type' => 'required|string', // Example order types  

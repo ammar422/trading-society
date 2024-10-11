@@ -44,12 +44,21 @@
                             </span>
                         @enderror
                     </div>
-
                     <div class="form-group">
                         <label for="exampleInputName1">Order Status</label>
-                        <input type="text" name="order_status"
-                            class="form-control @error('order_status') is-invalid @enderror" id="exampleInputName1"
-                            placeholder="Order Status" value="{{ old('order_status') }}">
+                        <select class="form-control @error('order_status') is-invalid @enderror" name="order_status"
+                            value="{{ old('order_status') }}">
+                            <option value="Bending ">Bending </option>
+                            <option value="Active ">Active </option>
+                            <option value="Deleted">Deleted</option>
+                            <option value="Hit sl">Hit sl</option>
+                            <option value="Hit tp 1">Hit tp 1</option>
+                            <option value="Hit tp 2">Hit tp 2</option>
+                            <option value="Hit tp 3">Hit tp 3</option>
+                            <option value="Hit tp 4">Hit tp 4</option>
+                            <option value="Hit tp 5">Hit tp 5</option>
+                        </select>
+
                         @error('order_status')
                             <span class="invalid-feedback" role="alert">
                                 <strong>
@@ -85,9 +94,15 @@
 
                     <div class="form-group">
                         <label for="exampleInputPassword4">Order Type</label>
-                        <input type="text" name="order_type"
-                            class="form-control @error('order_type') is-invalid @enderror" id="exampleInputPassword4"
-                            placeholder="Trade Alert order_type" value="{{ old('order_type') }}">
+                        <select class="form-control @error('order_type') is-invalid @enderror" name="order_type"
+                            value="{{ old('order_type') }}">
+                            <option value="Buy now ">Buy now </option>
+                            <option value="Sell now ">Sell now </option>
+                            <option value="Buy limit">Buy limit</option>
+                            <option value="Sell limit">Sell limit</option>
+                            <option value="Buy stop">Buy stop</option>
+                            <option value="Sell stop">Sell stop</option>
+                        </select>
                         @error('order_type')
                             <span class="invalid-feedback" role="alert">
                                 <strong>

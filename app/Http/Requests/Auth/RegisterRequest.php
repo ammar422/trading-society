@@ -40,9 +40,9 @@ class RegisterRequest extends FormRequest
             'broker_registration_email' => 'required|string|email|max:255',
             'country' => 'required|string|max:100',
             'id_number' => 'required|integer|min:1',
-            'id_photo_front' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-            'id_photo_back' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-            'selfie_with_id' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'id_photo_front' => 'required|image|mimes:jpg,jpeg,png',
+            'id_photo_back' => 'required|image|mimes:jpg,jpeg,png',
+            'selfie_with_id' => 'required|image|mimes:jpg,jpeg,png',
             'sponsor_id' => 'required|string|max:36', // Assuming UUID format  
             'is_subscribed' => 'nullable|boolean',
         ];
