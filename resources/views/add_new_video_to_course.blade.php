@@ -105,8 +105,16 @@
                                     </strong>
                                 </span>
                             @enderror
-
                         </div>
+
+                        <div class="mb-3">
+                            <div class="bar">
+                                <div class="percent">
+                                    0%
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <button type="submit" class="btn btn-primary mr-2">Submit</button>
