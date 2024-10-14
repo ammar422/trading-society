@@ -12,6 +12,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"
     integrity="sha512-YUkaLm+KJ5lQXDBdqBqk7EVhJAdxRnVdT2vtCzwPHSweCzyMgYV/tgGF4/dCyqtCC2eCphz0lRQgatGVdfR0ww=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!-- End plugin js for this page -->
 <!-- inject:js -->
 <script src="{{ asset('assets/js/off-canvas.js') }}"></script>
@@ -23,27 +26,3 @@
 <!-- Custom js for this page -->
 <script src="{{ asset('assets/js/dashboard.js') }}"></script>
 <!-- End custom js for this page -->
-
-<script>
-    $(document).ready(function() {
-        var bar = $('.bar');
-        var percent = $('.percent');
-
-        $('form').ajaxForm({
-            beforeSend: function() {
-                var percentVal = "0%";
-                bar.width(percentVal);
-                percent.html(percentVal);
-            },
-            uploadProgress: function(event, postion, total, percentComplete) {
-                var percentVal = percentComplete + '%';
-                bar.width(percentVal);
-                percent.html(percentVal);
-            },
-            complete:function(){
-                alert('file Uploaded successfully');
-                window.location.href = "{{ route('courses.mainPage') }}";
-            }
-        });
-    });
-</script>

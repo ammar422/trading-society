@@ -79,7 +79,7 @@
                                 <tr>
                                     <th> Course No </th>
                                     <th> Course title </th>
-                                    <th> Course Hours </th>
+                                    <th> Course Mins </th>
                                     <th> Instructor Name</th>
                                     <th> Category Name</th>
                                     <th> Creation Date </th>

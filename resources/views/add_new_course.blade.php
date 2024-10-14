@@ -24,7 +24,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail3">Total Hours</label>
+                        <label for="exampleInputEmail3">Total Mins</label>
                         <input type="text" name="total_hours"
                             class="form-control @error('total_hours') is-invalid @enderror" id="exampleInputEmail3"
                             placeholder="Course total Duration" value="{{ old('total_hours') }}">
