@@ -37,17 +37,19 @@ route::prefix('instructor')->group(function () {
         route::get('course/{courseVedio}/vedio_watch', [CourseController::class, 'WatchVedio'])->name('course.vedio.watch');
         route::post('course', [CourseController::class, 'store'])->name('course.store');
         route::delete('course/{course}', [CourseController::class, 'destroy'])->name('course.delete');
+        route::get('course/{course}', [CourseController::class, 'edit'])->name('course.edit');
+        route::post('course/{course}', [CourseController::class, 'update'])->name('course.update');
 
         // category route
         route::get('levels', [CategoryController::class, 'categoryMainPage'])->name('level.mainpage');
-        route::get('levels_edit' , [CategoryController::class , 'edit'])->name('level.edit');
+        route::get('levels_edit', [CategoryController::class, 'edit'])->name('level.edit');
 
 
 
         // offers (trade alert) route
-        route::get('tarde_alert'  , [OfferController::class , 'offerMainPage'])->name('offer.mainpage');
-        route::get('tarde_alert/{offer}'  , [OfferController::class , 'offerDetails'])->name('offer.details');
-        route::get("new_trade_alert" , [OfferController::class ,'newTradeAlert' ])->name('offer.addNew');
-        route::post("new_trade_alert" , [OfferController::class ,'store' ])->name('offer.store');
+        route::get('tarde_alert', [OfferController::class, 'offerMainPage'])->name('offer.mainpage');
+        route::get('tarde_alert/{offer}', [OfferController::class, 'offerDetails'])->name('offer.details');
+        route::get("new_trade_alert", [OfferController::class, 'newTradeAlert'])->name('offer.addNew');
+        route::post("new_trade_alert", [OfferController::class, 'store'])->name('offer.store');
     });
 });

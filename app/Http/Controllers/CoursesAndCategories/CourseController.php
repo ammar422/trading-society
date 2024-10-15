@@ -5,6 +5,9 @@ namespace App\Http\Controllers\CoursesAndCategories;
 use App\Models\Course;
 use App\Models\Category;
 use App\Models\Instructor;
+use App\Traits\MediaTrait;
+use App\Models\CourseVedio;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Traits\ApiResponseTrait;
 use App\Http\Controllers\Controller;
@@ -12,10 +15,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\CoursesResource;
 use App\Http\Resources\CategoryResource;
 use App\Http\Requests\CourseStoreRequest;
-
+use App\Http\Requests\UpdateCourseRequest;
 use App\Http\Requests\VedioCourseStorRequest;
-use App\Models\CourseVedio;
-use App\Traits\MediaTrait;
 
 class CourseController extends Controller
 {
@@ -94,7 +95,7 @@ class CourseController extends Controller
     {
         $data = $request->validated();
         $data['instructor_id'] = auth('instructor')->id();
-        $data['photo']=$this->saveImage('courses_images', $request->photo);
+        $data['photo'] = $this->saveImage('courses_images', $request->photo);
         $course = Course::create($data);
         if ($course)
             return redirect()->route('courses.mainPage')->with('success', 'the course addedd successfully');
@@ -150,9 +151,34 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function edit(Course $course)
     {
-        //
+        $instructorId = auth('instructor')->id();
+        if ($course->instructor_id == $instructorId) {
+            $categories = Category::all();
+            return view('edit_course', compact('course', 'categories'));
+        }
+
+        return response()->json(['message' => 'Unauthorized'], 403);
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateCourseRequest $request, Course $course)
+    {
+        $old_photo = Str::after($course->photo, env('APP_URL'));
+        $data = $request->validated();
+        $image = $this->saveImage('courses_images', $request->photo);
+        $data['photo'] = $image;
+        $success = $course->update($data);
+        if (is_file(base_path() . $old_photo)) {
+            unlink(base_path() . $old_photo);
+        }
+        if ($success)
+            return redirect()->route('courses.mainPage')->with('success', 'the course updated successfully');
+        return redirect()->route('courses.mainPage')->with('error', 'something went wrong , plz try again');
     }
 
     /**

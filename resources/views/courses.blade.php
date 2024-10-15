@@ -110,7 +110,11 @@
                                                 </form>
                                             </div>
 
-                                            <div class="badge badge-outline-warning" role="button"> Edit</div>
+                                            <div class="badge badge-outline-warning" role="button">
+                                                <a href="{{ route('course.edit', $course->id) }}">
+                                                    Edit
+                                                </a>
+                                            </div>
 
                                             <div class="badge badge-outline-info" role="button"><a
                                                     href="{{ route('courses.content', $course->id) }}">

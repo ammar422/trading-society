@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Course;
+use App\Observers\CourseObserver;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -27,5 +29,8 @@ class AppServiceProvider extends ServiceProvider
                         ? Limit::perMinute(60)->by($request->user()->id)
                         : Limit::perMinute(60)->by($request->ip());
         });
+
+
+        Course::observe(CourseObserver::class);
     }
 }
