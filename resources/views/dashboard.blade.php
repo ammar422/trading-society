@@ -23,6 +23,8 @@
                 </div>
             </div>
         </div>
+
+        
         <div class="col-sm-4 grid-margin">
             <div class="card">
                 <div class="card-body">
@@ -30,9 +32,9 @@
                     <div class="row">
                         <div class="col-8 col-sm-12 col-xl-8 my-auto">
                             <div class="d-flex d-sm-block d-md-flex align-items-center">
-                                <h2 class="mb-0"><a href="{{ route('level.mainpage') }}">Level</a></h2>
+                                <h2 class="mb-0"><a href="">Live Sessions</a></h2>
                             </div>
-                            <h6 class="text-muted font-weight-normal">Number Of Levels So Far Is
+                            <h6 class="text-muted font-weight-normal">Number Of Live Sessions So Far Is
                                 {{-- {{ App\models\Category::All()->count() }}</h6> --}}
                         </div>
                         <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
@@ -42,6 +44,8 @@
                 </div>
             </div>
         </div>
+
+
         <div class="col-sm-4 grid-margin">
             <div class="card">
                 <div class="card-body">

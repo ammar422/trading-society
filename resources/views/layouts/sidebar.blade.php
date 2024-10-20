@@ -45,11 +45,11 @@
               </a>
           </li>
           <li class="nav-item menu-items">
-              <a class="nav-link" href="{{ route('level.mainpage') }}">
+              <a class="nav-link" href="">
                   <span class="menu-icon">
                       <i class="mdi mdi-trophy-variant-outline"></i>
                   </span>
-                  <span class="menu-title">Levels</span>
+                  <span class="menu-title">Live Sessions</span>
               </a>
           </li>
           <li class="nav-item menu-items">
