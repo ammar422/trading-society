@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\OnlineSesions;
+namespace App\Http\Controllers\Api\OnlineSesions;
 
 use Illuminate\Http\Request;
 use App\Services\ZoomService;

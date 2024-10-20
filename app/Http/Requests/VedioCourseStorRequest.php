@@ -26,7 +26,7 @@ class VedioCourseStorRequest extends FormRequest
             'vedio_url' => 'required|file|mimes:mp4,avi,mov,mkv',
             'duration' => 'required|string',
             'description' => 'required|string|max:1000',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Instructor;
+namespace App\Http\Controllers\Api\Instructor;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\InstructorResource;
@@ -11,9 +11,8 @@ use Illuminate\Http\Request;
 class InstructorController extends Controller
 {
     use ApiResponseTrait;
-    /**
-     * Display a listing of the resource.
-     */
+
+
     public function index()
     {
         $instructor = Instructor::paginate(config('constants.PAGINATE_COUNT'));
@@ -24,41 +23,23 @@ class InstructorController extends Controller
         );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Instructor $instructor)
     {
         return $this->successResponse($instructor, 'Instructor');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Instructor $instructor)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Instructor $instructor)
-    {
-        //
-    }
+
 
     public function instructorCourses(Instructor $instructor)
     {
         $instructor->load('courses.courseVedios');
-        return $this->successResponse(new InstructorResource($instructor), 'instructor_with_courses', 'all instructor\'s courses get successfully', 200);
+        return $this->successResponse(
+            new InstructorResource($instructor),
+            'instructor_with_courses',
+            'all instructor\'s courses get successfully',
+            200
+        );
     }
 }

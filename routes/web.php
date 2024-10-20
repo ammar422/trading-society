@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Auth\Instructor\InstructorAuthController;
-use App\Http\Controllers\CoursesAndCategories\CategoryController;
-use App\Http\Controllers\CoursesAndCategories\CourseController;
-use App\Http\Controllers\Offer\OfferController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Mvc\Offer\OfferController;
+use App\Http\Controllers\Mvc\CoursesAndCategories\CourseController;
+use App\Http\Controllers\Mvc\CoursesAndCategories\CategoryController;
+use App\Http\Controllers\Mvc\Auth\Instructor\InstructorAuthController;
+use App\Http\Controllers\Mvc\CoursesAndCategories\CourseVediosController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,15 +31,22 @@ route::prefix('instructor')->group(function () {
 
         // courses route
         route::get('course/main', [CourseController::class, 'courseMainPage'])->name('courses.mainPage');
-        route::get('course/add_video', [CourseController::class, 'addVideoToCourse'])->name('courses.add_video');
-        route::post('course/add_video', [CourseController::class, 'storeVedioToCourse'])->name('courses.store_vedio');
         route::get('course', [CourseController::class, 'create'])->name('course.create');
-        route::get('course/{course}/content', [CourseController::class, 'getCourseContent'])->name('courses.content');
-        route::get('course/{courseVedio}/vedio_watch', [CourseController::class, 'WatchVedio'])->name('course.vedio.watch');
         route::post('course', [CourseController::class, 'store'])->name('course.store');
         route::delete('course/{course}', [CourseController::class, 'destroy'])->name('course.delete');
         route::get('course/{course}', [CourseController::class, 'edit'])->name('course.edit');
         route::post('course/{course}', [CourseController::class, 'update'])->name('course.update');
+
+
+        //course_vedios route 
+        route::get('course_vedios/add_video', [CourseVediosController::class, 'create'])->name('courses.add_video');
+        route::post('course_vedios/add_video', [CourseVediosController::class, 'store'])->name('courses.store_vedio');
+        route::get('course_vedios/{course}/content', [CourseVediosController::class, 'index'])->name('courses.content');
+        route::get('course_vedios/{courseVedio}/vedio_watch', [CourseVediosController::class, 'show'])->name('course.vedio.watch');
+        route::get('course_vedios/{courseVedio}/edit', [CourseVediosController::class, 'edit'])->name('course_vedio.edit');
+        route::post('course_vedios/{courseVedio}/update', [CourseVediosController::class, 'update'])->name('course_vedio.update');
+
+
 
         // category route
         route::get('levels', [CategoryController::class, 'categoryMainPage'])->name('level.mainpage');

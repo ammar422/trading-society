@@ -56,14 +56,19 @@
                                             </td>
                                             <td>
                                                 <div class="badge badge-outline-success" role="button">
-                                                    <a href="{{ route('course.vedio.watch', $vedio->id) }}">
+                                                    <a href="{{ route('course.vedio.watch', $vedio->id) }}"
+                                                        style="color: green">
                                                         Play
                                                     </a>
                                                 </div>
                                             </td>
                                             <td>
+                                                <div class="badge badge-outline-light" role="button">
+                                                    <a href="{{ route('course_vedio.edit', $vedio->id) }}" style="color: white">
+                                                        Edit
+                                                    </a>
+                                                </div>
                                                 <div class="badge badge-outline-danger" role="button"> Delete</div>
-                                                <div class="badge badge-outline-light" role="button"> Edit Order</div>
                                             </td>
                                         </tr>
                                     @endforeach

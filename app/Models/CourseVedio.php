@@ -21,24 +21,22 @@ class CourseVedio extends Model
         'order',
     ];
 
-    public function image(): Attribute
+    // Accessor for 'image'
+    public function getImageAttribute($image)
     {
-        return Attribute::make(
-            get: fn($image) =>  env('APP_URL') . '/uploads/' . $image
-        );
+        return env('APP_URL') . '/uploads/' . $image;
     }
 
-    public function vedio_url(): Attribute
+    // Accessor for 'vedio_url'
+    public function getVedioUrlAttribute($vedio_url)
     {
-        return Attribute::make(
-            get: fn($vedio_url) =>  env('APP_URL') . '/uploads/' . $vedio_url
-        );
+        return env('APP_URL') . '/uploads/' . $vedio_url;
     }
 
-
-
+    // Relationship with Course model
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class, 'course_id', 'id');
     }
 }
+

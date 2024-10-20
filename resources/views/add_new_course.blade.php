@@ -39,7 +39,7 @@
                     <div class="form-group">
                         <label for="exampleInputPassword4">Description</label>
                         <textarea class="form-control @error('description') is-invalid @enderror" name="description" cols="30"
-                            rows="10" placeholder="Course Description" value="{{ old('description') }}"></textarea>
+                            rows="10" placeholder="Course Description" >{{ old('description') }}</textarea>
                         @error('description')
                             <span class="invalid-feedback" role="alert">
                                 <strong>

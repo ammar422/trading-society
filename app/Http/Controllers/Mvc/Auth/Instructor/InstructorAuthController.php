@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth\Instructor;
+namespace App\Http\Controllers\Mvc\Auth\Instructor;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
