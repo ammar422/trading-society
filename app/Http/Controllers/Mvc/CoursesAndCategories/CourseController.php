@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Mvc\CoursesAndCategories;
 
+use App\Models\User;
 use App\Models\Course;
 use App\Models\Category;
 use App\Traits\MediaTrait;
@@ -9,6 +10,7 @@ use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseStoreRequest;
 use App\Http\Requests\UpdateCourseRequest;
+use App\Notifications\CourseUploadedNotification;
 
 class CourseController extends Controller
 {
@@ -41,6 +43,14 @@ class CourseController extends Controller
         $data['instructor_id'] = auth('instructor')->id();
         $data['photo'] = $this->saveImage('courses_images', $request->photo);
         $course = Course::create($data);
+
+        // Notify all users
+        $users = User::all();
+        foreach ($users as $user) {
+            $user->notify(new CourseUploadedNotification($course));
+        }
+
+
         if ($course)
             return redirect()->route('courses.mainPage')->with('success', 'the course addedd successfully');
         return redirect()->route('courses.mainPage')->with('error', 'something went wrong , plz try again');
@@ -48,7 +58,7 @@ class CourseController extends Controller
 
 
 
-   
+
 
     public function edit(Course $course)
     {
@@ -62,7 +72,7 @@ class CourseController extends Controller
     }
 
 
-    
+
 
     public function update(UpdateCourseRequest $request, Course $course)
     {
@@ -79,7 +89,7 @@ class CourseController extends Controller
         return redirect()->route('courses.mainPage')->with('error', 'something went wrong , plz try again');
     }
 
-   
+
 
     public function destroy(Course $course) // has observer
     {

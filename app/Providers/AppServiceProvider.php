@@ -29,8 +29,6 @@ class AppServiceProvider extends ServiceProvider
                         ? Limit::perMinute(60)->by($request->user()->id)
                         : Limit::perMinute(60)->by($request->ip());
         });
-
-
         Course::observe(CourseObserver::class);
     }
 }

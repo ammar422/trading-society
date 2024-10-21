@@ -3,13 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Contracts\Broadcasting\HasBroadcastChannel;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasBroadcastChannel
 {
     use HasFactory, Notifiable, HasApiTokens;
 
@@ -58,6 +60,19 @@ class User extends Authenticatable
     }
 
 
+
+    /**
+     * Get the channel name for the model.
+     *
+     * @return string
+     */
+
+    public function broadcastChannel()
+    {
+        return 'App.Models.User.' . $this->id;
+    }
+
+    
     public function courses(): BelongsToMany
     {
         return $this->belongsToMany(Course::class, 'course_user', 'user_id', 'course_id', 'id', 'id')->withTimestamps();
