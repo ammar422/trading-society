@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseStoreRequest;
 use App\Http\Requests\UpdateCourseRequest;
-use App\Notifications\CourseUploadedNotification;
+use App\Notifications\NewCourseNotification;
 
 class CourseController extends Controller
 {
@@ -44,13 +44,9 @@ class CourseController extends Controller
         $data['photo'] = $this->saveImage('courses_images', $request->photo);
         $course = Course::create($data);
 
-        // Notify all users
         $users = User::all();
-        foreach ($users as $user) {
-            $user->notify(new CourseUploadedNotification($course));
-        }
-
-
+        \Notification::send($users, new NewCourseNotification($course));
+        
         if ($course)
             return redirect()->route('courses.mainPage')->with('success', 'the course addedd successfully');
         return redirect()->route('courses.mainPage')->with('error', 'something went wrong , plz try again');

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Offer\OfferController;
 use App\Http\Controllers\Api\OnlineSesions\ZoomController;
@@ -49,6 +50,9 @@ route::prefix('v1')->group(function () {
 
         //category
         route::get('category/{category}', [CategoryController::class, 'show'])->name('category.show');
-
     });
+});
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/notifications', [NotificationController::class, 'index']);
+    Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAsRead']);
 });
