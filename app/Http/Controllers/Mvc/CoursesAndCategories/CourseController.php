@@ -11,10 +11,27 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseStoreRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Notifications\NewCourseNotification;
+use Illuminate\Support\Facades\Notification;
+use App\Events\CourseUploaded;
+
 
 class CourseController extends Controller
 {
     use  MediaTrait;
+
+
+
+
+    public function uploadCourse()
+    {
+        $course = ['title' => 'New Laravel Course', 'author' => 'John Doe']; // Sample course data
+        broadcast(new CourseUploaded($course)); // Broadcast the event
+
+        return 'Course uploaded and event broadcasted!';
+    }
+
+
+
 
 
 
@@ -45,8 +62,12 @@ class CourseController extends Controller
         $course = Course::create($data);
 
         $users = User::all();
-        \Notification::send($users, new NewCourseNotification($course));
-        
+        // Notification::send($users, new NewCourseNotification($course));
+        foreach ($users as $user) {
+            $user_id = $user->id;
+            $user->notify(new NewCourseNotification($course, $user_id));
+        }
+
         if ($course)
             return redirect()->route('courses.mainPage')->with('success', 'the course addedd successfully');
         return redirect()->route('courses.mainPage')->with('error', 'something went wrong , plz try again');

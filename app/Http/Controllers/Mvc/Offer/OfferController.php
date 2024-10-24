@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers\Mvc\Offer;
 
+use App\Models\User;
 use App\Models\Offer;
+use App\Models\Instructor;
+use App\Traits\MediaTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTradeRequest;
-use App\Models\Instructor;
-use App\Traits\MediaTrait;
+use App\Notifications\NewDealUploadedNotification;
+
+
 class OfferController extends Controller
 {
     use MediaTrait;
-    
+
 
     public function offerMainPage()
     {
@@ -45,12 +49,18 @@ class OfferController extends Controller
         $chart = $this->saveImage('trades_images', $request->chart);
         $data['chart'] = $chart;
         $offer = Offer::create($data);
+
+        $users = User::all();
+        foreach ($users as $user) {
+            $user_id = $user->id;
+            $user->notify(new NewDealUploadedNotification($offer, $user_id));
+        }
         if ($offer)
             return redirect()->route('offer.addNew')->with('success', 'Trade Alert (Offer) uploaded succesfully ');
         return redirect()->route('offer.addNew')->with('error', 'sorry , Trade Alert (Offer) cant be uploaded');
     }
 
-   
+
     /**
      * Update the specified resource in storage.
      */
