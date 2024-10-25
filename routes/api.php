@@ -32,6 +32,12 @@ route::prefix('v1')->group(function () {
 
     route::middleware('auth:sanctum')->group(function () {
 
+
+        // user profile 
+        route::get('user' , [AuthController::class , 'getUserData'])->name('user.data');
+
+
+
         // online zoom sesions
         Route::post('/zoom/meetings', [ZoomController::class, 'createMeeting']);
 
@@ -51,7 +57,12 @@ route::prefix('v1')->group(function () {
         //category
         route::get('category/{category}', [CategoryController::class, 'show'])->name('category.show');
     });
+
+
+
 });
+
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/notifications', [NotificationController::class, 'index']);
     Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAsRead']);

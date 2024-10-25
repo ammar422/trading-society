@@ -43,6 +43,7 @@ class RegisterRequest extends FormRequest
             'id_photo_front' => 'required|image|mimes:jpg,jpeg,png',
             'id_photo_back' => 'required|image|mimes:jpg,jpeg,png',
             'selfie_with_id' => 'required|image|mimes:jpg,jpeg,png',
+            'profile_image' => 'required|image|mimes:jpg,jpeg,png',
             'sponsor_id' => 'required|string|max:36', // Assuming UUID format  
             'is_subscribed' => 'nullable|boolean',
         ];

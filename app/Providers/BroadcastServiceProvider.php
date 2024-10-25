@@ -20,7 +20,9 @@ class BroadcastServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Broadcast::routes();
+        // Broadcast::routes();
+        
+        Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
         Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
             return (int) $user->id === (int) $id;

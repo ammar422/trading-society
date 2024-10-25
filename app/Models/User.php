@@ -35,6 +35,7 @@ class User extends Authenticatable implements HasBroadcastChannel
         'selfie_with_id',
         'sponsor_id',
         'is_subscribed',
+        'profile_image',
     ];
     /**
      * The attributes that should be hidden for serialization.

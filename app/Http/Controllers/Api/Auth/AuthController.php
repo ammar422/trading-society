@@ -23,9 +23,11 @@ class AuthController extends Controller
         $id_front_photo = $this->saveImage('users_IDs_photo', $request->id_photo_front);
         $id_back_photo = $this->saveImage('users_IDs_photo', $request->id_photo_back);
         $selfie = $this->saveImage('users_IDs_photo', $request->selfie_with_id);
+        $profile_image = $this->saveImage('profile_images', $request->profile_image);
         $data['id_photo_front'] = $id_front_photo;
         $data['id_photo_back'] = $id_back_photo;
         $data['selfie_with_id'] = $selfie;
+        $data['profile_image'] = $profile_image;
         $data['password'] = bcrypt($request->password);
         $user = User::create($data);
         return response()->json([
@@ -73,6 +75,31 @@ class AuthController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Logged out successfully',
+        ]);
+    }
+
+
+    public function getUserData()
+    {
+        $user = auth()->user();
+        // $image_path = Str::after
+        if ($user) {
+            return response()->json([
+                'status' => true,
+                'message' => 'user data get successfully',
+                'user' => [
+                    'user_id' => $user->id,
+                    'user_email' => $user->email,
+                    'user_first_name' => $user->first_name,
+                    'user_last_name' => $user->last_name,
+                    'phone' => $user->phone_number,
+                    'profile_image' => env('APP_URL') . '/uploads/' . $user->profile_image,
+                ]
+            ], 201);
+        }
+        return response()->json([
+            'status' => false,
+            'message' => 'not found',
         ]);
     }
 }

@@ -44,6 +44,13 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        'profile_images' => [
+            'driver' => 'local',
+            'root' => base_path('uploads/users/profile_images'),
+            'url' => env('APP_URL') . '/uploads',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
         'users_IDs_photo' => [
             'driver' => 'local',
             'root' => base_path('uploads/users/users_IDs_photo'),
