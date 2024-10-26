@@ -14,6 +14,7 @@ route::prefix('v1')->group(function () {
     Route::post('/register', [AuthController::class, 'register'])->name('user.regiter');
     Route::post('/login', [AuthController::class, 'login'])->name('user.login');
     Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout'])->name('user.logout');
+    Route::middleware('auth:sanctum')->post('delete_acount', [AuthController::class, 'deleteUserAccount'])->name('user.deleteUserAccount');
 
     // instructor
     route::get('instructor', [InstructorController::class, 'index'])->name('instructor.index');

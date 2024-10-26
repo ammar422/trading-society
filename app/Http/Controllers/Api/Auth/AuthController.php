@@ -79,6 +79,18 @@ class AuthController extends Controller
     }
 
 
+    public function deleteUserAccount()
+    {
+        $user = auth()->user();
+        $user->delete();
+        $user->currentAccessToken()->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'account deleted successfully',
+        ]);
+    }
+
+
     public function getUserData()
     {
         $user = auth()->user();
@@ -93,7 +105,7 @@ class AuthController extends Controller
                     'user_first_name' => $user->first_name,
                     'user_last_name' => $user->last_name,
                     'phone' => $user->phone_number,
-                    'profile_image' => env('APP_URL') . '/uploads/' . $user->profile_image,
+                    'profile_image' => $user->profile_image,
                 ]
             ], 201);
         }

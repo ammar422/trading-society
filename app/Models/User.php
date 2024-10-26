@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Illuminate\Contracts\Broadcasting\HasBroadcastChannel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -61,6 +62,13 @@ class User extends Authenticatable implements HasBroadcastChannel
     }
 
 
+    public function profileImage(): Attribute
+    {
+        return new Attribute(
+            get: fn($value) => env('APP_URL') . '/uploads/' . $value
+        );
+    }
+
 
     /**
      * Get the channel name for the model.
@@ -73,7 +81,7 @@ class User extends Authenticatable implements HasBroadcastChannel
         return 'App.Models.User.' . $this->id;
     }
 
-    
+
     public function courses(): BelongsToMany
     {
         return $this->belongsToMany(Course::class, 'course_user', 'user_id', 'course_id', 'id', 'id')->withTimestamps();
