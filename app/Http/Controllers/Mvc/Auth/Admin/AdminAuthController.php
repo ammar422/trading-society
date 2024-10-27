@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Mvc\Auth\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminLoginRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\AdminLoginRequest;
 
 class AdminAuthController extends Controller
 {
@@ -17,6 +18,14 @@ class AdminAuthController extends Controller
 
     public function login(AdminLoginRequest $request)
     {
-        return $request;
+        $credentials = [
+            'email' => $request->validated('email'),
+            'password' => $request->validated('password'),
+        ];
+
+        if (Auth::guard('super_admin')->attempt($credentials)) {
+            return redirect()->intended("/admin/");
+        }
+        return redirect()->back()->with('error', 'Invalid credentials!');
     }
 }

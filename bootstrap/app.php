@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -16,6 +17,14 @@ return Application::configure(basePath: dirname(__DIR__))
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ]);
+        $middleware->group('web', [
+            \Illuminate\Session\Middleware\StartSession::class,
+            ShareErrorsFromSession::class,  // Add this line
+            \App\Http\Middleware\AuthenticatedRedirect::class,
+        ]);
+        $middleware->alias([
+            'guest-custom' => \App\Http\Middleware\AuthenticatedRedirect::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

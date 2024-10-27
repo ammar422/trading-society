@@ -52,7 +52,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Trade Alert Chart</h4>
 
-                     <img width="465" height="250" src="{{asset( $offer->chart )}}" alt="Chart Image">
+                     <img width="100%" height="auto" src="{{asset( $offer->chart )}}" alt="Chart Image">
                     
                     <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
                         <div class="text-md-center text-xl-left">

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Mvc\Admins\Courses\AdminCourseController;
+use App\Http\Controllers\Mvc\Admins\Instructors\AdminInstructorController;
 use App\Http\Controllers\Mvc\Auth\Admin\AdminAuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mvc\Offer\OfferController;
@@ -7,17 +9,20 @@ use App\Http\Controllers\Mvc\CoursesAndCategories\CourseController;
 use App\Http\Controllers\Mvc\CoursesAndCategories\CategoryController;
 use App\Http\Controllers\Mvc\Auth\Instructor\InstructorAuthController;
 use App\Http\Controllers\Mvc\CoursesAndCategories\CourseVediosController;
+use App\Models\Category;
+use App\Models\Course;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 
 
 route::prefix('instructor')->group(function () {
-
-    route::get('login', [InstructorAuthController::class, 'loginView'])->name('login');
-    route::post('login', [InstructorAuthController::class, 'login'])->name('instructor.login');
+    route::middleware('guest-custom:super_admin')->group(function () {
+        route::get('login', [InstructorAuthController::class, 'loginView'])->name('login');
+        route::post('login', [InstructorAuthController::class, 'login'])->name('instructor.login');
+    });
 
 
 
@@ -65,21 +70,24 @@ route::prefix('instructor')->group(function () {
 });
 
 route::prefix('admin')->group(function () {
+    route::middleware('guest-custom:super_admin')->group(function () {
+        route::get('login', [AdminAuthController::class, 'loginVeiw'])->name('admin.login_veiw');
+        route::post('login', [AdminAuthController::class, 'login'])->name('admin.login');
+    });
 
-    route::get('login', [AdminAuthController::class, 'loginVeiw'])->name('admin.login_veiw');
-    route::post('login', [AdminAuthController::class, 'login'])->name('admin.login');
 
     route::middleware('auth:super_admin')->group(function () {
 
-
         Route::get('/', function () {
-            return view('admin.dashboard');
+            $courses = Course::all();
+            $levels = Category::all();
+            return view('admin.dashboard', compact('courses', 'levels'));
         })->name('admin.dashboard');
-
-
-        
-
-
-
     });
+
+    //admin courses
+    route::get('courses', [AdminCourseController::class, 'index'])->name('admin.courses');
+
+    // admin instructors
+    route::get("instructors", [AdminInstructorController::class, 'index'])->name('admin.instructor');
 });
