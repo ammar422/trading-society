@@ -99,9 +99,13 @@ class CourseVediosController extends Controller
 
 
 
-
-    public function destroy(string $id)
+    public function destroy(CourseVedio $courseVedio)
     {
-        //
+        $instructor_id =  $courseVedio->course->instructor->id;
+        if (auth('instructor')->id() == $instructor_id) {
+            $courseVedio->delete();
+            return redirect()->route('courses.content', $courseVedio->course->id)->with('success', 'the vedio deleted successfuly');
+        }
+        return redirect()->route('courses.content', $courseVedio->course->id)->with('error', 'sorry , something went wrong');
     }
 }

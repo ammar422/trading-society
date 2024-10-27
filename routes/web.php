@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Mvc\Auth\Admin\AdminAuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mvc\Offer\OfferController;
 use App\Http\Controllers\Mvc\CoursesAndCategories\CourseController;
@@ -45,6 +46,7 @@ route::prefix('instructor')->group(function () {
         route::get('course_vedios/{courseVedio}/vedio_watch', [CourseVediosController::class, 'show'])->name('course.vedio.watch');
         route::get('course_vedios/{courseVedio}/edit', [CourseVediosController::class, 'edit'])->name('course_vedio.edit');
         route::post('course_vedios/{courseVedio}/update', [CourseVediosController::class, 'update'])->name('course_vedio.update');
+        route::delete('course_vedios/{courseVedio}/delete', [CourseVediosController::class, 'destroy'])->name('course_vedio.delete');
 
 
 
@@ -59,5 +61,25 @@ route::prefix('instructor')->group(function () {
         route::get('tarde_alert/{offer}', [OfferController::class, 'offerDetails'])->name('offer.details');
         route::get("new_trade_alert", [OfferController::class, 'newTradeAlert'])->name('offer.addNew');
         route::post("new_trade_alert", [OfferController::class, 'store'])->name('offer.store');
+    });
+});
+
+route::prefix('admin')->group(function () {
+
+    route::get('login', [AdminAuthController::class, 'loginVeiw'])->name('admin.login_veiw');
+    route::post('login', [AdminAuthController::class, 'login'])->name('admin.login');
+
+    route::middleware('auth:super_admin')->group(function () {
+
+
+        Route::get('/', function () {
+            return view('admin.dashboard');
+        })->name('admin.dashboard');
+
+
+        
+
+
+
     });
 });

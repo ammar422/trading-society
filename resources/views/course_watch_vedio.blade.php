@@ -5,7 +5,7 @@
 
 
         <video width="2000" height="560" controls autoplay muted loop poster="{{ $courseVedio->image }}">
-            <source src="{{ asset('uploads/' . $courseVedio->vedio_url )}}" type="video/mp4">
+            <source src="{{ $courseVedio->vedio_url }}" type="video/mp4">
 
         </video>
 

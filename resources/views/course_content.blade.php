@@ -68,7 +68,15 @@
                                                         Edit
                                                     </a>
                                                 </div>
-                                                <div class="badge badge-outline-danger" role="button"> Delete</div>
+                                                <div class="badge">
+                                                    <form action="{{ route('course_vedio.delete', $vedio->id) }}" method="POST">
+                                                        @method('delete') @csrf
+                                                        <button class="badge badge-outline-danger" type="submit">
+                                                            Delete
+                                                        </button>
+                                                    </form>
+                                                </div>
+    
                                             </td>
                                         </tr>
                                     @endforeach

@@ -49,7 +49,7 @@ return [
             'provider' => 'instructors',
         ],
         'super_admin' => [
-            'driver' => 'sanctum',
+            'driver' => 'session',
             'provider' => 'super_admins',
         ],
     ],
