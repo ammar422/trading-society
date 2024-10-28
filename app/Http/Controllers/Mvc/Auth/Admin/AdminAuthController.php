@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Mvc\Auth\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use App\Http\Requests\AdminLoginRequest;
 
 class AdminAuthController extends Controller
@@ -27,5 +28,13 @@ class AdminAuthController extends Controller
             return redirect()->intended("/admin/");
         }
         return redirect()->back()->with('error', 'Invalid credentials!');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        Session::invalidate();
+        Session::regenerateToken();
+        return redirect()->route('admin.login');
     }
 }

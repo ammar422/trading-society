@@ -35,7 +35,7 @@ route::prefix('v1')->group(function () {
 
 
         // user profile 
-        route::get('user' , [AuthController::class , 'getUserData'])->name('user.data');
+        route::get('user', [AuthController::class, 'getUserData'])->name('user.data');
 
 
 
@@ -61,10 +61,9 @@ route::prefix('v1')->group(function () {
 
 
 
-});
 
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/notifications', [NotificationController::class, 'index']);
-    Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAsRead']);
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/notifications', [NotificationController::class, 'index']);
+        Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAsRead']);
+    });
 });

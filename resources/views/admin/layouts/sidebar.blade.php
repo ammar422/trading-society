@@ -99,7 +99,12 @@
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">logout</i>
                     </div>
-                    <span class="nav-link-text ms-1">Log Out</span>
+                    <form action="{{ route('admin.logout') }}" method="POST">
+                        @csrf
+                        <button class="btn bg-gradient-danger w-100 mb-0 toast-btn" type="submit">
+                            <span class="nav-link-text ms-1">Log Out</span>
+                        </button>
+                    </form>
                 </a>
             </li>
 

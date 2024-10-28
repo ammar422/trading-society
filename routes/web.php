@@ -85,6 +85,9 @@ route::prefix('admin')->group(function () {
         })->name('admin.dashboard');
     });
 
+    // logout 
+    Route::post('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+
     //admin courses
     route::get('courses', [AdminCourseController::class, 'index'])->name('admin.courses');
 

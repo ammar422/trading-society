@@ -7,7 +7,13 @@
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                         <h6 class="text-white text-capitalize ps-3">Instructors table</h6>
+
+                    <div class="col-6 text-end">
+                        <a class="btn bg-gradient-dark mb-0" href="javascript:;">
+                            <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Instructor
+                        </a>
                     </div>
+                </div>
                 </div>
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-0">
