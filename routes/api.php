@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\Auth\AuthInstructorController;
 use App\Http\Controllers\Api\Offer\OfferController;
 use App\Http\Controllers\Api\OnlineSesions\ZoomController;
 use App\Http\Controllers\Api\Instructor\InstructorController;
@@ -11,10 +12,17 @@ use App\Http\Controllers\Api\CoursesAndCategories\CategoryController;
 
 route::prefix('v1')->group(function () {
 
+
+    // user auth
     Route::post('/register', [AuthController::class, 'register'])->name('user.regiter');
     Route::post('/login', [AuthController::class, 'login'])->name('user.login');
     Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout'])->name('user.logout');
     Route::middleware('auth:sanctum')->post('delete_acount', [AuthController::class, 'deleteUserAccount'])->name('user.deleteUserAccount');
+
+
+    // instructor auth
+    route::post('instructor_login', [AuthInstructorController::class, 'login'])->name('instructor_api_login');
+
 
     // instructor
     route::get('instructor', [InstructorController::class, 'index'])->name('instructor.index');
@@ -57,13 +65,17 @@ route::prefix('v1')->group(function () {
 
         //category
         route::get('category/{category}', [CategoryController::class, 'show'])->name('category.show');
+
+
+
+        // notification
+        Route::get('/notifications', [NotificationController::class, 'index']);
+        Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAsRead']);
     });
 
 
-
-
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::get('/notifications', [NotificationController::class, 'index']);
-        Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAsRead']);
+    // offer for instructor
+    route::middleware('auth:instructor-api')->group(function () {
+        route::post('instructor/trade-alert', [OfferController::class, 'store']);
     });
 });

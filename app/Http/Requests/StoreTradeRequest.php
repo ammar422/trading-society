@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreTradeRequest extends FormRequest
 {
@@ -22,19 +24,29 @@ class StoreTradeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'instructor_id' => 'required|exists:instructors,id',  // Assuming there is an instructors table  
-            'order_status' => 'required|string', // Example statuses  
-            'pair' => 'required|string',  // Adjust max length and/or add regex for valid pairs  
-            'price' => 'required|numeric|min:0.01', // Minimum price of 0.01  
-            'order_type' => 'required|string', // Example order types  
-            'sl' => 'nullable|numeric', // Stop loss, optional  
+            'instructor_id' => 'required|exists:instructors,id',
+            'order_status' => 'required|string',
+            'pair' => 'required|string',
+            'price' => 'required|numeric|min:0.01',
+            'order_type' => 'required|string',
+            'sl' => 'nullable|numeric',
             'tp1' => 'nullable|numeric',
             'tp2' => 'nullable|numeric',
             'tp3' => 'nullable|numeric',
             'tp4' => 'nullable|numeric',
             'tp5' => 'nullable|numeric',
-            'chart' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'description' => 'nullable|string|max:255', // Optional description  
+            'chart' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'nullable|string|max:255',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            response()->json([
+                'status' => false,
+                'message' => $validator->errors(),
+            ], 422)
+        );
     }
 }

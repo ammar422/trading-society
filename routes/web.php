@@ -83,14 +83,18 @@ route::prefix('admin')->group(function () {
             $levels = Category::all();
             return view('admin.dashboard', compact('courses', 'levels'));
         })->name('admin.dashboard');
+
+        // logout 
+        Route::post('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+
+        //admin courses
+        route::get('courses', [AdminCourseController::class, 'index'])->name('admin.courses');
+
+        // admin instructors
+        route::get("instructors", [AdminInstructorController::class, 'index'])->name('admin.instructor');
+        route::get('instructors/new', [AdminInstructorController::class, 'create'])->name('admin.instructor.create');
+
+
+        
     });
-
-    // logout 
-    Route::post('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
-
-    //admin courses
-    route::get('courses', [AdminCourseController::class, 'index'])->name('admin.courses');
-
-    // admin instructors
-    route::get("instructors", [AdminInstructorController::class, 'index'])->name('admin.instructor');
 });

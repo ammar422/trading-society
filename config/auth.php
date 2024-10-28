@@ -48,6 +48,11 @@ return [
             'driver' => 'session',
             'provider' => 'instructors',
         ],
+
+        'instructor-api' => [
+            'driver' => 'sanctum',
+            'provider' => 'instructors',
+        ],
         'super_admin' => [
             'driver' => 'session',
             'provider' => 'super_admins',

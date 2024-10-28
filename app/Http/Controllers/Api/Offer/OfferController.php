@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Api\Offer;
 
+use App\Models\User;
 use App\Models\Offer;
+use App\Traits\MediaTrait;
+use App\Traits\ApiResponseTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OfferResource;
-use App\Traits\ApiResponseTrait;
-use App\Traits\MediaTrait;
+use App\Http\Requests\StoreTradeRequest;
+use App\Notifications\NewDealUploadedNotification;
 
 class OfferController extends Controller
 {
@@ -24,7 +27,7 @@ class OfferController extends Controller
         );
     }
 
-   
+
 
     public function show(Offer $offer)
     {
@@ -33,5 +36,30 @@ class OfferController extends Controller
             'offer',
             'all offers get successfully'
         );
+    }
+
+
+
+    public function store(StoreTradeRequest $request)
+    {
+        $data =  $request->validated();
+        if ($request->hasFile('chart')) {
+            $chart = $this->saveImage('trades_images', $request->chart);
+            $data['chart'] = $chart;
+        }
+        $offer = Offer::create($data);
+        $users = User::all();
+        foreach ($users as $user) {
+            $user_id = $user->id;
+            $user->notify(new NewDealUploadedNotification($offer, $user_id));
+        }
+        if ($offer)
+            return $this->successResponse(
+                new OfferResource($offer),
+                'offer',
+                'all offers get successfully and A notification has been sent to all users . '
+            );
+
+        return $this->failedResponse();
     }
 }
