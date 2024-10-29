@@ -63,9 +63,9 @@
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                         @style('text-align:center')>
                                         Position</th>
-                                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                         @style('text-align:center')>
-                                        Description</th> --}}
+                                        Current status</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                         @style('text-align:center')>
                                         Operations</th>
@@ -100,19 +100,50 @@
                                                 <span class="badge badge-sm bg-gradient-success">{{ $instructor->position }}
                                                 </span>
                                             </td>
-                                            {{-- <td class="align-middle text-center" @style('text-align:center')>
-                                                <span class="text-secondary text-xs font-weight-bold">{{ $instructor->description }}</span>
-                                            </td> --}}
-                                            <td class="align-middle" @style('text-align:center')>
-                                                <a href="javascript:;" class="text-warning font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="Edit user">
-                                                    Edit
-                                                </a>
+                                            <td class="align-middle text-center" @style('text-align:center')>
+                                                <span
+                                                    class="text-danger text-xs font-weight-bold">{{ $instructor->status }}</span>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <div class="d-flex justify-content-center">
+                                                    <a href="{{ route('admin.instructor.edit', $instructor->id) }}"
+                                                        class="btn btn-warning btn-sm font-weight-bold text-xs"
+                                                        style="margin-right: 0.5rem" data-toggle="tooltip"
+                                                        data-original-title="Edit user">
+                                                        Edit
+                                                    </a>
+                                                    {{-- <a href="javascript:;"
+                                                        class="btn btn-danger btn-sm font-weight-bold text-xs"  style="margin-right: 0.5rem"
+                                                        data-toggle="tooltip" data-original-title="Delete user">
+                                                        Delete
+                                                    </a> --}}
 
-                                                <a href="javascript:;" class="text-danger font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="delte user">
-                                                    Delete
-                                                </a>
+                                                    <form action="{{ route('admin.instructor.destroy', $instructor->id) }}"
+                                                        method="POST" class="d-inline-block">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="btn btn-danger btn-sm font-weight-bold text-xs"
+                                                            style="margin-right: 0.5rem" data-toggle="tooltip"
+                                                            data-original-title="@if ($instructor->status == 'inactive') Activate @else Deactivate @endif user">
+                                                            Delete
+                                                        </button>
+                                                    </form>
+
+                                                    <form action="{{ route('admin.instructor.status', $instructor->id) }}"
+                                                        method="POST" class="d-inline-block">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="btn btn-info btn-sm font-weight-bold text-xs"
+                                                            style="margin-right: 0.5rem" data-toggle="tooltip"
+                                                            data-original-title="@if ($instructor->status == 'inactive') Activate @else Deactivate @endif user">
+                                                            @if ($instructor->status == 'inactive')
+                                                                Activate
+                                                            @else
+                                                                Deactivate
+                                                            @endif
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
