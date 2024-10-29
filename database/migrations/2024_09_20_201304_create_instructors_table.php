@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('position'); // Instructor's position (e.g., "Senior Lecturer")
-            $table->text('description')->nullable(); // Optional description about the instructor
-            $table->string('photo')->nullable(); // Path to the instructor's photo
+            $table->string('position')->nullable(); 
+            $table->text('description')->nullable(); 
+            $table->string('photo')->nullable(); 
             $table->rememberToken();
             $table->timestamps();
         });
