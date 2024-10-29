@@ -36,8 +36,9 @@ class AdminInstructorController extends Controller
         $data = $request->validated();
         if ($request->hasFile('photo')) {
             $image = $this->saveImage('instructors_images', $request->validated('photo'));
+            $data['photo'] = $image;
         }
-        $data['photo'] = $image;
+        $data['password'] = bcrypt($request->validated('password'));
         $instructor = Instructor::create($data);
         if ($instructor)
             return redirect()->route('admin.instructor')->with('success', 'instructor created successfully');
