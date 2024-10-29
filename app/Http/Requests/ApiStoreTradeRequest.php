@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class StoreTradeRequest extends FormRequest
+class ApiStoreTradeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class StoreTradeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'instructor_id' => 'required|exists:instructors,id',
+            // 'instructor_id' => 'required|exists:instructors,id',
             'order_status' => 'required|string',
             'pair' => 'required|string',
             'price' => 'required|numeric|min:0.01',
@@ -40,4 +40,13 @@ class StoreTradeRequest extends FormRequest
         ];
     }
 
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            response()->json([
+                'status' => false,
+                'message' => $validator->errors(),
+            ], 422)
+        );
+    }
 }

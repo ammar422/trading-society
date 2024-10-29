@@ -29,7 +29,7 @@ class ZoomController extends Controller
                 'type' => 2, // Scheduled meeting
                 'start_time' => $request->input('start_time'),
                 'duration' => $request->input('duration'), // in minutes
-                'timezone' => 'UTC',
+                'timezone' => 'UTC'
             ],
         ]);
 

@@ -93,8 +93,6 @@ route::prefix('admin')->group(function () {
         // admin instructors
         route::get("instructors", [AdminInstructorController::class, 'index'])->name('admin.instructor');
         route::get('instructors/new', [AdminInstructorController::class, 'create'])->name('admin.instructor.create');
-
-
-        
+        route::post('instructors', [AdminInstructorController::class, 'store'])->name('admin.instructor.store');
     });
 });

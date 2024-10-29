@@ -93,7 +93,7 @@ return [
 
         'instructors_images' => [
             'driver' => 'local',
-            'root' => base_path('uploads/instructors/instructors_images'),
+            'root' => base_path('uploads/images/instructors_images'),
             'url' => env('APP_URL') . '/uploads',
             'visibility' => 'public',
             'throw' => false,

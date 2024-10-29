@@ -3,18 +3,21 @@
 namespace App\Http\Controllers\Mvc\Admins\Instructors;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreInstructorRequest;
 use App\Models\Instructor;
+use App\Traits\MediaTrait;
 use Illuminate\Http\Request;
 
 class AdminInstructorController extends Controller
 {
+    use MediaTrait;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $instructors = Instructor::all();
-        return view('admin.instructor' , compact('instructors'));
+        return view('admin.instructor', compact('instructors'));
     }
 
     /**
@@ -28,9 +31,17 @@ class AdminInstructorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreInstructorRequest $request)
     {
-        //
+        $data = $request->validated();
+        if ($request->hasFile('photo')) {
+            $image = $this->saveImage('instructors_images', $request->validated('photo'));
+        }
+        $data['photo'] = $image;
+        $instructor = Instructor::create($data);
+        if ($instructor)
+            return redirect()->route('admin.instructor')->with('success', 'instructor created successfully');
+        return redirect()->route('admin.instructor')->with('error', 'something went wrong , try again');
     }
 
     /**

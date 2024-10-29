@@ -1,6 +1,32 @@
 @extends('admin.layouts.master')
 @section('page', 'instructors')
 @section('content')
+
+
+
+
+    @if (Session::has('success'))
+        <div class="alert alert-success alert-dismissible text-white" role="alert">
+            <span>
+                {{ Session::get('success') }}
+            </span>
+            <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    @endif
+    @if (Session::has('error'))
+        <div class="alert alert-danger alert-dismissible text-white" role="alert">
+            <span>
+                {{ Session::get('error') }}
+            </span>
+            <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    @endif
+
+
     <div class="row">
         <div class="col-12">
             <div class="card my-4">
@@ -15,7 +41,7 @@
                     </style>
 
                     <div class="col-6 left-align">
-                        <a class="btn bg-gradient-dark mb-0" href="{{ route("admin.instructor.create") }}">
+                        <a class="btn bg-gradient-dark mb-0" href="{{ route('admin.instructor.create') }}">
                             <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Instructor
                         </a>
                     </div>

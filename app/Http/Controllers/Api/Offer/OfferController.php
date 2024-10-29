@@ -8,7 +8,7 @@ use App\Traits\MediaTrait;
 use App\Traits\ApiResponseTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OfferResource;
-use App\Http\Requests\StoreTradeRequest;
+use App\Http\Requests\ApiStoreTradeRequest;
 use App\Notifications\NewDealUploadedNotification;
 
 class OfferController extends Controller
@@ -40,13 +40,14 @@ class OfferController extends Controller
 
 
 
-    public function store(StoreTradeRequest $request)
+    public function store(ApiStoreTradeRequest $request)
     {
         $data =  $request->validated();
         if ($request->hasFile('chart')) {
             $chart = $this->saveImage('trades_images', $request->chart);
             $data['chart'] = $chart;
         }
+        $data['instructor_id'] = auth('instructor-api')->id();
         $offer = Offer::create($data);
         $users = User::all();
         foreach ($users as $user) {

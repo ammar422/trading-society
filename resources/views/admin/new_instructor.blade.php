@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
     <!-- CSS Files -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
+
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/material-bootstrap-wizard.css') }}" rel="stylesheet" />
 
@@ -27,7 +29,7 @@
 
 <body>
     <div class="image-container set-full-height"
-        style="background-image: url('{{ asset('assets/img/wizard-city.jpg') }}')">
+        style="background-image: url('{{ asset('assets/img/home-decor-3.jpg') }}')">
         <!--   Creative Tim Branding   -->
         <a href="https://tradingsociety.net">
             <div class="logo-container">
@@ -53,8 +55,9 @@
                 <div class="col-sm-8 col-sm-offset-2">
                     <!--      Wizard container        -->
                     <div class="wizard-container">
-                        <div class="card wizard-card" data-color="purple" id="wizard">
-                            <form action="" method="">
+                        <div class="card wizard-card" data-color="orange" id="wizard">
+                            <form action="{{ route('admin.instructor.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
                                 <!--        You can switch " data-color="rose" "  with one of the next bright colors: "blue", "green", "orange", "purple"        -->
 
                                 <div class="wizard-header">
@@ -95,14 +98,14 @@
                                             <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">Password</label>
-                                                    <input type="text" name="password" class="form-control"
+                                                    <input type="password" name="password" class="form-control"
                                                         id="exampleInputEmail1">
                                                 </div>
                                             </div>
                                             <div class="col-sm-5">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">Confirm Password</label>
-                                                    <input type="text" name="password-confirmtion"
+                                                    <input type="password" name="password_confirmation"
                                                         class="form-control" id="exampleInputEmail1">
                                                 </div>
                                             </div>
@@ -114,8 +117,8 @@
                                             <div class="col-sm-10 col-sm-offset-1">
                                                 <div class="col-sm-4 col-sm-offset-2">
                                                     <div class="choice" data-toggle="wizard-radio" rel="tooltip"
-                                                        title="Select this option if you have a house.">
-                                                        <input type="radio" name="type" value="House">
+                                                        title="Select this option if you Want to .....">
+                                                        <input type="radio" name="position" value="cto">
                                                         <div class="icon">
                                                             <i class="material-icons">person</i>
                                                         </div>
@@ -124,8 +127,8 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <div class="choice" data-toggle="wizard-radio" rel="tooltip"
-                                                        title="Select this option if you have an appartment">
-                                                        <input type="radio" name="type" value="Appartment">
+                                                        title="Select this option if you Want to .....">
+                                                        <input type="radio" name="position" value="other">
                                                         <div class="icon">
                                                             <i class="material-icons">menu_book</i>
                                                         </div>
@@ -142,16 +145,14 @@
                                             <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">Instructor Profile Photo</label>
-                                                    {{-- <select class="form-control">
-                                                        <option disabled="" selected=""></option>
-                                                        <option>Business</option>
-                                                        <option>Vacation </option>
-                                                        <option>Work</option>
-                                                    </select> --}}
-                                                    <input class="" type="file" name=""
-                                                        id="">
+                                                    <input id="photo" name="photo" type="file"
+                                                        class="file">
+                                                    <strong class="form-text text-muted">Click Here to Upload a clear
+                                                        photo of the
+                                                        instructor.</strong>
                                                 </div>
                                             </div>
+
                                             <div hidden @disabled(true) class="col-sm-5">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">Is air conditioning included ?</label>
@@ -204,15 +205,35 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger" role="alert">
+                                            <strong>Please fix the following errors:</strong>
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                            <button type="button" class="close" data-dismiss="alert"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="wizard-footer">
                                     <div class="pull-right">
                                         <input type='button' class='btn btn-next btn-fill btn-primary btn-wd'
                                             name='next' value='Next' />
-                                        <input type='button' class='btn btn-finish btn-fill btn-primary btn-wd'
-                                            name='finish' value='Finish' />
+                                        <input role="button" type="submit"
+                                            class='btn btn-finish btn-fill btn-success btn-wd' name='finish'
+                                            value='Finish' />
                                     </div>
                                     <div class="pull-left">
+                                        <a class='btn btn-danger btn-wd'
+                                            href="{{ route('admin.instructor') }}">Cancle</a>
+                                    </div>
+
+                                    <div class="pull-right">
                                         <input type='button' class='btn btn-previous btn-fill btn-default btn-wd'
                                             name='previous' value='Previous' />
                                     </div>
