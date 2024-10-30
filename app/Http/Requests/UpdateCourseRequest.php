@@ -11,7 +11,7 @@ class UpdateCourseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth('instructor')->check();
+        return auth('instructor')->check() || auth('super_admin')->check();
     }
 
     /**
@@ -22,11 +22,12 @@ class UpdateCourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'total_hours' => 'required|string',
-            'category_id' => 'required|exists:categories,id',
-            'photo' => ['required', 'image', 'mimes:jpeg,png,jpg'],
+            'title' => 'nullable|string|max:255',
+            'instructor_id' => 'nullable', 'exists:instructors,id',
+            'description' => 'nullable|string',
+            'total_hours' => 'nullable|numeric',
+            'category_id' => 'nullable|exists:categories,id',
+            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg'],
         ];
     }
 }

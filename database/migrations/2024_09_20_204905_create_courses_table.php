@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->integer('total_hours');
             $table->foreignId('instructor_id')->constrained();
             $table->string('photo')->nullable(); // Path to the course's photo

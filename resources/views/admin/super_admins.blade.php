@@ -1,5 +1,5 @@
 @extends('admin.layouts.master')
-@section('page', 'instructors')
+@section('page', 'ٍSuper Admins')
 @section('content')
 
 
@@ -32,9 +32,8 @@
             <div class="card my-4">
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                        <h6 class="text-white text-capitalize ps-3">Instructors table</h6>
-                    </div>
-                    <br>
+                        <h6 class="text-white text-capitalize ps-3">Super Admins table</h6>
+                    </div><br>
                     <style>
                         .left-align {
                             float: left;
@@ -43,7 +42,7 @@
 
                     <div class="col-6 left-align">
                         <a class="btn bg-gradient-dark mb-0" href="{{ route('admin.instructor.create') }}">
-                            <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Instructor
+                            <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Super Admin
                         </a>
                     </div>
 
@@ -61,12 +60,12 @@
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                         @style('text-align:center')>
                                         Email</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                         @style('text-align:center')>
                                         Position</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                         @style('text-align:center')>
-                                        Current status</th>
+                                        Current status</th> --}}
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                         @style('text-align:center')>
                                         Operations</th>
@@ -75,73 +74,40 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @isset($instructors)
-                                    @foreach ($instructors as $instructor)
+                                @isset($super_admins)
+                                    @foreach ($super_admins as $super_admin)
                                         <tr>
                                             <td>
                                                 <p class="text-xs font-weight-bold mb-0" style="text-align: center">
-                                                    {{ $instructor->id }}</p>
+                                                    {{ $super_admin->id }}</p>
                                             </td>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="{{ $instructor->photo }}"
+                                                        <img src="{{ $super_admin->photo }}"
                                                             class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $instructor->name }}</h6>
+                                                        <h6 class="mb-0 text-sm">{{ $super_admin->name }}</h6>
                                                         <p class="text-xs text-secondary mb-0"></p>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td @style('text-align:center')>
-                                                <p class="text-xs text-secondary mb-0">{{ $instructor->email }}</p>
-                                            </td>
-                                            <td class="align-middle text-center text-sm" @style('text-align:center')>
-                                                <span class="badge badge-sm bg-gradient-success">{{ $instructor->position }}
-                                                </span>
-                                            </td>
-                                            <td class="align-middle text-center" @style('text-align:center')>
-                                                <span
-                                                    class="text-danger text-xs font-weight-bold">{{ $instructor->status }}</span>
-                                            </td>
+                                                <p class="text-xs text-secondary mb-0">{{ $super_admin->email }}</p>
                                             <td class="align-middle text-center">
                                                 <div class="d-flex justify-content-center">
-                                                    <a href="{{ route('admin.instructor.edit', $instructor->id) }}"
-                                                        class="btn btn-warning btn-sm font-weight-bold text-xs"
+                                                    <a href="" class="btn btn-warning btn-sm font-weight-bold text-xs"
                                                         style="margin-right: 0.5rem" data-toggle="tooltip"
                                                         data-original-title="Edit user">
                                                         Edit
                                                     </a>
-                                                    {{-- <a href="javascript:;"
-                                                        class="btn btn-danger btn-sm font-weight-bold text-xs"  style="margin-right: 0.5rem"
-                                                        data-toggle="tooltip" data-original-title="Delete user">
-                                                        Delete
-                                                    </a> --}}
-
-                                                    <form action="{{ route('admin.instructor.destroy', $instructor->id) }}"
-                                                        method="POST" class="d-inline-block">
+                                                    <form action="" method="POST" class="d-inline-block">
                                                         @csrf
                                                         <button type="submit"
                                                             class="btn btn-danger btn-sm font-weight-bold text-xs"
-                                                            style="margin-right: 0.5rem" data-toggle="tooltip"
-                                                            data-original-title="@if ($instructor->status == 'inactive') Activate @else Deactivate @endif user">
+                                                            style="margin-right: 0.5rem" data-toggle="tooltip">
                                                             Delete
-                                                        </button>
-                                                    </form>
-
-                                                    <form action="{{ route('admin.instructor.status', $instructor->id) }}"
-                                                        method="POST" class="d-inline-block">
-                                                        @csrf
-                                                        <button type="submit"
-                                                            class="btn btn-info btn-sm font-weight-bold text-xs"
-                                                            style="margin-right: 0.5rem" data-toggle="tooltip"
-                                                            data-original-title="@if ($instructor->status == 'inactive') Activate @else Deactivate @endif user">
-                                                            @if ($instructor->status == 'inactive')
-                                                                Activate
-                                                            @else
-                                                                Deactivate
-                                                            @endif
                                                         </button>
                                                     </form>
                                                 </div>

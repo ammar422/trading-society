@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Edit Instructor</title>
+    <title>Edit Course</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -29,7 +29,7 @@
 
 <body>
     <div class="image-container set-full-height"
-        style="background-image: url('{{ asset('assets/img/home-decor-3.jpg') }}')">
+        style="background-image: url('{{ asset('assets/img/banner_1.jpg') }}')">
         <!--   Creative Tim Branding   -->
         <a href="https://tradingsociety.net">
             <div class="logo-container">
@@ -55,22 +55,21 @@
                     <!--      Wizard container        -->
                     <div class="wizard-container">
                         <div class="card wizard-card" data-color="purple" id="wizard">
-                            <form action="{{ route('admin.instructor.update', $instructor->id) }}" method="POST"
+                            <form action="{{ route('admin.courses.update', $course->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <!--        You can switch " data-color="rose" "  with one of the next bright colors: "blue", "green", "orange", "purple"        -->
 
                                 <div class="wizard-header">
                                     <h3 class="wizard-title">
-                                        Edit Instructor
+                                        Edit Course
                                     </h3>
-                                    <h5>This information will let Instructor Able To Login.</h5>
+                                    <h5>This information will appears In Course Data.</h5>
                                 </div>
                                 <div class="wizard-navigation">
                                     <ul>
-                                        <li><a href="#location" data-toggle="tab">Login data</a></li>
-                                        <li><a href="#type" data-toggle="tab">Position</a></li>
-                                        <li><a href="#facilities" data-toggle="tab">Profile Image</a></li>
+                                        <li><a href="#location" data-toggle="tab">Basic data</a></li>
+                                        <li><a href="#facilities" data-toggle="tab">Course Image</a></li>
                                         <li><a href="#description" data-toggle="tab">Description</a></li>
                                     </ul>
                                 </div>
@@ -83,105 +82,58 @@
                                             </div>
                                             <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Name</label>
-                                                    <input type="text" value="{{ $instructor->name }}" name="name"
+                                                    <label class="control-label">Title</label>
+                                                    <input type="text" value="{{ $course->title }}" name="title"
                                                         class="form-control" id="exampleInputEmail1">
                                                 </div>
                                             </div>
                                             <div class="col-sm-5">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Email</label>
-                                                    <input type="text" name="email"
-                                                        value="{{ $instructor->email }}" class="form-control"
+                                                    <label class="control-label">Total Duration</label>
+                                                    <input type="text" name="total_hours"
+                                                        value="{{ $course->total_hours }}" class="form-control"
                                                         id="exampleInputEmail1">
                                                 </div>
                                             </div>
                                             <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">New Password</label>
-                                                    <input type="password" name="password" class="form-control"
-                                                        id="exampleInputEmail1">
+                                                    <label class="control-label">Select Instructor</label>
+                                                    <select class="form-control" name="instructor_id" id="">
+                                                        @foreach ($instructors as $instructor)
+                                                            <option value="{{ $instructor->id }}"
+                                                                @selected($instructor->id == $course->instructor_id)>
+                                                                {{ $instructor->name }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-5">
+                                            <div class="col-sm-5 col-sm-offset">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Confirm new Password</label>
-                                                    <input type="password" name="password_confirmation"
-                                                        class="form-control" id="exampleInputEmail1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="type">
-                                        <h4 class="info-text">What position will the new Instructor take? </h4>
-                                        <div class="row">
-                                            <div class="col-sm-10 col-sm-offset-1">
-                                                <div class="col-sm-4 col-sm-offset-2">
-                                                    <div class="choice" data-toggle="wizard-radio" rel="tooltip"
-                                                        title="Select this option if you Want to .....">
-                                                        <input type="radio" name="position" value="cto">
-                                                        <div class="icon">
-                                                            <i class="material-icons">person</i>
-                                                        </div>
-                                                        <h6>CTO</h6>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="choice" data-toggle="wizard-radio" rel="tooltip"
-                                                        title="Select this option if you Want to .....">
-                                                        <input type="radio" name="position" value="other">
-                                                        <div class="icon">
-                                                            <i class="material-icons">menu_book</i>
-                                                        </div>
-                                                        <h6>Other</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="facilities">
-                                        <h4 class="info-text">Upload a clear picture ,
-                                            It will be a personal photo. </h4>
-                                        <div class="row">
-                                            <div class="col-sm-5 col-sm-offset-1">
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Instructor Profile Photo</label>
-                                                    <input id="photo" name="photo" type="file"
-                                                        class="file">
-                                                    <strong class="form-text text-muted">Click Here to Upload a clear
-                                                        photo of the
-                                                        instructor.</strong>
+                                                    <label class="control-label">Select Category</label>
+                                                    <select class="form-control" name="category_id" id="">
+                                                        @foreach ($categories as $category)
+                                                            <option value="{{ $category->id }}"
+                                                                @selected($category->id == $course->category_id)>
+                                                                {{ $category->name }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
 
-                                            <div hidden @disabled(true) class="col-sm-5">
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="facilities">
+                                        <h4 class="info-text">Upload a clear picture ,
+                                            It will be a Course banner Image. </h4>
+                                        <div class="row">
+                                            <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Is air conditioning included ?</label>
-                                                    <select class="form-control">
-                                                        <option disabled="" selected=""></option>
-                                                        <option>Yes</option>
-                                                        <option>No </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div hidden @disabled(true) class="col-sm-5 col-sm-offset-1">
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Does your place have wi-fi?</label>
-                                                    <select class="form-control">
-                                                        <option disabled="" selected=""></option>
-                                                        <option>Yes</option>
-                                                        <option>No </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div hidden @disabled(true) class="col-sm-5">
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Is breakfast included?</label>
-                                                    <select class="form-control">
-                                                        <option disabled="" selected=""></option>
-                                                        <option>Yes</option>
-                                                        <option>No </option>
-                                                    </select>
+                                                    <label class="control-label">Course Image</label>
+                                                    <input name="photo" type="file" class="file">
+                                                    <strong class="form-text text-muted">Click Here to Upload a clear
+                                                        photo of the
+                                                        course.</strong>
                                                 </div>
                                             </div>
                                         </div>
@@ -192,15 +144,15 @@
                                             <div class="col-sm-6 col-sm-offset-1">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">Place description</label>
-                                                    <textarea name="description" class="form-control" placeholder="" rows="9">{{ $instructor->description }}</textarea>
+                                                    <textarea class="form-control" name="description" placeholder="" rows="9"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">Example</label>
-                                                    <p class="description">"A Forex and trading instructor teaches
-                                                        strategies and market analysis for trading currencies,
-                                                        empowering students to achieve financial success in trading.
+                                                    <p class="description">"Explore the fundamentals of trading
+                                                        financial markets. Learn strategies, risk management, and
+                                                        technical analysis to become a successful trader.
                                                         "</p>
                                                 </div>
                                             </div>
@@ -231,7 +183,7 @@
                                     </div>
                                     <div class="pull-left">
                                         <a class='btn btn-danger btn-wd'
-                                            href="{{ route('admin.instructor') }}">Cancle</a>
+                                            href="{{ route('admin.courses') }}">Cancle</a>
                                     </div>
 
                                     <div class="pull-right">

@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers\Mvc\Admins\Courses;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\Course;
+use App\Models\Category;
+use App\Models\Instructor;
+use App\Traits\MediaTrait;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CourseStoreRequest;
+use App\Http\Requests\UpdateCourseRequest;
+use App\Notifications\NewCourseNotification;
 
 class AdminCourseController extends Controller
 {
+    use MediaTrait;
     /**
      * Display a listing of the resource.
      */
@@ -22,15 +31,29 @@ class AdminCourseController extends Controller
      */
     public function create()
     {
-        //
+        $instructors = Instructor::all();
+        $categories = Category::all();
+        return view('admin.new_course', compact('instructors', 'categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CourseStoreRequest $request)
     {
-        //
+        $data = $request->validated();
+        $data['photo'] = $this->saveImage('courses_images', $request->photo);
+        $course = Course::create($data);
+
+        $users = User::all();
+        foreach ($users as $user) {
+            $user_id = $user->id;
+            $user->notify(new NewCourseNotification($course, $user_id));
+        }
+
+        if ($course)
+            return redirect()->route('admin.courses')->with('success', 'the course addedd successfully , Notifications are being sent to users');
+        return redirect()->route('admin.courses')->with('error', 'something went wrong , plz try again');
     }
 
     /**
@@ -46,15 +69,31 @@ class AdminCourseController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $course = Course::find($id);
+        $instructors = Instructor::all();
+        $categories = Category::all();
+        return view('admin.edit_course', compact('course', 'instructors', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCourseRequest $request,  $id)
     {
-        //
+        $course = Course::find($id);
+        $old_photo = Str::after($course->photo, env('APP_URL'));
+        $data = $request->validated();
+        if ($request->hasFile('photo')) {
+            $image = $this->saveImage('courses_images', $request->photo);
+            $data['photo'] = $image;
+        }
+        $success = $course->update($data);
+        if (is_file(base_path() . $old_photo)) {
+            unlink(base_path() . $old_photo);
+        }
+        if ($success)
+            return redirect()->route('admin.courses')->with('success', 'the course updated successfully');
+        return redirect()->route('admin.courses')->with('error', 'something went wrong , plz try again');
     }
 
     /**
@@ -62,6 +101,16 @@ class AdminCourseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $course = Course::find($id);
+        $old_photo = $course->photo;
+        $success =  $course->delete();
+        if ($success) {
+            $path = Str::after($old_photo, env('APP_URL'));
+            if (is_file(base_path() . $path)) {
+                unlink(base_path() . $path);
+            }
+            return redirect()->route('admin.courses')->with('success', 'course delted successfully');
+        }
+        return redirect()->route('admin.courses')->with('error', 'something went wrong , try again');
     }
 }

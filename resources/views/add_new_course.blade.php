@@ -65,7 +65,7 @@
                         @enderror
                     </div> --}}
                     <div class="form-group">
-                        <label for="exampleSelectGender">Category Name</label>
+                        <label for="exampleSelectGender">Category Name</label> 
                         <select class="form-control @error('category_id') is-invalid @enderror" id="exampleSelectGender"
                             name="category_id" value="{{ old('category_id') }}">
                             @foreach ($categories as $category)

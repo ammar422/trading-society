@@ -2,12 +2,50 @@
 @section('page', 'courses')
 
 @section('content')
+
+
+
+
+    @if (Session::has('success'))
+        <div class="alert alert-success alert-dismissible text-white" role="alert">
+            <span>
+                {{ Session::get('success') }}
+            </span>
+            <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    @endif
+    @if (Session::has('error'))
+        <div class="alert alert-danger alert-dismissible text-white" role="alert">
+            <span>
+                {{ Session::get('error') }}
+            </span>
+            <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    @endif
+
+
     <div class="row">
         <div class="col-12">
             <div class="card my-4">
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                         <h6 class="text-white text-capitalize ps-3">Courses table</h6>
+                    </div>
+                    <br>
+                    <style>
+                        .left-align {
+                            float: left;
+                        }
+                    </style>
+
+                    <div class="col-6 left-align">
+                        <a class="btn bg-gradient-dark mb-0" href="{{ route('admin.courses.create') }}">
+                            <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Course
+                        </a>
                     </div>
                 </div>
                 <div class="card-body px-0 pb-2">
@@ -65,18 +103,27 @@
                                                     Mins</span>
                                             </td>
                                             <td class="align-middle text-center" @style('text-align:center')>
-                                                <span class="text-secondary text-xs font-weight-bold">{{ $course->instructor->name }}</span>
+                                                <span
+                                                    class="text-secondary text-xs font-weight-bold">{{ $course->instructor->name }}</span>
                                             </td>
-                                            <td class="align-middle" @style('text-align:center')>
-                                                <a href="javascript:;" class="text-warning font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="Edit user">
-                                                    Edit
-                                                </a>
-                                               
-                                                <a href="javascript:;" class="text-danger font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="delte user">
-                                                     Delete
-                                                </a>
+                                            <td class="align-middle text-center">
+                                                <div class="d-flex justify-content-center">
+                                                    <a href="{{ route('admin.courses.edit', $course->id) }}"
+                                                        class="btn btn-warning btn-sm font-weight-bold text-xs"
+                                                        style="margin-right: 0.5rem" data-toggle="tooltip"
+                                                        data-original-title="Edit user">
+                                                        Edit
+                                                    </a>
+                                                    <form action="{{ route('admin.courses.destroy', $course->id) }}"
+                                                        method="POST" class="d-inline-block">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="btn btn-danger btn-sm font-weight-bold text-xs"
+                                                            style="margin-right: 0.5rem" data-toggle="tooltip">
+                                                            Delete
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
