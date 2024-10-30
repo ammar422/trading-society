@@ -42,7 +42,7 @@
                     </style>
 
                     <div class="col-6 left-align">
-                        <a class="btn bg-gradient-dark mb-0" href="{{ route('admin.instructor.create') }}">
+                        <a class="btn bg-gradient-dark mb-0" href="{{ route('admin.users.create') }}">
                             <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New User
                         </a>
                     </div>

@@ -95,6 +95,9 @@ route::prefix('admin')->group(function () {
         // admin users
         route::get('users/active', [AdminUsersController::class, 'index'])->name('admin.users.active');
         route::get('users/inactive', [AdminUsersController::class, 'Rindex'])->name('admin.users.inactive');
+        route::get('users/new' , [AdminUsersController::class , 'create'])->name('admin.users.create');
+        route::post('users', [AdminUsersController::class, 'store'])->name('admin.users.store');
+
 
 
 
