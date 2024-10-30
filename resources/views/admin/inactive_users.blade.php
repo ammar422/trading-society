@@ -137,7 +137,8 @@
                                                     </a>
 
 
-                                                    <form action="" method="POST" class="d-inline-block">
+                                                    <form action="{{ route('admin.users.delete', $user->id) }}" method="POST"
+                                                        class="d-inline-block">
                                                         @csrf
                                                         <button type="submit"
                                                             class="btn btn-danger btn-sm font-weight-bold text-xs"

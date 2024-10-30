@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Mvc\Admins\Users;
 
 use App\Models\User;
 use App\Traits\MediaTrait;
+use Illuminate\Support\Str;
 use App\Services\ImageService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Client\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 
@@ -64,8 +66,35 @@ class AdminUsersController extends Controller
 
         // Redirect based on user status
         $route = $user->status == 'active' ? 'admin.users.active' : 'admin.users.inactive';
-        $message =( $user->status == 'active' || $user->status = 'inactive') ? 'User added successfully' : 'Something went wrong, try again later';
+        $message = ($user->status == 'active' || $user->status = 'inactive') ? 'User added successfully' : 'Something went wrong, try again later';
 
         return redirect()->route($route)->with('success', $message);
+    }
+
+    public function edit($id)
+    {
+        // 
+    }
+
+    public function update(Request $request)
+    {
+        // 
+    }
+
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        // $profile_image = Str::after($user->profile_image, env('APP_URL'));
+        // if (is_file(base_path() . $profile_image)) {
+
+        //     return   "yes is file";
+        // }
+        // return 'nooooooooooo';
+        $status = $user->status;
+        $success = $user->delete();
+        $route = $status == 'active' ? 'admin.users.active' : 'admin.users.inactive';
+        if ($success)
+            return redirect()->route($route)->with('success', 'User deleted successfully');
+        return redirect()->route($route)->with('error', 'Something went wrong, try again later');
     }
 }

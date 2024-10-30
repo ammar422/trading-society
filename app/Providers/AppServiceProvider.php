@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Course;
+use App\Models\User;
+use App\Observers\AdminUsersObservier;
 use Illuminate\Http\Request;
 use App\Services\ImageService;
 use App\Observers\CourseObserver;
@@ -33,5 +35,6 @@ class AppServiceProvider extends ServiceProvider
                 : Limit::perMinute(60)->by($request->ip());
         });
         Course::observe(CourseObserver::class);
+        User::observe(AdminUsersObservier::class);
     }
 }
