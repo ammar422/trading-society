@@ -8,9 +8,8 @@ use App\Models\Category;
 use App\Models\Instructor;
 use App\Traits\MediaTrait;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CourseStoreRequest;
+use App\Http\Requests\ApiStoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Notifications\NewCourseNotification;
 
@@ -39,7 +38,7 @@ class AdminCourseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CourseStoreRequest $request)
+    public function store(ApiStoreCourseRequest $request)
     {
         $data = $request->validated();
         $data['photo'] = $this->saveImage('courses_images', $request->photo);

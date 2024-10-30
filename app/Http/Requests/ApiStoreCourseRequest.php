@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CourseStoreRequest extends FormRequest
+class ApiStoreCourseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return auth('instructor')->check() || auth('super_admin')->check();
+        return auth('super_admin')->check();
     }
 
     /**
@@ -23,6 +23,7 @@ class CourseStoreRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
+            'instructor_id' => 'required', 'exists:instructors,id',
             'description' => 'required|string',
             'total_hours' => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
