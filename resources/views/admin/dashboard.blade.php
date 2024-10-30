@@ -1,4 +1,5 @@
 @extends('admin.layouts.master')
+@section('page' , 'Home')
 @section('content')
     <div class="container-fluid py-4">
 

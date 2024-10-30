@@ -3,6 +3,7 @@
 use App\Http\Controllers\Mvc\Admins\Courses\AdminCourseController;
 use App\Http\Controllers\Mvc\Admins\Instructors\AdminInstructorController;
 use App\Http\Controllers\Mvc\Admins\SuperAdmins\SuperAdminController;
+use App\Http\Controllers\Mvc\Admins\Users\AdminUsersController;
 use App\Http\Controllers\Mvc\Auth\Admin\AdminAuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mvc\Offer\OfferController;
@@ -91,6 +92,13 @@ route::prefix('admin')->group(function () {
         // super admins
         route::get('all_super_admins', [SuperAdminController::class, 'index'])->name('admin.super_admin.index');
 
+        // admin users
+        route::get('users/active', [AdminUsersController::class, 'index'])->name('admin.users.active');
+        route::get('users/inactive', [AdminUsersController::class, 'Rindex'])->name('admin.users.inactive');
+
+
+
+
         //admin courses
         route::get('courses', [AdminCourseController::class, 'index'])->name('admin.courses');
         route::get('courses/{id}/edit', [AdminCourseController::class, 'edit'])->name('admin.courses.edit');
@@ -98,7 +106,6 @@ route::prefix('admin')->group(function () {
         route::post('courses/{id}/delete', [AdminCourseController::class, 'destroy'])->name('admin.courses.destroy');
         route::get('courses/new', [AdminCourseController::class, 'create'])->name('admin.courses.create');
         route::post('courses', [AdminCourseController::class, 'store'])->name('admin.courses.store');
-
 
 
         // admin instructors
