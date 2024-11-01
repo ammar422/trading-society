@@ -20,9 +20,15 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $data = $request->validated();
-        $id_front_photo = $this->saveImage('users_IDs_photo', $request->id_photo_front);
-        $id_back_photo = $this->saveImage('users_IDs_photo', $request->id_photo_back);
-        $selfie = $this->saveImage('users_IDs_photo', $request->selfie_with_id);
+        if ($request->hasFile('id_photo_front'))
+            $id_front_photo = $this->saveImage('users_IDs_photo', $request->id_photo_front);
+
+        if ($request->hasFile('id_photo_back'))
+            $id_back_photo = $this->saveImage('users_IDs_photo', $request->id_photo_back);
+
+        if ($request->hasFile('selfie_with_id'))
+            $selfie = $this->saveImage('users_IDs_photo', $request->selfie_with_id);
+
         $profile_image = $this->saveImage('profile_images', $request->profile_image);
         $data['id_photo_front'] = $id_front_photo;
         $data['id_photo_back'] = $id_back_photo;
