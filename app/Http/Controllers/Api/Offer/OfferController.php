@@ -17,14 +17,16 @@ class OfferController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $allOffers = Offer::paginate(config('constants.PAGINATE_COUNT'));
-        return $this->successResponse(
-            OfferResource::collection($allOffers)->response()->getData(true),
-            'all_offers',
-            'all offers get successfully'
-        );
+    public function index()  
+    {  
+        // Order by created_at descending to get newest offers first  
+        $allOffers = Offer::orderBy('created_at', 'desc')->paginate(config('constants.PAGINATE_COUNT'));  
+        
+        return $this->successResponse(  
+            OfferResource::collection($allOffers)->response()->getData(true),  
+            'all_offers',  
+            'All offers retrieved successfully'  
+        );  
     }
 
 

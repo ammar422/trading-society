@@ -20,19 +20,21 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $data = $request->validated();
-        if ($request->hasFile('id_photo_front'))
+        if ($request->hasFile('id_photo_front')) {
             $id_front_photo = $this->saveImage('users_IDs_photo', $request->id_photo_front);
+            $data['id_photo_front'] = $id_front_photo;
+        }
 
-        if ($request->hasFile('id_photo_back'))
+        if ($request->hasFile('id_photo_back')) {
             $id_back_photo = $this->saveImage('users_IDs_photo', $request->id_photo_back);
+            $data['id_photo_back'] = $id_back_photo;
+        }
 
-        if ($request->hasFile('selfie_with_id'))
+        if ($request->hasFile('selfie_with_id')) {
             $selfie = $this->saveImage('users_IDs_photo', $request->selfie_with_id);
-
+            $data['selfie_with_id'] = $selfie;
+        }
         $profile_image = $this->saveImage('profile_images', $request->profile_image);
-        $data['id_photo_front'] = $id_front_photo;
-        $data['id_photo_back'] = $id_back_photo;
-        $data['selfie_with_id'] = $selfie;
         $data['profile_image'] = $profile_image;
         $data['password'] = bcrypt($request->password);
         $user = User::create($data);
@@ -42,7 +44,6 @@ class AuthController extends Controller
             'token' => $user->createToken('USER Token')->plainTextToken
         ], 201);
     }
-
 
 
     // Login user and generate token
