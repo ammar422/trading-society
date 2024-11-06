@@ -16,8 +16,6 @@ use Kreait\Firebase\Messaging\CloudMessage;
 use App\Notifications\NewCourseNotification;
 use Illuminate\Support\Facades\Notification;
 use Kreait\Laravel\Firebase\Facades\Firebase;
-use Kreait\Firebase\Messaging\MulticastMessage;
-
 
 
 class CourseController extends Controller
@@ -78,15 +76,23 @@ class CourseController extends Controller
 
         // Retrieve all FCM tokens
         $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
-        $tokenChunks = array_chunk($tokens, 500);
 
-        foreach ($tokenChunks as $tokenChunk) {
-            $message = CloudMessage::new()
-                ->withNotification(['title' => $title, 'body' => $body]);
+        // Create a CloudMessage instance
+        $message = CloudMessage::new()
+            ->withNotification([
+                'title' => $title,
+                'body' => $body,
+            ]);
 
-            $multicastMessage = MulticastMessage::withTargets($tokenChunk, $message);
+        // Send the message as a multicast to all FCM tokens
+        $report = Firebase::messaging()->sendMulticast($message, $tokens);
 
-            Firebase::messaging()->sendMulticast($multicastMessage);
+        // Check for failures (optional)
+        if ($report->failures()->isNotEmpty()) {
+            foreach ($report->failures() as $failure) {
+                // Log or handle failed tokens
+                \Log::error("Failed to send to {$failure->target()}: {$failure->error()->getMessage()}");
+            }
         }
 
         if ($course) {
