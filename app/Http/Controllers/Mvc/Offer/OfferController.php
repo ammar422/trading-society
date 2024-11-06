@@ -9,6 +9,8 @@ use App\Traits\MediaTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTradeRequest;
+use Kreait\Firebase\Messaging\CloudMessage;
+use Kreait\Laravel\Firebase\Facades\Firebase;
 use App\Notifications\NewDealUploadedNotification;
 
 
@@ -55,6 +57,37 @@ class OfferController extends Controller
             $user_id = $user->id;
             $user->notify(new NewDealUploadedNotification($offer, $user_id));
         }
+
+        $title = 'Notification for offer';
+        $body = "offer pair: " . $offer->pair;
+        $offer_id = $offer->id;
+
+
+        $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
+
+        // Create a CloudMessage instance
+        $message = CloudMessage::new()
+            ->withNotification([
+                'title' => $title,
+                'body' => $body,
+                'offer_id' => $offer_id
+            ]);
+
+        // Send the message as a multicast to all FCM tokens
+        $report = Firebase::messaging()->sendMulticast($message, $tokens);
+
+        // Check for any failed tokens
+        if (count($report->failures()) > 0) {
+            foreach ($report->failures() as $failure) {
+                \Log::error("Failed to send to {$failure->target()}: {$failure->error()->getMessage()}");
+            }
+        }
+
+
+
+
+
+
         if ($offer)
             return redirect()->route('offer.addNew')->with('success', 'Trade Alert (Offer) uploaded succesfully ');
         return redirect()->route('offer.addNew')->with('error', 'sorry , Trade Alert (Offer) cant be uploaded');

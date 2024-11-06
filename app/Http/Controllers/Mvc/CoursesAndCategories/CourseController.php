@@ -9,12 +9,10 @@ use App\Traits\MediaTrait;
 use Illuminate\Support\Str;
 use App\Events\CourseUploaded;
 use App\Http\Controllers\Controller;
-use App\Notifications\FCMNotification;
 use App\Http\Requests\CourseStoreRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use Kreait\Firebase\Messaging\CloudMessage;
 use App\Notifications\NewCourseNotification;
-use Illuminate\Support\Facades\Notification;
 use Kreait\Laravel\Firebase\Facades\Firebase;
 
 
