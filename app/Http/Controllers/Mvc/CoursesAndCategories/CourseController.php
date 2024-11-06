@@ -70,9 +70,8 @@ class CourseController extends Controller
             $user->notify(new NewCourseNotification($course, $user->id));
         }
 
-        // Send FCM notification to all users with valid FCM tokens
-        $title = 'Broadcast Notification';
-        $body = 'This is a notification for all users';
+        $title = 'Notification for course' . $course->title;
+        $body = strval($course->id);
 
         // Retrieve all FCM tokens
         $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();

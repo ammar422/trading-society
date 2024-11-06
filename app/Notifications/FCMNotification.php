@@ -25,23 +25,6 @@ class FCMNotification extends Notification
         return ['fcm'];
     }
 
-    // public function toFcm($notifiable)
-    // {
-    //     $fcmToken = $notifiable->fcm_token;
-
-    //     // Ensure we have an FCM token to send the notification
-    //     if (!$fcmToken) {
-    //         return;
-    //     }
-
-    //     return CloudMessage::withTarget('token', $fcmToken)
-    //         ->withNotification([
-    //             'title' => $this->title,
-    //             'body' => $this->body,
-    //         ]);
-    // }
-
-
 
     public function toFcm($tokens)
     {
