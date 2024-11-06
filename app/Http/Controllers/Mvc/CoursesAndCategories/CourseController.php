@@ -87,10 +87,9 @@ class CourseController extends Controller
         // Send the message as a multicast to all FCM tokens
         $report = Firebase::messaging()->sendMulticast($message, $tokens);
 
-        // Check for failures (optional)
-        if ($report->failures()->isNotEmpty()) {
+        // Check for any failed tokens
+        if (count($report->failures()) > 0) {
             foreach ($report->failures() as $failure) {
-                // Log or handle failed tokens
                 \Log::error("Failed to send to {$failure->target()}: {$failure->error()->getMessage()}");
             }
         }
@@ -100,7 +99,6 @@ class CourseController extends Controller
         }
         return redirect()->route('courses.mainPage')->with('error', 'Something went wrong, please try again');
     }
-
 
 
 
