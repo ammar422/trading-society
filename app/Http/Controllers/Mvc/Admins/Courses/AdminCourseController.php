@@ -9,8 +9,9 @@ use App\Models\Instructor;
 use App\Traits\MediaTrait;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ApiStoreCourseRequest;
+use App\Notifications\FCMNotification;
 use App\Http\Requests\UpdateCourseRequest;
+use App\Http\Requests\ApiStoreCourseRequest;
 use App\Notifications\NewCourseNotification;
 
 class AdminCourseController extends Controller
@@ -48,6 +49,13 @@ class AdminCourseController extends Controller
         foreach ($users as $user) {
             $user_id = $user->id;
             $user->notify(new NewCourseNotification($course, $user_id));
+        }
+
+        $title = 'Broadcast Notification';
+        $body = 'This is a notification for all users';
+        $users = User::whereNotNull('fcm_token')->get();
+        foreach ($users as $user) {
+            $user->notify(new FCMNotification($title, $body));
         }
 
         if ($course)

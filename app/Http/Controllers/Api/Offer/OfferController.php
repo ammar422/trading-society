@@ -60,9 +60,8 @@ class OfferController extends Controller
             return $this->successResponse(
                 new OfferResource($offer),
                 'offer',
-                'all offers get successfully and A notification has been sent to all users . '
+                'the offer created successfully and A notification has been sent to all users . '
             );
-
         return $this->failedResponse();
     }
 }

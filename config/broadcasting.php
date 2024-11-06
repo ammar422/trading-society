@@ -42,4 +42,17 @@ return [
         ],
 
     ],
+
+
+
+
+
+
+    'channels' => [
+        'fcm' => [
+            'driver' => 'custom',
+            'via' => 'fcm',
+        ],
+    ],
+
 ];

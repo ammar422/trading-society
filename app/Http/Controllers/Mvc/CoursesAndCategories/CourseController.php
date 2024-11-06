@@ -7,12 +7,15 @@ use App\Models\Course;
 use App\Models\Category;
 use App\Traits\MediaTrait;
 use Illuminate\Support\Str;
+use App\Events\CourseUploaded;
 use App\Http\Controllers\Controller;
+use App\Notifications\FCMNotification;
 use App\Http\Requests\CourseStoreRequest;
 use App\Http\Requests\UpdateCourseRequest;
+use Kreait\Firebase\Messaging\CloudMessage;
 use App\Notifications\NewCourseNotification;
 use Illuminate\Support\Facades\Notification;
-use App\Events\CourseUploaded;
+use Kreait\Laravel\Firebase\Facades\Firebase;
 
 
 class CourseController extends Controller
@@ -62,10 +65,33 @@ class CourseController extends Controller
         $course = Course::create($data);
 
         $users = User::all();
-        // Notification::send($users, new NewCourseNotification($course));
         foreach ($users as $user) {
             $user_id = $user->id;
             $user->notify(new NewCourseNotification($course, $user_id));
+        }
+        
+
+
+        // $title = 'Broadcast Notification';
+        // $body = 'This is a notification for all users';
+        // $users = User::whereNotNull('fcm_token')->get();
+        // foreach ($users as $user) {
+        //     $user->notify(new FCMNotification($title, $body));
+        // }
+
+
+        $title = 'Broadcast Notification';
+        $body = 'This is a notification for all users';
+    
+        $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
+    
+        $tokenChunks = array_chunk($tokens, 500);
+    
+        foreach ($tokenChunks as $tokenChunk) {
+            $message = CloudMessage::withTarget('tokens', $tokenChunk)
+                ->withNotification(['title' => $title, 'body' => $body]);
+    
+            Firebase::messaging()->send($message);
         }
 
         if ($course)
