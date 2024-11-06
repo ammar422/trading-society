@@ -82,7 +82,7 @@ class CourseController extends Controller
         $message = CloudMessage::new()
             ->withNotification([
                 'course_id' => $course_id,
-                'course_title' => $course->title,
+                'course_title' => $course_title,
             ]);
 
         // Send the message as a multicast to all FCM tokens
