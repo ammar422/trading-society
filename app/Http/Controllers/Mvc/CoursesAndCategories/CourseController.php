@@ -64,16 +64,16 @@ class CourseController extends Controller
         $data['photo'] = $this->saveImage('courses_images', $request->photo);
         $course = Course::create($data);
 
-        // Notify each user in the database
         $users = User::all();
         foreach ($users as $user) {
             $user->notify(new NewCourseNotification($course, $user->id));
         }
 
-        $title = 'Notification for course' . $course->title;
-        $body = strval($course->id);
+        $title = 'Notification for course';
+        $body = "course title name is : " . $course->title;
+        $course_id = $course->id;
 
-        // Retrieve all FCM tokens
+
         $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
 
         // Create a CloudMessage instance
@@ -81,6 +81,7 @@ class CourseController extends Controller
             ->withNotification([
                 'title' => $title,
                 'body' => $body,
+                'course_id' => $course_id
             ]);
 
         // Send the message as a multicast to all FCM tokens

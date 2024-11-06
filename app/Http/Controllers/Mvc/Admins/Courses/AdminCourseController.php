@@ -11,8 +11,10 @@ use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Notifications\FCMNotification;
 use App\Http\Requests\UpdateCourseRequest;
+use Kreait\Firebase\Messaging\CloudMessage;
 use App\Http\Requests\ApiStoreCourseRequest;
 use App\Notifications\NewCourseNotification;
+use Kreait\Laravel\Firebase\Facades\Firebase;
 
 class AdminCourseController extends Controller
 {
@@ -51,13 +53,30 @@ class AdminCourseController extends Controller
             $user->notify(new NewCourseNotification($course, $user_id));
         }
 
-        $title = 'Broadcast Notification';
-        $body = 'This is a notification for all users';
-        $users = User::whereNotNull('fcm_token')->get();
-        foreach ($users as $user) {
-            $user->notify(new FCMNotification($title, $body));
-        }
+        $title = 'Notification for course';
+        $body = "course title name is : " . $course->title;
+        $course_id = $course->id;
 
+
+        $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
+
+        // Create a CloudMessage instance
+        $message = CloudMessage::new()
+            ->withNotification([
+                'title' => $title,
+                'body' => $body,
+                'course_id' => $course_id
+            ]);
+
+        // Send the message as a multicast to all FCM tokens
+        $report = Firebase::messaging()->sendMulticast($message, $tokens);
+
+        // Check for any failed tokens
+        if (count($report->failures()) > 0) {
+            foreach ($report->failures() as $failure) {
+                \Log::error("Failed to send to {$failure->target()}: {$failure->error()->getMessage()}");
+            }
+        }
         if ($course)
             return redirect()->route('admin.courses')->with('success', 'the course addedd successfully , Notifications are being sent to users');
         return redirect()->route('admin.courses')->with('error', 'something went wrong , plz try again');

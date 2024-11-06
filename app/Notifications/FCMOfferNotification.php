@@ -4,22 +4,21 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Kreait\Firebase\Messaging\CloudMessage;
-use Kreait\Laravel\Firebase\Facades\Firebase;
+use Illuminate\Notifications\Messages\MailMessage;
 
-class FCMNotification extends Notification
+class FCMOfferNotification extends Notification
 {
     use Queueable;
 
     private $title;
     private $body;
-    private $course_id;
 
-    public function __construct($title, $body, $course_id)
+    public function __construct($title, $body)
     {
         $this->title = $title;
         $this->body = $body;
-        $this->course_id = $course_id;
     }
 
     public function via($notifiable)
@@ -39,7 +38,6 @@ class FCMNotification extends Notification
             ->withNotification([
                 'title' => $this->title,
                 'body' => $this->body,
-                'course_id' => $this->course_id,
             ]);
     }
 }
