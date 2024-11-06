@@ -16,6 +16,8 @@ use Kreait\Firebase\Messaging\CloudMessage;
 use App\Notifications\NewCourseNotification;
 use Illuminate\Support\Facades\Notification;
 use Kreait\Laravel\Firebase\Facades\Firebase;
+use Kreait\Firebase\Messaging\MulticastMessage;
+
 
 
 class CourseController extends Controller
@@ -64,39 +66,33 @@ class CourseController extends Controller
         $data['photo'] = $this->saveImage('courses_images', $request->photo);
         $course = Course::create($data);
 
+        // Notify each user in the database
         $users = User::all();
         foreach ($users as $user) {
-            $user_id = $user->id;
-            $user->notify(new NewCourseNotification($course, $user_id));
+            $user->notify(new NewCourseNotification($course, $user->id));
         }
-        
 
-
-        // $title = 'Broadcast Notification';
-        // $body = 'This is a notification for all users';
-        // $users = User::whereNotNull('fcm_token')->get();
-        // foreach ($users as $user) {
-        //     $user->notify(new FCMNotification($title, $body));
-        // }
-
-
+        // Send FCM notification to all users with valid FCM tokens
         $title = 'Broadcast Notification';
         $body = 'This is a notification for all users';
-    
+
+        // Retrieve all FCM tokens
         $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
-    
         $tokenChunks = array_chunk($tokens, 500);
-    
+
         foreach ($tokenChunks as $tokenChunk) {
-            $message = CloudMessage::withTarget('tokens', $tokenChunk)
+            $message = CloudMessage::new()
                 ->withNotification(['title' => $title, 'body' => $body]);
-    
-            Firebase::messaging()->send($message);
+
+            $multicastMessage = MulticastMessage::withTargets($tokenChunk, $message);
+
+            Firebase::messaging()->sendMulticast($multicastMessage);
         }
 
-        if ($course)
-            return redirect()->route('courses.mainPage')->with('success', 'the course addedd successfully');
-        return redirect()->route('courses.mainPage')->with('error', 'something went wrong , plz try again');
+        if ($course) {
+            return redirect()->route('courses.mainPage')->with('success', 'The course was added successfully');
+        }
+        return redirect()->route('courses.mainPage')->with('error', 'Something went wrong, please try again');
     }
 
 
