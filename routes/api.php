@@ -41,6 +41,8 @@ route::prefix('v1')->group(function () {
 
     route::middleware('auth:sanctum')->group(function () {
 
+        Route::post('save-fcm-token', [NotificationController::class, 'saveFcmToken']);
+
 
         // user profile 
         route::get('user', [AuthController::class, 'getUserData'])->name('user.data');

@@ -25,6 +25,7 @@ class User extends Authenticatable implements HasBroadcastChannel
         'first_name',
         'last_name',
         'email',
+        'fcm_token',
         'password',
         'phone_number',
         'broker',
@@ -47,6 +48,7 @@ class User extends Authenticatable implements HasBroadcastChannel
     protected $hidden = [
         'password',
         'remember_token',
+        'fcm_token',
     ];
 
     /**
