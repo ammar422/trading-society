@@ -71,9 +71,8 @@ class CourseController extends Controller
         }
 
         // Send FCM notification to all users with valid FCM tokens
-        $course_id = $course->id;
-        $course_title = $course->title;
-
+        $title = 'Broadcast Notification';
+        $body = 'This is a notification for all users';
 
         // Retrieve all FCM tokens
         $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
@@ -81,8 +80,8 @@ class CourseController extends Controller
         // Create a CloudMessage instance
         $message = CloudMessage::new()
             ->withNotification([
-                'course_id' => $course_id,
-                'course_title' => $course_title,
+                'title' => $title,
+                'body' => $body,
             ]);
 
         // Send the message as a multicast to all FCM tokens

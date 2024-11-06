@@ -12,19 +12,36 @@ class FCMNotification extends Notification
     use Queueable;
 
     private $title;
-    private $course_id;
+    private $body;
 
-
-    public function __construct($title, $course_id)
+    public function __construct($title, $body)
     {
         $this->title = $title;
-        $this->course_id = $course_id;
+        $this->body = $body;
     }
 
     public function via($notifiable)
     {
         return ['fcm'];
     }
+
+    // public function toFcm($notifiable)
+    // {
+    //     $fcmToken = $notifiable->fcm_token;
+
+    //     // Ensure we have an FCM token to send the notification
+    //     if (!$fcmToken) {
+    //         return;
+    //     }
+
+    //     return CloudMessage::withTarget('token', $fcmToken)
+    //         ->withNotification([
+    //             'title' => $this->title,
+    //             'body' => $this->body,
+    //         ]);
+    // }
+
+
 
     public function toFcm($tokens)
     {
@@ -35,8 +52,8 @@ class FCMNotification extends Notification
 
         return CloudMessage::withTarget('tokens', $tokens) // Multicast message
             ->withNotification([
-                'course_id' => $this->course_id,
-                'course_title' => $this->title,
+                'title' => $this->title,
+                'body' => $this->body,
             ]);
     }
 }
