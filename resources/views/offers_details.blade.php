@@ -60,7 +60,7 @@
                             <p class="text-muted mb-0">{{ $offer->instructor->name }}</p>
                         </div>
                         <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-                            {{-- <h6 class="font-weight-bold mb-0">{{ $offer->instructor->name }}</h6> --}}
+                           
                         </div>
                     </div>
                     <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
@@ -69,7 +69,7 @@
                             <p class="text-muted mb-0">{{ $offer->order_status }}</p>
                         </div>
                         <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-                            {{-- <h6 class="font-weight-bold mb-0">$593</h6> --}}
+                           
                         </div>
                     </div>
                     <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
@@ -78,7 +78,7 @@
                             <p class="text-muted mb-0">{{ $offer->price }}</p>
                         </div>
                         <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-                            {{-- <h6 class="font-weight-bold mb-0">$593</h6> --}}
+                           
                         </div>
                     </div>
                     <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
@@ -87,7 +87,7 @@
                             <p class="text-muted mb-0">{{ $offer->description }}</p>
                         </div>
                         <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-                            {{-- <h6 class="font-weight-bold mb-0">$593</h6> --}}
+                            
                         </div>
                     </div>
 
@@ -273,17 +273,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    {{-- <div class="d-flex justify-content-between align-items-center">
-        <div>
-            Showing {{ $offers->firstItem() }} to {{ $offers->lastItem() }} of {{ $offers->total() }}
-            results
-        </div>
-        <div>
-            {{ $offers->links('vendor.pagination.bootstrap-4') }} <!-- Use Bootstrap pagination -->
-        </div>
-    </div> --}}
+    </div> 
 
 
 

@@ -28,9 +28,9 @@ class OfferController extends Controller
 
 
 
-    public function offerDetails(Offer $offer)
+    public function offerDetails($id)
     {
-
+        $offer = Offer::find($id);
         return view('offers_details', compact('offer'));
     }
 
@@ -84,10 +84,6 @@ class OfferController extends Controller
         }
 
 
-
-
-
-
         if ($offer)
             return redirect()->route('offer.addNew')->with('success', 'Trade Alert (Offer) uploaded succesfully ');
         return redirect()->route('offer.addNew')->with('error', 'sorry , Trade Alert (Offer) cant be uploaded');
@@ -97,7 +93,7 @@ class OfferController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Offer $offer)
+    public function update( $id)
     {
         //
     }
@@ -105,7 +101,7 @@ class OfferController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Offer $offer)
+    public function destroy( $id)
     {
         //
     }

@@ -101,8 +101,9 @@ class CourseController extends Controller
 
 
 
-    public function edit(Course $course)
+    public function edit($id)
     {
+        $course = Course::find($id);
         $instructorId = auth('instructor')->id();
         if ($course->instructor_id == $instructorId) {
             $categories = Category::all();
@@ -115,8 +116,9 @@ class CourseController extends Controller
 
 
 
-    public function update(UpdateCourseRequest $request, Course $course)
+    public function update(UpdateCourseRequest $request, $id)
     {
+        $course = Course::find($id);
         $old_photo = Str::after($course->photo, env('APP_URL'));
         $data = $request->validated();
         $image = $this->saveImage('courses_images', $request->photo);
@@ -132,8 +134,9 @@ class CourseController extends Controller
 
 
 
-    public function destroy(Course $course) // has observer
+    public function destroy( $id) // has observer
     {
+        $course = Course::find($id);
         $deleted = $course->delete();
         if ($deleted)
             return redirect()->route('courses.mainPage')->with('success', 'the course delted successfully');

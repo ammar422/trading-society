@@ -17,8 +17,9 @@ class CourseVediosController extends Controller
 
 
 
-    public function index(Course $course)
+    public function index($id)
     {
+        $course = Course::find($id);
         $courseVedios = $course->courseVedios;
         return view('course_content', compact('courseVedios'));
     }
@@ -54,16 +55,18 @@ class CourseVediosController extends Controller
 
 
 
-    public function show(CourseVedio $courseVedio)
+    public function show($id)
     {
+        $courseVedio = CourseVedio::find($id);
         return view('course_watch_vedio', compact('courseVedio'));
     }
 
 
 
 
-    public function edit(CourseVedio $courseVedio)
+    public function edit($id)
     {
+        $courseVedio = CourseVedio::find($id);
         $instructor = auth('instructor')->user();
         $courses = $instructor->courses;
         return view('edit_video', compact('courseVedio', 'courses'));
@@ -72,8 +75,9 @@ class CourseVediosController extends Controller
 
 
 
-    public function update(UpdateVedioCourseRequest $request, CourseVedio $courseVedio)
+    public function update(UpdateVedioCourseRequest $request,  $id)
     {
+        $courseVedio = CourseVedio::find($id);
         $old_image = Str::after($courseVedio->image, env('APP_URL'));
         $old_vedio = Str::after($courseVedio->vedio_url, env('APP_URL'));
         $data = $request->validated();
@@ -99,8 +103,9 @@ class CourseVediosController extends Controller
 
 
 
-    public function destroy(CourseVedio $courseVedio)
+    public function destroy($id)
     {
+        $courseVedio = CourseVedio::find($id);
         $instructor_id =  $courseVedio->course->instructor->id;
         if (auth('instructor')->id() == $instructor_id) {
             $courseVedio->delete();

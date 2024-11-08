@@ -14,6 +14,8 @@ class Course extends Model
 {
     use HasFactory;
 
+
+
     protected $fillable = [
         'title',
         'description',
@@ -33,7 +35,7 @@ class Course extends Model
     }
 
 
-    
+
 
     public function category(): BelongsTo
     {
