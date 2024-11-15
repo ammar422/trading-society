@@ -5,13 +5,16 @@ namespace App\Http\Controllers\Api\Auth;
 
 
 use App\Models\User;
+use App\Traits\MediaTrait;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
-use App\Traits\MediaTrait;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -120,5 +123,59 @@ class AuthController extends Controller
             'status' => false,
             'message' => 'not found',
         ]);
+    }
+
+
+
+    public function loginWithSSO(Request $request)
+    {
+        $response = Http::post('http://hfs-society.test/api/v1/login-token', [
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+
+        if ($response->successful()) {
+            $token = $response->json('token');
+
+            // Validate the token by calling HFS user data endpoint
+            $userResponse = Http::withToken($token)->get('http://hfs-society.test/api/v1/get-login-user');
+            if ($userResponse->successful()) {
+                $userData = $userResponse->json();
+
+                // Check if the user exists
+                $user = User::where('email', $userData['email'])->first();
+
+                if ($user) {
+                    // Update existing user
+                    $user->update([
+                        'name' => $userData['name'],
+                        // 'first_name' => $userData['first_name'],
+                        // 'last_name' => $userData['last_name'],
+                        'phone_number' => $userData['phone'],
+                    ]);
+                } else {
+                    // Create a new user
+                    $user = User::create([
+                        'email' => $userData['email'],
+                        'name' => $userData['name'],
+                        'first_name' => 'first_name',
+                        'last_name' => 'last_name',
+                        'phone_number' => $userData['phone'],
+                        'password' => bcrypt(Str::random(10)), // Generate a random password
+                    ]);
+                }
+
+                Auth::login($user);
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Logged in successfully'
+                ]);
+            }
+        }
+
+        return response()->json([
+            'status' => false,
+            'message' => 'Invalid credentials'
+        ], 401);
     }
 }

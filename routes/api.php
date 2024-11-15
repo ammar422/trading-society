@@ -16,6 +16,10 @@ route::prefix('v1')->group(function () {
     // user auth
     Route::post('/register', [AuthController::class, 'register'])->name('user.regiter');
     Route::post('/login', [AuthController::class, 'login'])->name('user.login');
+
+    // single sign-On 
+    Route::post('sso-login', [AuthController::class, 'loginWithSSO']);
+
     Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout'])->name('user.logout');
     Route::middleware('auth:sanctum')->post('delete_acount', [AuthController::class, 'deleteUserAccount'])->name('user.deleteUserAccount');
 

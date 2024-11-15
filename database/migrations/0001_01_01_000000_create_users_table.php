@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('broker')->nullable();
             $table->string('broker_registration_email')->nullable();
             $table->string('country')->default('egypt');
-            $table->bigInteger('id_number');
+            $table->bigInteger('id_number')->nullable();
             $table->string('id_photo_front')->nullable();
             $table->string('id_photo_back')->nullable();
             $table->string('selfie_with_id')->nullable();
