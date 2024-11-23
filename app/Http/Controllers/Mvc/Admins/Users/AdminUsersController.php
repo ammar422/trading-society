@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Client\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 
 class AdminUsersController extends Controller
 {
@@ -73,12 +74,35 @@ class AdminUsersController extends Controller
 
     public function edit($id)
     {
-        // 
+        $user = User::find($id);
+        return view('admin.edit_user', compact('user'));
     }
 
-    public function update(Request $request)
+    public function update($id, UpdateUserRequest $request, ImageService $imageService)
     {
-        // 
+        $data = $request->validated();
+        $user = User::find($id);
+        $imageFields = [
+            'id_photo_front' => 'users_IDs_photo',
+            'id_photo_back' => 'users_IDs_photo',
+            'selfie_with_id' => 'users_IDs_photo',
+            'profile_image' => 'profile_images',
+        ];
+
+        // Save images and add their paths to the data array
+        foreach ($imageFields as $field => $folder) {
+            if ($request->hasFile($field)) {
+                $data[$field] = $imageService->saveImage($folder, $request->file($field));
+            }
+        }
+
+        $user->update($data);
+
+        // Redirect based on user status
+        $route = $user->status == 'active' ? 'admin.users.active' : 'admin.users.inactive';
+        $message = ($user->status == 'active' || $user->status = 'inactive') ? 'User updated successfully' : 'Something went wrong, try again later';
+
+        return redirect()->route($route)->with('success', $message);
     }
 
     public function destroy($id)
@@ -95,6 +119,24 @@ class AdminUsersController extends Controller
         $route = $status == 'active' ? 'admin.users.active' : 'admin.users.inactive';
         if ($success)
             return redirect()->route($route)->with('success', 'User deleted successfully');
+        return redirect()->route($route)->with('error', 'Something went wrong, try again later');
+    }
+
+    public function changeStatus($id)
+    {
+        $user = User::find($id);
+        $currentStatus = $user->status;
+        if ($user->status == 'active') {
+            $user->status = "inactive";
+            $user->save();
+            return redirect()->route('admin.users.active')->with('success', 'User deactiveted successfully');
+        }
+        if ($user->status == 'inactive') {
+            $user->status = "active";
+            $user->save();
+            return redirect()->route('admin.users.inactive')->with('success', 'User activeted successfully');
+        }
+        $route = $currentStatus == 'active' ? 'admin.users.active' : 'admin.users.inactive';
         return redirect()->route($route)->with('error', 'Something went wrong, try again later');
     }
 }

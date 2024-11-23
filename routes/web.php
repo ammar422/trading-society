@@ -98,6 +98,9 @@ route::prefix('admin')->group(function () {
         route::get('users/inactive', [AdminUsersController::class, 'Rindex'])->name('admin.users.inactive');
         route::get('users/new', [AdminUsersController::class, 'create'])->name('admin.users.create');
         route::post('users', [AdminUsersController::class, 'store'])->name('admin.users.store');
+        route::get('users/{id}/edit', [AdminUsersController::class, 'edit'])->name('admin.users.edit');
+        route::post('users/{id}/update', [AdminUsersController::class, 'update'])->name('admin.users.update');
+        route::post('users/{id}/change-status', [AdminUsersController::class, 'changeStatus'])->name('admin.users.change-status');
         route::post('users/{id}/delete', [AdminUsersController::class, 'destroy'])->name('admin.users.delete');
 
 

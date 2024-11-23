@@ -59,9 +59,9 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                                         @style('text-align:center')>
                                         Title</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                         @style('text-align:center')>
-                                        Description</th>
+                                        Description</th> --}}
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                         @style('text-align:center')>
                                         Total Hours</th>
@@ -95,9 +95,9 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td @style('text-align:center')>
+                                            {{-- <td @style('text-align:center')>
                                                 <p class="text-xs text-secondary mb-0">{{ $course->description }}</p>
-                                            </td>
+                                            </td> --}}
                                             <td class="align-middle text-center text-sm" @style('text-align:center')>
                                                 <span class="badge badge-sm bg-gradient-success">{{ $course->total_hours }} .
                                                     Mins</span>

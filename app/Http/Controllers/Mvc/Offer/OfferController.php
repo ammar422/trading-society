@@ -63,23 +63,26 @@ class OfferController extends Controller
         $offer_id = $offer->id;
 
 
-        $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
+        $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->filter()->toArray();
 
-        // Create a CloudMessage instance
-        $message = CloudMessage::new()
-            ->withNotification([
-                'title' => $title,
-                'body' => $body,
-                'offer_id' => $offer_id
-            ]);
+        if (!empty($tokens)) {
 
-        // Send the message as a multicast to all FCM tokens
-        $report = Firebase::messaging()->sendMulticast($message, $tokens);
+            // Create a CloudMessage instance
+            $message = CloudMessage::new()
+                ->withNotification([
+                    'title' => $title,
+                    'body' => $body,
+                    'offer_id' => $offer_id
+                ]);
 
-        // Check for any failed tokens
-        if (count($report->failures()) > 0) {
-            foreach ($report->failures() as $failure) {
-                \Log::error("Failed to send to {$failure->target()}: {$failure->error()->getMessage()}");
+            // Send the message as a multicast to all FCM tokens
+            $report = Firebase::messaging()->sendMulticast($message, $tokens);
+
+            // Check for any failed tokens
+            if (count($report->failures()) > 0) {
+                foreach ($report->failures() as $failure) {
+                    \Log::error("Failed to send to {$failure->target()}: {$failure->error()->getMessage()}");
+                }
             }
         }
 
@@ -93,7 +96,7 @@ class OfferController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update( $id)
+    public function update($id)
     {
         //
     }
@@ -101,7 +104,7 @@ class OfferController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy( $id)
+    public function destroy($id)
     {
         //
     }

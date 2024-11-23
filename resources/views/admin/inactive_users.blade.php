@@ -130,7 +130,7 @@
                                             </td>
                                             <td class="align-middle text-center">
                                                 <div class="d-flex justify-content-center">
-                                                    <a href="" class="btn btn-warning btn-sm font-weight-bold text-xs"
+                                                    <a href="{{ route('admin.users.edit' , $user->id) }}" class="btn btn-warning btn-sm font-weight-bold text-xs"
                                                         style="margin-right: 0.5rem" data-toggle="tooltip"
                                                         data-original-title="Edit user">
                                                         Edit
@@ -147,7 +147,8 @@
                                                         </button>
                                                     </form>
 
-                                                    <form action="" method="POST" class="d-inline-block">
+                                                    <form action="{{ route('admin.users.change-status', $user->id) }}"
+                                                        method="POST" class="d-inline-block">
                                                         @csrf
                                                         <button type="submit"
                                                             class="btn btn-info btn-sm font-weight-bold text-xs"

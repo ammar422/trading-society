@@ -58,23 +58,25 @@ class AdminCourseController extends Controller
         $course_id = $course->id;
 
 
-        $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
+        $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->filter()->toArray();
 
-        // Create a CloudMessage instance
-        $message = CloudMessage::new()
-            ->withNotification([
-                'title' => $title,
-                'body' => $body,
-                'course_id' => $course_id
-            ]);
+        if (!empty($tokens)) {
+            // Create a CloudMessage instance
+            $message = CloudMessage::new()
+                ->withNotification([
+                    'title' => $title,
+                    'body' => $body,
+                    'course_id' => $course_id
+                ]);
 
-        // Send the message as a multicast to all FCM tokens
-        $report = Firebase::messaging()->sendMulticast($message, $tokens);
+            // Send the message as a multicast to all FCM tokens
+            $report = Firebase::messaging()->sendMulticast($message, $tokens);
 
-        // Check for any failed tokens
-        if (count($report->failures()) > 0) {
-            foreach ($report->failures() as $failure) {
-                \Log::error("Failed to send to {$failure->target()}: {$failure->error()->getMessage()}");
+            // Check for any failed tokens
+            if (count($report->failures()) > 0) {
+                foreach ($report->failures() as $failure) {
+                    \Log::error("Failed to send to {$failure->target()}: {$failure->error()->getMessage()}");
+                }
             }
         }
         if ($course)
