@@ -128,8 +128,11 @@ route::prefix('admin')->group(function () {
 
         //admin offers(trade alerts posts)
         route::get('offers', [AdminOffersController::class, 'index'])->name('admin.offers');
+        route::get('offers/new', [AdminOffersController::class, 'create'])->name('admin.offers.create');
+        route::post('offers', [AdminOffersController::class, 'store'])->name('admin.offers.store');
         route::get('offers/{id}/edit', [AdminOffersController::class, 'edit'])->name('admin.offers.edit');
         route::post('offers/{id}/update', [AdminOffersController::class, 'update'])->name('admin.offers.update');
+        route::post('offers/{id}/destroy', [AdminOffersController::class, 'destroy'])->name('admin.offers.destroy');
 
 
         //admin levels 

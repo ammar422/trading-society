@@ -41,7 +41,7 @@
                     </style>
 
                     <div class="col-6 left-align">
-                        <a class="btn bg-gradient-dark mb-0" href="">
+                        <a class="btn bg-gradient-dark mb-0" href="{{ route('admin.offers.create') }}">
                             <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Deal
                         </a>
                     </div>
@@ -101,7 +101,7 @@
                                                 <p class="text-xs text-secondary mb-0">{{ $offer->order_status }}</p>
                                             </td>
                                             <td class="align-middle text-center text-sm" @style('text-align:center')>
-                                                <span class="badge badge-sm bg-gradient-success">{{ $offer->pair }} .
+                                                <span class="badge badge-sm bg-gradient-success">{{ $offer->pair }} 
                                                 </span>
                                             </td>
                                             <td class="align-middle text-center" @style('text-align:center')>
@@ -119,7 +119,7 @@
                                                         data-original-title="Edit user">
                                                         Edit
                                                     </a>
-                                                    <form action="" method="POST" class="d-inline-block">
+                                                    <form action="{{ route('admin.offers.destroy' , $offer->id) }}" method="POST" class="d-inline-block">
                                                         @csrf
                                                         <button type="submit"
                                                             class="btn btn-danger btn-sm font-weight-bold text-xs"

@@ -15,11 +15,11 @@ class UpdateAdminOfferRequest extends FormRequest
     public function rules()
     {
         return [
-            'instructor_id' => 'required|exists:instructors,id',
-            'order_status' => 'required|string|max:255',
-            'pair' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'order_type' => 'required|string|in:buy,sell',
+            'instructor_id' => 'sometimes|exists:instructors,id',
+            'order_status' => 'sometimes|string|max:255',
+            'pair' => 'sometimes|string|max:255',
+            'price' => 'sometimes|numeric|min:0',
+            'order_type' => 'sometimes|string',
             'sl' => 'nullable|numeric|min:0',
             'tp1' => 'nullable|numeric|min:0',
             'tp2' => 'nullable|numeric|min:0',
