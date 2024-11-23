@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Mvc\Admins\Categories\AdminCategoryController;
 use App\Http\Controllers\Mvc\Admins\Courses\AdminCourseController;
 use App\Http\Controllers\Mvc\Admins\Instructors\AdminInstructorController;
 use App\Http\Controllers\Mvc\Admins\Offres\AdminOffersController;
@@ -129,5 +130,14 @@ route::prefix('admin')->group(function () {
         route::get('offers', [AdminOffersController::class, 'index'])->name('admin.offers');
         route::get('offers/{id}/edit', [AdminOffersController::class, 'edit'])->name('admin.offers.edit');
         route::post('offers/{id}/update', [AdminOffersController::class, 'update'])->name('admin.offers.update');
+
+
+        //admin levels 
+        route::get('levels', [AdminCategoryController::class, 'index'])->name('admin.levels');
+        route::get('levels/new', [AdminCategoryController::class, 'create'])->name('admin.levels.create');
+        route::post('levels', [AdminCategoryController::class, 'store'])->name('admin.levels.store');
+        route::get('levels/{id}/edit', [AdminCategoryController::class, 'edit'])->name('admin.levels.edit');
+        route::post('levels/{id}/update', [AdminCategoryController::class, 'update'])->name('admin.levels.update');
+        route::post('levels/{id}/delete', [AdminCategoryController::class, 'destroy'])->name('admin.levels.delete');
     });
 });

@@ -49,7 +49,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link text-white " href="">
+                <a class="nav-link text-white " href="{{ route('admin.levels') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">star</i>
                     </div>
@@ -94,7 +94,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link text-white " href="{{ route("admin.users.inactive") }}">
+                <a class="nav-link text-white " href="{{ route('admin.users.inactive') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">people_outline</i>
                     </div>

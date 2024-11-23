@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->enum('name', ['beginner', 'basic', 'chart_patterns', 'advanced', 'expert']);
+            $table->string('name');
             $table->integer('order');
             $table->timestamps();
         });

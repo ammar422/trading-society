@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('total_hours');
             $table->foreignId('instructor_id')->constrained();
             $table->string('photo')->nullable(); // Path to the course's photo
-            $table->foreignId('category_id')->constrained();
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
