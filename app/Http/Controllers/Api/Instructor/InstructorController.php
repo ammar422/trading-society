@@ -17,7 +17,7 @@ class InstructorController extends Controller
 
     public function index()
     {
-        $instructor = Instructor::paginate(config('constants.PAGINATE_COUNT'));
+        $instructor = Instructor::activeInstructors()->paginate(config('constants.PAGINATE_COUNT'));
         return $this->successResponse(
             InstructorResource::collection($instructor)->response()->getData(true),
             'instructors',
@@ -28,7 +28,9 @@ class InstructorController extends Controller
 
     public function show(Instructor $instructor)
     {
-        return $this->successResponse($instructor, 'Instructor');
+        if ($instructor->status == 'active')
+            return $this->successResponse($instructor, 'Instructor');
+        return $this->failedResponse('not found', 404);
     }
 
 
@@ -36,13 +38,16 @@ class InstructorController extends Controller
 
     public function instructorCourses(Instructor $instructor)
     {
-        $instructor->load('courses.courseVedios');
-        return $this->successResponse(
-            new InstructorResource($instructor),
-            'instructor_with_courses',
-            'all instructor\'s courses get successfully',
-            200
-        );
+        if ($instructor->status == 'active') {
+            $instructor->load('courses.courseVedios');
+            return $this->successResponse(
+                new InstructorResource($instructor),
+                'instructor_with_courses',
+                'all instructor\'s courses get successfully',
+                200
+            );
+        }
+        return $this->failedResponse('not found', 404);
     }
 
 
@@ -51,7 +56,7 @@ class InstructorController extends Controller
     {
         // Get instructors with their offers  
         $instructors = Instructor::activeInstructors()->whereHas('offers')->with('offers')->get();
-        
+
         if ($instructors->isEmpty()) {
             return $this->failedResponse('No instructors have offers yet.');
         }
