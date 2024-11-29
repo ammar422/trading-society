@@ -48,15 +48,15 @@
                         <label for="exampleInputName1">Order Status</label>
                         <select class="form-control @error('order_status') is-invalid @enderror" name="order_status"
                             value="{{ old('order_status') }}">
-                            <option value="Bending ">Bending </option>
-                            <option value="Active ">Active </option>
-                            <option value="Deleted">Deleted</option>
-                            <option value="Hit sl">Hit sl</option>
-                            <option value="Hit tp 1">Hit tp 1</option>
-                            <option value="Hit tp 2">Hit tp 2</option>
-                            <option value="Hit tp 3">Hit tp 3</option>
-                            <option value="Hit tp 4">Hit tp 4</option>
-                            <option value="Hit tp 5">Hit tp 5</option>
+                            <option value="bending ">Bending </option>
+                            <option value="active ">Active </option>
+                            <option value="deleted">Deleted</option>
+                            <option value="hit_sl">Hit sl</option>
+                            <option value="hit_tp1">Hit tp1</option>
+                            <option value="hit_tp2">Hit tp2</option>
+                            <option value="hit_tp3">Hit tp3</option>
+                            <option value="hit_tp4">Hit tp4</option>
+                            <option value="hit_tp5">Hit tp5</option>
                         </select>
 
                         @error('order_status')

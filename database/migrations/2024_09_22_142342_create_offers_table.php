@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('instructor_id')->constrained()->on('instructors')->onDelete('cascade');
-            $table->string('order_status');
+            $table->enum('order_status', ['bending', 'active', 'deleted', 'hit_sl', 'hit_tp1', 'hit_tp2', 'hit_tp3', 'hit_tp4', 'hit_tp5']);
             $table->string('pair');
             $table->decimal('price', 10, 2);
             $table->string('order_type'); // e.g., 'buy' or 'sell'  
