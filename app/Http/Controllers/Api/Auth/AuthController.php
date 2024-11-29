@@ -129,7 +129,8 @@ class AuthController extends Controller
 
     public function loginWithSSO(Request $request)
     {
-        $response = Http::post('http://hfs-society.test/api/v1/login-token', [
+        // $response = Http::post('https://api.hfssociety.com/api/v1/login-token', [
+        $response = Http::post('http://127.0.0.1:7000/api/v1/login-token', [ //for testing only
             'email' => $request->email,
             'password' => $request->password,
         ]);
@@ -138,30 +139,37 @@ class AuthController extends Controller
             $token = $response->json('token');
 
             // Validate the token by calling HFS user data endpoint
-            $userResponse = Http::withToken($token)->get('http://hfs-society.test/api/v1/get-login-user');
+            // $userResponse = Http::withToken($token)->get('https://api.hfssociety.com/api/v1/get-login-user');
+            $userResponse = Http::withToken($token)->get('http://127.0.0.1:7000/api/v1/get-login-user'); // for testing only
             if ($userResponse->successful()) {
-                $userData = $userResponse->json();
+                 $userData = $userResponse->json();
 
                 // Check if the user exists
-                $user = User::where('email', $userData['email'])->first();
+                $user = User::where('email', $userData['user']['email'])->first();
 
                 if ($user) {
                     // Update existing user
                     $user->update([
-                        'name' => $userData['name'],
+                        'name' => $userData['user']['name'],
                         // 'first_name' => $userData['first_name'],
                         // 'last_name' => $userData['last_name'],
-                        'phone_number' => $userData['phone'],
+                        'phone_number' => $userData['user']['phone']?? "unll from HFS",
+                        'package' => $userData['user']['package_name'],
+                        'subscripition_start_at' => $userData['user']['subscribed_at'],
+                        'subscripition_end_at' => $userData['user']['expiration_date'],
                     ]);
                 } else {
                     // Create a new user
                     $user = User::create([
-                        'email' => $userData['email'],
-                        'name' => $userData['name'],
+                        'email' => $userData['user']['email'],
+                        'name' => $userData['user']['name'],
                         'first_name' => 'first_name',
                         'last_name' => 'last_name',
-                        'phone_number' => $userData['phone'],
+                        'phone_number' => $userData['user']['phone']?? "unll from HFS",
                         'password' => bcrypt(Str::random(10)), // Generate a random password
+                        'package' => $userData['user']['package_name'],
+                        'subscripition_start_at' => $userData['user']['subscribed_at'],
+                        'subscripition_end_at' => $userData['user']['expiration_date'],
                     ]);
                 }
 
