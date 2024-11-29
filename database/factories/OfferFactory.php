@@ -19,7 +19,7 @@ class OfferFactory extends Factory
     {
         return [
             'instructor_id' => Instructor::inRandomOrder()->first()->id,
-            'order_status' => $this->faker->randomElement(['HIT TP3', 'HIT TP4', 'HIT TP5']),
+            'order_status' => $this->faker->randomElement(['bending', 'active', 'deleted', 'hit_sl', 'hit_tp1', 'hit_tp2', 'hit_tp3', 'hit_tp4', 'hit_tp5']),
             'pair' => 'XAU-USD',
             'price' => $this->faker->randomFloat(2, 1, 100),
             'order_type' => $this->faker->randomElement(['BUY LIMIT', 'SEll LIMIT']),
