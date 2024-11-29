@@ -129,8 +129,8 @@ class AuthController extends Controller
 
     public function loginWithSSO(Request $request)
     {
-        // $response = Http::post('https://api.hfssociety.com/api/v1/login-token', [
-        $response = Http::post('http://127.0.0.1:7000/api/v1/login-token', [ //for testing only
+        $response = Http::post('https://api.hfssociety.com/api/v1/login-token', [
+        // $response = Http::post('http://127.0.0.1:7000/api/v1/login-token', [ //for testing only
             'email' => $request->email,
             'password' => $request->password,
         ]);
@@ -139,8 +139,8 @@ class AuthController extends Controller
             $token = $response->json('token');
 
             // Validate the token by calling HFS user data endpoint
-            // $userResponse = Http::withToken($token)->get('https://api.hfssociety.com/api/v1/get-login-user');
-            $userResponse = Http::withToken($token)->get('http://127.0.0.1:7000/api/v1/get-login-user'); // for testing only
+            $userResponse = Http::withToken($token)->get('https://api.hfssociety.com/api/v1/get-login-user');
+            // $userResponse = Http::withToken($token)->get('http://127.0.0.1:7000/api/v1/get-login-user'); // for testing only
             if ($userResponse->successful()) {
                  $userData = $userResponse->json();
 
