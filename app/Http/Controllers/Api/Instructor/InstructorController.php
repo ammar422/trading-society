@@ -22,7 +22,7 @@ class InstructorController extends Controller
             return $this->failedResponse('No instructors have courses yet.');
         }
         return $this->successResponse(
-            InstructorResource::collection($instructor)->response()->getData(true),
+            InstructorResource::collection($instructors)->response()->getData(true),
             'instructors',
             'the instructors list get successfully'
         );
