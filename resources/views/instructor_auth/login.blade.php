@@ -21,7 +21,9 @@
 </head>
 
 <body>
-    <div class="container-scroller">
+    
+   
+
         <div class="container-fluid page-body-wrapper full-page-wrapper">
             <div class="row w-100 m-0">
                 <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
@@ -32,7 +34,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label> email </label>
-                                    <input name="email" type="text"
+                                    <input name="email" type="text" value="{{ old('email') }}"
                                         class="form-control p_input @error('email') is-invalid @enderror">
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -57,6 +59,27 @@
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary btn-block enter-btn">Login</button>
                                 </div>
+                                <div class="container-scroller">
+                                    @if (Session::has('success'))
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <strong>
+                                            {{ Session::get('success') }}
+                                        </strong>
+                                        <button type="button" class="close" data-dismiss='alert' aria-label="Close">
+                                            <span aria-hidden="true">&times; </span>
+                                        </button>
+                                    </div>
+                                @endif
+                                @if (Session::has('error'))
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>
+                                            {{ Session::get('error') }}
+                                        </strong>
+                                        <button type="button" class="close" data-dismiss='alert' aria-label="Close">
+                                            <span aria-hidden="true">&times; </span>
+                                        </button>
+                                    </div>
+                                @endif
                             </form>
                         </div>
                     </div>
