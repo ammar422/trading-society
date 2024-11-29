@@ -8,6 +8,8 @@ use App\Models\Instructor;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isEmpty;
+
 class InstructorController extends Controller
 {
     use ApiResponseTrait;
@@ -49,6 +51,10 @@ class InstructorController extends Controller
     {
         // Get instructors with their offers  
         $instructors = Instructor::activeInstructors()->whereHas('offers')->with('offers')->get();
+        
+        if ($instructors->isEmpty()) {
+            return $this->failedResponse('No instructors have offers yet.');
+        }
 
         // Transform the instructors data  
         $performanceData = $instructors->map(function ($instructor) {
@@ -77,7 +83,6 @@ class InstructorController extends Controller
                 'instructor_performance' => round($successRate, 2), // Rounded to two decimal places  
             ];
         });
-
-        return response()->json($performanceData);
+        return $this->successResponse($performanceData, 'instructor_performance_data', 'the instructor performance data get successfully');
     }
 }
