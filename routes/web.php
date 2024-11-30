@@ -69,6 +69,8 @@ route::prefix('instructor')->group(function () {
         route::get('tarde_alert', [OfferController::class, 'offerMainPage'])->name('offer.mainpage');
         route::get('tarde_alert/{id}', [OfferController::class, 'offerDetails'])->name('offer.details');
         route::get("new_trade_alert", [OfferController::class, 'newTradeAlert'])->name('offer.addNew');
+        route::get("edit_trade_alert/{id}", [OfferController::class, 'edit'])->name('offer.edit');
+        route::post("update_trade_alert/{id}", [OfferController::class, 'update'])->name('offer.update');
         route::post("new_trade_alert", [OfferController::class, 'store'])->name('offer.store');
     });
 });

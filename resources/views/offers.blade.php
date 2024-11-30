@@ -32,7 +32,8 @@
                     <div class="row">
                         <div class="col-8 col-sm-12 col-xl-8 my-auto">
                             <div class="d-flex d-sm-block d-md-flex align-items-center">
-                                <h2 class="mb-0"><a href="{{ route("offer.addNew") }}">Add New Trade ALert (Offer)</a></h2>
+                                <h2 class="mb-0"><a href="{{ route('offer.addNew') }}">Add New Trade ALert (Offer)</a>
+                                </h2>
                             </div>
                             <h6 class="text-muted font-weight-normal">Number Of Trade ALerts (Offers) So Far Is
                             </h6>
@@ -103,7 +104,9 @@
                                             </div>
 
                                             <div class="badge badge-outline-warning" role="button">
-                                                Edit
+                                                <a href="{{ route('offer.edit', $offer->id) }}">
+                                                    Edit
+                                                </a>
                                             </div>
 
                                             <div class="badge badge-outline-info" role="button"><a

@@ -9,6 +9,7 @@ use App\Traits\MediaTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTradeRequest;
+use App\Http\Requests\UpdateTradeRequest;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Laravel\Firebase\Facades\Firebase;
 use App\Notifications\NewDealUploadedNotification;
@@ -30,8 +31,12 @@ class OfferController extends Controller
 
     public function offerDetails($id)
     {
-        $offer = Offer::find($id);
-        return view('offers_details', compact('offer'));
+        $offer = Offer::findOrFail($id);
+        $instructor = auth('instructor')->user();
+        $offers = $instructor->offers()->paginate(config('constants.PAGINATE_COUNT'));
+        if ($offer->instructor_id == $instructor->id)
+            return view('offers_details', compact('offer'));
+        return redirect()->route('offer.mainpage')->with('error', 'sorry , you dont have permission to access this offer');
     }
 
 
@@ -96,9 +101,36 @@ class OfferController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update($id)
+    public function edit($id)
     {
-        //
+        $offer = Offer::findOrFail($id);
+
+        $instructor = auth('instructor')->user();
+
+        $offers = $instructor->offers()->paginate(config('constants.PAGINATE_COUNT'));
+
+        if ($offer->instructor_id == $instructor->id)
+            return view('edit_offer', compact('offer'));
+        return view('offers', compact('offers'));
+    }
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateTradeRequest $request,  $id)
+    {
+        $offer = Offer::findOrFail($id);
+
+        $instructor = auth('instructor')->user();
+
+        $offers = $instructor->offers()->paginate(config('constants.PAGINATE_COUNT'));
+
+        if ($offer->instructor_id == $instructor->id) {
+            $offer->update($request->validated());
+            if ($offer)
+                return redirect()->route('offer.mainpage')->with('success', 'Trade Alert (Offer) updated succesfully ');
+            return redirect()->route('offer.mainpage')->with('error', 'sorry , Trade Alert (Offer) cant be updated');
+        }
+        return redirect()->route('offer.mainpage')->with('error', 'sorry , Trade Alert (Offer) cant be updaetd');
     }
 
     /**

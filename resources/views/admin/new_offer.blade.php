@@ -63,9 +63,18 @@
 
                         <div class="col-md-6 mb-3">
                             <label for="order_status" class="form-label">Order Status</label>
-                            <input type="text" class="form-control @error('order_status') is-invalid @enderror"
-                                id="order_status" name="order_status"
-                                 step="0.01" required>
+                                 <select class="form-control @error('order_status') is-invalid @enderror" name="order_status"
+                                 value="{{ old('order_status') }}">
+                                 <option value="bending ">Bending </option>
+                                 <option value="active ">Active </option>
+                                 <option value="deleted">Deleted</option>
+                                 <option value="hit_sl">Hit sl</option>
+                                 <option value="hit_tp1">Hit tp1</option>
+                                 <option value="hit_tp2">Hit tp2</option>
+                                 <option value="hit_tp3">Hit tp3</option>
+                                 <option value="hit_tp4">Hit tp4</option>
+                                 <option value="hit_tp5">Hit tp5</option>
+                             </select>
                             @error('order_status')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -136,7 +145,7 @@
 
                     <!-- Submit Button -->
                     <div class="text-end">
-                        <button type="submit" class="btn btn-primary">Update Offer</button>
+                        <button type="submit" class="btn btn-primary">Publish Offer</button>
                     </div>
                 </div>
             </div>

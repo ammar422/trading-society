@@ -3,8 +3,7 @@
 @section('title', 'Edit Trading Offer')
 @section('content')
 
-    <form  method="POST" action="{{ route('admin.offers.update', $offer->id) }}"
-        enctype="multipart/form-data">
+    <form method="POST" action="{{ route('admin.offers.update', $offer->id) }}" enctype="multipart/form-data">
         @csrf
 
         <div class="form-container">
@@ -52,9 +51,21 @@
 
                         <div class="col-md-6 mb-3">
                             <label for="order_status" class="form-label">Order Status</label>
-                            <input type="text" class="form-control @error('order_status') is-invalid @enderror"
+                            {{-- <input type="text" class="form-control @error('order_status') is-invalid @enderror"
                                 id="order_status" name="order_status"
-                                value="{{ old('order_status', $offer->order_status) }}" step="0.01" required>
+                                value="{{ old('order_status', $offer->order_status) }}" step="0.01" required> --}}
+                            <select class="form-control @error('order_status') is-invalid @enderror" name="order_status">
+                                @selected($offer->order_status)
+                                <option value="bending" @selected($offer->order_status)>Bending </option>
+                                <option value="active" @selected($offer->order_status)>Active </option>
+                                <option value="deleted" @selected($offer->order_status)>Deleted</option>
+                                <option value="hit_sl" @selected($offer->order_status)>Hit sl</option>
+                                <option value="hit_tp1" @selected($offer->order_status)>Hit tp1</option>
+                                <option value="hit_tp2" @selected($offer->order_status)>Hit tp2</option>
+                                <option value="hit_tp3" @selected($offer->order_status)>Hit tp3</option>
+                                <option value="hit_tp4" @selected($offer->order_status)>Hit tp4</option>
+                                <option value="hit_tp5" @selected($offer->order_status)>Hit tp5</option>
+                            </select>
                             @error('order_status')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
