@@ -130,7 +130,7 @@ class AuthController extends Controller
     public function loginWithSSO(Request $request)
     {
         $response = Http::post('https://api.hfssociety.com/api/v1/login-token', [
-        // $response = Http::post('http://127.0.0.1:7000/api/v1/login-token', [ //for testing only
+            // $response = Http::post('http://127.0.0.1:7000/api/v1/login-token', [ //for testing only
             'email' => $request->email,
             'password' => $request->password,
         ]);
@@ -142,7 +142,7 @@ class AuthController extends Controller
             $userResponse = Http::withToken($token)->get('https://api.hfssociety.com/api/v1/get-login-user');
             // $userResponse = Http::withToken($token)->get('http://127.0.0.1:7000/api/v1/get-login-user'); // for testing only
             if ($userResponse->successful()) {
-                 $userData = $userResponse->json();
+                $userData = $userResponse->json();
 
                 // Check if the user exists
                 $user = User::where('email', $userData['user']['email'])->first();
@@ -153,7 +153,7 @@ class AuthController extends Controller
                         'name' => $userData['user']['name'],
                         // 'first_name' => $userData['first_name'],
                         // 'last_name' => $userData['last_name'],
-                        'phone_number' => $userData['user']['phone']?? "unll from HFS",
+                        'phone_number' => $userData['user']['phone'] ?? "unll from HFS",
                         'package' => $userData['user']['package_name'],
                         'subscripition_start_at' => $userData['user']['subscribed_at'],
                         'subscripition_end_at' => $userData['user']['expiration_date'],
@@ -165,7 +165,7 @@ class AuthController extends Controller
                         'name' => $userData['user']['name'],
                         'first_name' => 'first_name',
                         'last_name' => 'last_name',
-                        'phone_number' => $userData['user']['phone']?? "unll from HFS",
+                        'phone_number' => $userData['user']['phone'] ?? "unll from HFS",
                         'password' => bcrypt(Str::random(10)), // Generate a random password
                         'package' => $userData['user']['package_name'],
                         'subscripition_start_at' => $userData['user']['subscribed_at'],
@@ -176,7 +176,9 @@ class AuthController extends Controller
                 Auth::login($user);
                 return response()->json([
                     'status' => true,
-                    'message' => 'Logged in successfully'
+                    'message' => 'Logged in successfully',
+                    'token' => $user->createToken('USER Token')->plainTextToken,
+                    'user' => $user
                 ]);
             }
         }
