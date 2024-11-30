@@ -53,8 +53,10 @@ class OfferController extends Controller
     public function store(StoreTradeRequest $request)
     {
         $data =  $request->validated();
-        $chart = $this->saveImage('trades_images', $request->chart);
-        $data['chart'] = $chart;
+        if ($request->hasFile('chart')) {
+            $chart = $this->saveImage('trades_images', $request->chart);
+            $data['chart'] = $chart;
+        }
         $offer = Offer::create($data);
 
         $users = User::all();
@@ -125,7 +127,12 @@ class OfferController extends Controller
         $offers = $instructor->offers()->paginate(config('constants.PAGINATE_COUNT'));
 
         if ($offer->instructor_id == $instructor->id) {
-            $offer->update($request->validated());
+            $data = $request->validated();
+            if ($request->hasFile('chart')) {
+                $chart = $this->saveImage('trades_images', $request->chart);
+                $data['chart'] = $chart;
+            }
+            $offer->update($data);
             if ($offer)
                 return redirect()->route('offer.mainpage')->with('success', 'Trade Alert (Offer) updated succesfully ');
             return redirect()->route('offer.mainpage')->with('error', 'sorry , Trade Alert (Offer) cant be updated');
