@@ -70,7 +70,7 @@
                                     <ul>
                                         <li><a href="#location" data-toggle="tab">Login data</a></li>
                                         <li><a href="#type" data-toggle="tab">Position</a></li>
-                                        <li><a href="#facilities" data-toggle="tab">Profile Image</a></li>
+                                        <li><a href="#facilities" data-toggle="tab">Profile Image and Video</a></li>
                                         <li><a href="#description" data-toggle="tab">Description</a></li>
                                     </ul>
                                 </div>
@@ -140,10 +140,10 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="facilities">
-                                        <h4 class="info-text">Upload a clear picture ,
-                                            It will be a personal photo. </h4>
+                                        <h4 class="info-text">Upload a clear Video and picture ,
+                                            It will be a personal entities. </h4>
                                         <div class="row">
-                                            <div class="col-sm-5 col-sm-offset-1">
+                                            <div class="col-sm-12 col-sm-offset-1">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">Instructor Profile Photo</label>
                                                     <input id="photo" name="photo" type="file"
@@ -153,6 +153,18 @@
                                                         instructor.</strong>
                                                 </div>
                                             </div>
+                                            <br><br>
+                                            <div class="col-sm-12 col-sm-offset-1">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Instructor Profile Video</label>
+                                                    <input id="video" name="video" type="file"
+                                                        class="file">
+                                                    <strong class="form-text text-muted">Click Here to Upload a clear
+                                                        Video of the
+                                                        instructor.</strong>
+                                                </div>
+                                            </div>
+
 
                                             <div hidden @disabled(true) class="col-sm-5">
                                                 <div class="form-group label-floating">

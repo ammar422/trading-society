@@ -20,6 +20,7 @@ class InstructorResource extends JsonResource
             'Instructor_position' => $this->position,
             'description' => $this->description,
             'Instructor_image' => $this->photo,
+            'Instructor_video' => $this->video,
             'rate' => '5 stars',
             'courses' => CoursesResource::collection($this->whenLoaded('courses'))
         ];

@@ -75,6 +75,13 @@ return [
                 ],
             ],
         ],
+        'instructors_videos' => [
+            'driver' => 'local',
+            'root' => base_path('uploads/vedios/instructors_videos'),
+            'url' => env('APP_URL') . '/uploads',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
         'courses_images' => [
             'driver' => 'local',
             'root' => base_path('uploads/images/courses_images'),

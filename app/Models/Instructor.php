@@ -21,11 +21,21 @@ class Instructor extends Authenticatable
         'position',
         'description',
         'photo',
-        'status'
+        'status',
+        'video'
     ];
 
 
     public function photo(): Attribute
+    {
+        return new Attribute(
+            get: function ($value) {
+                return env('APP_URL') . '/uploads/' . $value;
+            }
+        );
+    }
+
+    public function video(): Attribute
     {
         return new Attribute(
             get: function ($value) {
