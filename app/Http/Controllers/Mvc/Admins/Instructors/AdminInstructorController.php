@@ -80,7 +80,7 @@ class AdminInstructorController extends Controller
             $image = $this->saveImage('instructors_images', $request->validated('photo'));
             $data['photo'] = $image;
         }
-        if ($request->hasFile('video')) {
+        if ($request->has('video')) {
             $video = $this->saveVideo('instructors_videos', $request->validated('photo'));
             $data['video'] = $video;
         }
