@@ -80,6 +80,10 @@ class AdminInstructorController extends Controller
             $image = $this->saveImage('instructors_images', $request->validated('photo'));
             $data['photo'] = $image;
         }
+        if ($request->hasFile('video')) {
+            $video = $this->saveVideo('instructors_videos', $request->validated('photo'));
+            $data['video'] = $video;
+        }
         if ($request->has('password')) {
             $data['password'] = bcrypt($request->validated('password'));
         }

@@ -27,7 +27,9 @@ class UpdateInstructorRequest extends FormRequest
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'position' => 'string|max:100',
             'description' => 'nullable|string|max:500',
-            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg']
+            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
+            'video' => ['nullable', 'mimes:mp4,mov,ogg,qt']
+
         ];
     }
 }
