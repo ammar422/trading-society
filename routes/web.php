@@ -122,6 +122,7 @@ route::prefix('admin')->group(function () {
         route::get('instructors/new', [AdminInstructorController::class, 'create'])->name('admin.instructor.create');
         route::get('instructors/{id}/edit', [AdminInstructorController::class, 'edit'])->name('admin.instructor.edit');
         route::post('instructors/{id}/update', [AdminInstructorController::class, 'update'])->name('admin.instructor.update');
+        route::get('instructor/{id}/video', [AdminInstructorController::class, 'instructorVideo'])->name('admin.instructor.video');
         route::post('instructors', [AdminInstructorController::class, 'store'])->name('admin.instructor.store');
         route::post('instructors/{id}/delete', [AdminInstructorController::class, 'destroy'])->name('admin.instructor.destroy');
         route::post('instructor/{id}/change_status', [AdminInstructorController::class, 'changeStatus'])->name('admin.instructor.status');

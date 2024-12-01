@@ -127,4 +127,16 @@ class AdminInstructorController extends Controller
         }
         return redirect()->route('admin.instructor')->with('error', 'something went wrong , try again');
     }
+
+
+
+    public function instructorVideo($id)
+    {
+        $instructor = Instructor::find($id);
+        //Check if video URL exists
+        if (empty($instructor->video)) {
+            return redirect()->back()->with('error', 'Video not found for this instructor.');
+        }
+        return view('admin.instructor_video', ['instructor' => $instructor]);
+    }
 }

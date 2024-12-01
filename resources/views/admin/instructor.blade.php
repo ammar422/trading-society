@@ -113,6 +113,13 @@
                                                         data-original-title="Edit user">
                                                         Edit
                                                     </a>
+
+                                                    <a href="{{ route('admin.instructor.video', $instructor->id) }}"
+                                                        class="btn btn-primary btn-sm font-weight-bold text-xs"
+                                                        style="margin-right: 0.5rem" data-toggle="tooltip"
+                                                        data-original-title="Edit user">
+                                                        Watch video
+                                                    </a>
                                                     {{-- <a href="javascript:;"
                                                         class="btn btn-danger btn-sm font-weight-bold text-xs"  style="margin-right: 0.5rem"
                                                         data-toggle="tooltip" data-original-title="Delete user">
