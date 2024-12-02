@@ -18,7 +18,7 @@ class InstructorController extends Controller
     public function index()
     {
         $instructors = Instructor::activeInstructors()->whereHas('courses')->paginate(config('constants.PAGINATE_COUNT'));
-        if($instructors->isEmpty()){
+        if ($instructors->isEmpty()) {
             return $this->failedResponse('No instructors have courses yet.');
         }
         return $this->successResponse(
@@ -41,10 +41,11 @@ class InstructorController extends Controller
 
     public function instructorCourses(Instructor $instructor)
     {
+
         if ($instructor->status == 'active') {
-            $instructor->load('courses.courseVedios');
+            $instructor->load('courses');
             return $this->successResponse(
-                new InstructorResource($instructor),
+                $instructor,
                 'instructor_with_courses',
                 'all instructor\'s courses get successfully',
                 200

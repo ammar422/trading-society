@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->on('users')->onDelete('cascade');
             $table->foreignId('course_id')->constrained()->on('courses')->onDelete('cascade');
-            $table->boolean('is_completed')->default(false); // Course completion status
+            $table->boolean('is_completed')->default(true); // Course completion status
             $table->timestamps();
         });
     }

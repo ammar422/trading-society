@@ -15,7 +15,7 @@ use App\Http\Resources\CategoryResource;
 class CourseController extends Controller
 {
     use ApiResponseTrait, MediaTrait;
- 
+
     public function index()
     {
         $category = Category::paginate(config('constants.PAGINATE_COUNT'));
@@ -32,18 +32,23 @@ class CourseController extends Controller
     public function show(Course $course)
     {
         $user = Auth::user();
+        // Load the course videos without ordering for now  
         $course->load('courseVedios');
-        $categories = Category::orderBy('order', 'asc')->get();
 
+        // Order the videos after loading  
+        $courseVideos = $course->courseVedios->sortBy('order')->values(); // Sort the videos  
+
+        // Assuming you already have the $course instance  
+        $categories = Category::orderBy('order', 'asc')->get();
         $currentCategory = $course->category;
 
         $currentCategoryIndex = $categories->search(function ($category) use ($currentCategory) {
             return $category->id === $currentCategory->id;
         });
 
-        if ($currentCategoryIndex === 0) {
+        if ($currentCategoryIndex == 0) {
             return $this->successResponse(
-                new CoursesResource($course),
+                new CoursesResource($course, $courseVideos), // Pass ordered videos to the resource  
                 'course',
                 'Course can be accessed because there\'s no previous category.'
             );
@@ -51,20 +56,20 @@ class CourseController extends Controller
 
         $previousCategory = $categories[$currentCategoryIndex - 1];
 
-        $completedCourse = $user->courses()
-            ->where('category_id', $previousCategory->id)
-            ->wherePivot('is_completed', 1)
-            ->first();
+        $completedCourses = $user->courses()  
+        ->where('category_id', $previousCategory->id)  
+        ->wherePivot('is_completed', 1) 
+        ->get();  
 
-        if ($completedCourse) {
+        if ($completedCourses) {
             return $this->successResponse(
-                new CoursesResource($course),
+                new CoursesResource($course, $courseVideos), // Pass ordered videos to the resource  
                 'course',
-                'Course can be accessed , User has completed at least one course in the previous category.'
+                'Course can be accessed, User has completed at least one course in the previous category.'
             );
         }
         return $this->failedResponse(
-            'You need to complete at lest one course from the previous category before accessing this course.',
+            'You need to complete at least one course from the previous category before accessing this course.',
             403
         );
     }
@@ -74,8 +79,8 @@ class CourseController extends Controller
     {
         $user = Auth::user();
         if ($user->courses->contains($course->id))
-            return $this->failedResponse();
+            return $this->failedResponse('This course is already among the courses that have been marked as finished');
         $user->courses()->attach($course->id);
-        return $this->successResponse(new CoursesResource($course), 'course', 'the course mark as completed');
+        return $this->successResponse($course, 'course', 'the course mark as completed');
     }
 }

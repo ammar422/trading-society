@@ -21,6 +21,7 @@ class VedioResource extends JsonResource
             'vedio_time'  => $this->duration,
             'vedio_description'  => $this->description,
             'vedio_image'  => $this->image,
+            'vedio_order'  => $this->order,
             'vedio_uploaded_at'  => $this->created_at,
         ];
     }

@@ -7,12 +7,15 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class CoursesResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
-    public function toArray(Request $request): array
+    protected $courseVideos;
+
+    public function __construct($resource, $courseVideos = null)
+    {
+        parent::__construct($resource);
+        $this->courseVideos = $courseVideos;
+    }
+
+    public function toArray($request): array
     {
         return [
             'id' => $this->id,
@@ -23,7 +26,7 @@ class CoursesResource extends JsonResource
             'course_instructor_name' => $this->instructor->name,
             'instructor_photo' => $this->instructor->photo,
             'course_photo' => $this->photo,
-            'course_vedios' => VedioResource::collection($this->whenLoaded('courseVedios'))
+            'course_videos' => VedioResource::collection($this->courseVideos) // Use the ordered videos  
         ];
     }
 }
