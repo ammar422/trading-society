@@ -13,6 +13,6 @@ class CourseVedioSeeder extends Seeder
      */
     public function run(): void
     {
-        CourseVedio::factory(30)->create();
+        // CourseVedio::factory(30)->create();
     }
 }

@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('course_id')->constrained()->on('courses')->onDelete('cascade'); // Assuming a foreign key to courses  
             $table->string('vedio_url');
-            $table->string('duration'); 
+            $table->string('duration');
             $table->text('description');
-            $table->string('image'); 
-            $table->integer('order')->nullable(); 
+            $table->string('image');
+            $table->integer('order');
             $table->timestamps();
         });
     }

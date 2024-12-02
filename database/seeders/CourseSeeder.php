@@ -13,6 +13,6 @@ class CourseSeeder extends Seeder
      */
     public function run(): void
     {
-        Course::factory(config('constants.FACTORY_COUNT'))->create();
+        Course::factory(config('constants.FACTORY_COUNT'))->hascourseVedios()->create();
     }
 }

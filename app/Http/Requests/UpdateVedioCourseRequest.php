@@ -26,6 +26,7 @@ class UpdateVedioCourseRequest extends FormRequest
             'vedio_url' => 'sometimes|file|mimes:mp4,avi,mov,mkv',
             'duration' => 'sometimes|numeric',
             'description' => 'sometimes|string|max:1000',
+            'order' => 'sometimes|numeric|max:1000',
             'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif',
         ];
     }

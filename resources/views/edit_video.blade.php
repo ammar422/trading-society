@@ -74,6 +74,20 @@
                         @enderror
                     </div>
 
+                    <div class="form-group">
+                        <label for="exampleInputEmail3">Video Order</label>
+                        <input type="text" name="order" value="{{ $courseVedio->order }}"
+                            class="form-control @error('order') is-invalid @enderror" id="exampleInputEmail3"
+                            placeholder="Video order">
+                        @error('order')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>
+                                    {{ $message }}
+                                </strong>
+                            </span>
+                        @enderror
+                    </div>
+
 
                     <div class="form-group">
                         <label>Video Image</label>

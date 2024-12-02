@@ -32,7 +32,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th> Video ID </th>
+
                                     <th> Video Order No </th>
                                     <th> Course title </th>
                                     <th> Video Duration </th>
@@ -46,7 +46,7 @@
                                 @isset($courseVedios)
                                     @foreach ($courseVedios as $vedio)
                                         <tr>
-                                            <td> {{ $vedio->id }}</td>
+
                                             <td> {{ $vedio->order }}</td>
                                             <td> {{ $vedio->course->title }}</td>
                                             <td> {{ $vedio->duration }}</td>
@@ -69,14 +69,15 @@
                                                     </a>
                                                 </div>
                                                 <div class="badge">
-                                                    <form action="{{ route('course_vedio.delete', $vedio->id) }}" method="POST">
+                                                    <form action="{{ route('course_vedio.delete', $vedio->id) }}"
+                                                        method="POST">
                                                         @method('delete') @csrf
                                                         <button class="badge badge-outline-danger" type="submit">
                                                             Delete
                                                         </button>
                                                     </form>
                                                 </div>
-    
+
                                             </td>
                                         </tr>
                                     @endforeach
