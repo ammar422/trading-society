@@ -21,7 +21,7 @@ class CourseController extends Controller
         $category = Category::paginate(config('constants.PAGINATE_COUNT'));
         $courses = $category->load('courses');
         return $this->successResponse(
-            CategoryResource::collection($courses)->response()->getData(true),
+          $courses,
             'courses',
             'all courses under each category get successfully'
         );
