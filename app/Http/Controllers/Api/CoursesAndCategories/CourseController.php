@@ -19,12 +19,12 @@ class CourseController extends Controller
     public function index()
     {
         $category = Category::paginate(config('constants.PAGINATE_COUNT'));
-        $courses = $category->load('courses');
-        return $this->successResponse(
-          $courses,
-            'courses',
-            'all courses under each category get successfully'
-        );
+        $courses = $category->load('courses.instructor',);
+        return response()->json([
+            'status' => true,
+            'message' => 'all courses under each category get successfully',
+            'courses' =>  $courses,
+        ]);
     }
 
 
@@ -56,10 +56,10 @@ class CourseController extends Controller
 
         $previousCategory = $categories[$currentCategoryIndex - 1];
 
-        $completedCourses = $user->courses()  
-        ->where('category_id', $previousCategory->id)  
-        ->wherePivot('is_completed', 1) 
-        ->get();  
+        $completedCourses = $user->courses()
+            ->where('category_id', $previousCategory->id)
+            ->wherePivot('is_completed', 1)
+            ->get();
 
         if ($completedCourses) {
             return $this->successResponse(

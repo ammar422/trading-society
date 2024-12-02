@@ -3,6 +3,7 @@
 @section('page', 'instructor-video')
 
 @section('content')
+    {{ $instructor }}
     <div class="container">
         <h1>{{ $instructor->name }}'s Video</h1>
 
@@ -13,7 +14,7 @@
             </video>
         @elseif(isset($videoUrl))
             <video width="640" height="360" controls>
-                <source src="{{ $video }}" type="video/mp4">
+                <source src="{{ $instructor->video }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         @else
