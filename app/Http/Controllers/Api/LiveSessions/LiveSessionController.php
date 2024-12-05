@@ -38,7 +38,7 @@ class LiveSessionController extends Controller
      */
     public function show($id)
     {
-        $liveSession = LiveSession::findOrFail($id);
+        $liveSession = LiveSession::with('instructor:id,name')->findOrFail($id);
         return response()->json([
             'status' => true,
             'message' => 'the live session quired successfully',
