@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\OnlineSesions\ZoomController;
 use App\Http\Controllers\Api\Instructor\InstructorController;
 use App\Http\Controllers\Api\CoursesAndCategories\CourseController;
 use App\Http\Controllers\Api\CoursesAndCategories\CategoryController;
+use App\Http\Controllers\Api\LiveSessions\LiveSessionController;
 
 route::prefix('v1')->group(function () {
 
@@ -58,7 +59,7 @@ route::prefix('v1')->group(function () {
 
         // instructor 
         // route::apiResource('instructor', InstructorController::class); //It needs to be divided
-        route::get('instructors-performance' , [InstructorController::class , 'instructorsPerformance']);
+        route::get('instructors-performance', [InstructorController::class, 'instructorsPerformance']);
         route::get('instructor/{instructor}', [InstructorController::class, 'show'])->name('instructor.show');
         route::get('instructor_courses/{instructor}', [InstructorController::class, 'instructorCourses'])->name('instructor.courses');
 
@@ -78,6 +79,10 @@ route::prefix('v1')->group(function () {
         // notification
         Route::get('/notifications', [NotificationController::class, 'index']);
         Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAsRead']);
+
+        //livesessions
+        route::get('live-sessions', [LiveSessionController::class, 'index']);
+        route::get('live-sessions/{id}', [LiveSessionController::class, 'show']);
     });
 
 

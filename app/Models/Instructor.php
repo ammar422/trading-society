@@ -70,4 +70,9 @@ class Instructor extends Authenticatable
     {
         return $this->hasMany(Offer::class, 'instructor_id', 'id');
     }
+
+    public function liveSeesions(): HasMany
+    {
+        return $this->hasMany(LiveSession::class);
+    }
 }
