@@ -18,6 +18,7 @@ class LiveSession extends Model
         'duration',
         'image',
         'video',
+        'status',
         'instructor_id',
     ];
 

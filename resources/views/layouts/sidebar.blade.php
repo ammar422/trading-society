@@ -45,7 +45,7 @@
               </a>
           </li>
           <li class="nav-item menu-items">
-              <a class="nav-link" href="">
+              <a class="nav-link" href="{{ route('live-sessions.index') }}">
                   <span class="menu-icon">
                       <i class="mdi mdi-trophy-variant-outline"></i>
                   </span>

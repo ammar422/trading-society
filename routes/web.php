@@ -13,6 +13,7 @@ use App\Http\Controllers\Mvc\CoursesAndCategories\CourseController;
 use App\Http\Controllers\Mvc\CoursesAndCategories\CategoryController;
 use App\Http\Controllers\Mvc\Auth\Instructor\InstructorAuthController;
 use App\Http\Controllers\Mvc\CoursesAndCategories\CourseVediosController;
+use App\Http\Controllers\Mvc\LiveSessions\InstructorLiveSessionController;
 use App\Models\Category;
 use App\Models\Course;
 
@@ -72,6 +73,15 @@ route::prefix('instructor')->group(function () {
         route::get("edit_trade_alert/{id}", [OfferController::class, 'edit'])->name('offer.edit');
         route::post("update_trade_alert/{id}", [OfferController::class, 'update'])->name('offer.update');
         route::post("new_trade_alert", [OfferController::class, 'store'])->name('offer.store');
+
+
+
+        // live sessions 
+        route::get('live-sessions', [InstructorLiveSessionController::class, 'index'])->name('live-sessions.index');
+        route::get("new-live-sessions", [InstructorLiveSessionController::class, 'create'])->name('live-sessions.create');
+        route::get("edit-live-sessions/{id}", [InstructorLiveSessionController::class, 'edit'])->name('live-sessions.edit');
+        route::post("update-live-sessions/{id}", [InstructorLiveSessionController::class, 'update'])->name('live-sessions.update');
+        route::post("new-live-sessions", [InstructorLiveSessionController::class, 'store'])->name('live-sessions.store');
     });
 });
 

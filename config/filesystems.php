@@ -82,6 +82,14 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+
+        'liveSession_videos' => [
+            'driver' => 'local',
+            'root' => base_path('uploads/vedios/liveSession_videos'),
+            'url' => env('APP_URL') . '/uploads',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
         'courses_images' => [
             'driver' => 'local',
             'root' => base_path('uploads/images/courses_images'),
@@ -101,6 +109,14 @@ return [
         'instructors_images' => [
             'driver' => 'local',
             'root' => base_path('uploads/images/instructors_images'),
+            'url' => env('APP_URL') . '/uploads',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'liveSession_images' => [
+            'driver' => 'local',
+            'root' => base_path('uploads/images/liveSession_images'),
             'url' => env('APP_URL') . '/uploads',
             'visibility' => 'public',
             'throw' => false,
