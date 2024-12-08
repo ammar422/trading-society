@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\LiveSessions;
 
 use App\Http\Controllers\Controller;
+use App\Models\Instructor;
 use App\Models\LiveSession;
 use Illuminate\Http\Request;
 
@@ -13,12 +14,10 @@ class LiveSessionController extends Controller
      */
     public function index()
     {
-        $liveSessions = LiveSession::where('status', 'active')
-            ->select('id', 'title', 'description', 'image', 'instructor_id')
-            ->with('instructor:id,name')
-            ->get();
+        $instructors = Instructor::whereHas('liveSeesions')->paginate(10);
+        // $instructors->load('liveSeesions');
 
-        if ($liveSessions->isEmpty()) {
+        if ($instructors->isEmpty()) {
             return response()->json([
                 'status' => false,
                 'message' => 'There is no active live session',
@@ -28,7 +27,7 @@ class LiveSessionController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'all data quired successfully',
-            'data' => $liveSessions
+            'instructors' => $instructors
         ]);
     }
 
@@ -38,11 +37,13 @@ class LiveSessionController extends Controller
      */
     public function show($id)
     {
-        $liveSession = LiveSession::with('instructor:id,name')->findOrFail($id);
+        $instructor = Instructor::findOrFail($id);
+        $instructor->load('liveSeesions');
         return response()->json([
-            'status' => true,
-            'message' => 'the live session quired successfully',
-            'data' => $liveSession
+            'status'        => true,
+            'message'       => 'the live session quired successfully',
+            'data'          => $instructor,
+
         ]);
     }
 }
