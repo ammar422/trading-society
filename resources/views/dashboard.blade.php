@@ -32,7 +32,7 @@
                     <div class="row">
                         <div class="col-8 col-sm-12 col-xl-8 my-auto">
                             <div class="d-flex d-sm-block d-md-flex align-items-center">
-                                <h2 class="mb-0"><a href="">Live Sessions</a></h2>
+                                <h2 class="mb-0"><a href="{{ route('live-sessions.index') }}">Live Sessions</a></h2>
                             </div>
                             <h6 class="text-muted font-weight-normal">Number Of Live Sessions So Far Is
                                 {{-- {{ App\models\Category::All()->count() }}</h6> --}}
