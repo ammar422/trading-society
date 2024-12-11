@@ -89,11 +89,11 @@ class CourseController extends Controller
 
         // Define the package permissions
         $packagePermissions = [
-            'Essential' => ['beginners', 'basics'],
-            'Basic' => ['beginners', 'basics'],
-            'Premium' => ['beginners', 'basics', 'advance'],
-            'Pro' => ['beginners', 'basics', 'advance', 'expert'],
-            'Ultimate' => ['beginners', 'basics', 'advance', 'expert', 'expert_plus'],
+            'Essential'     => ['beginners', 'basics'],
+            'Basic'         => ['beginners', 'basics'],
+            'Premium'       => ['beginners', 'basics', 'advanced'],
+            'Pro'           => ['beginners', 'basics', 'advanced', 'expert'],
+            'Ultimate'      => ['beginners', 'basics', 'advanced', 'expert', 'expert_plus'],
         ];
 
         // Check the user's package level
