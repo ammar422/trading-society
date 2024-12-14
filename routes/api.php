@@ -44,6 +44,9 @@ route::prefix('v1')->group(function () {
     route::get('category', [CategoryController::class, 'index'])->name('category.index');
 
 
+
+
+    // all authenticted routes
     route::middleware('auth:sanctum')->group(function () {
 
         Route::post('save-fcm-token', [NotificationController::class, 'saveFcmToken']);

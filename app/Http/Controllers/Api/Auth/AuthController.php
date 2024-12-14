@@ -116,6 +116,9 @@ class AuthController extends Controller
                     'user_last_name' => $user->last_name,
                     'phone' => $user->phone_number,
                     'profile_image' => $user->profile_image,
+                    'package' => $user->package,
+                    'subscripition_start_at' => $user->subscripition_start_at,
+                    'subscripition_end_at' => $user->subscripition_end_at,
                 ]
             ], 201);
         }
@@ -161,15 +164,15 @@ class AuthController extends Controller
                 } else {
                     // Create a new user
                     $user = User::create([
-                        'email' => $userData['user']['email'],
-                        'name' => $userData['user']['name'],
-                        'first_name' => 'first_name',
-                        'last_name' => 'last_name',
-                        'phone_number' => $userData['user']['phone'] ?? "unll from HFS",
-                        'password' => bcrypt(Str::random(10)), // Generate a random password
-                        'package' => $userData['user']['package_name'],
-                        'subscripition_start_at' => $userData['user']['subscribed_at'],
-                        'subscripition_end_at' => $userData['user']['expiration_date'],
+                        'email'                    => $userData['user']['email'],
+                        'name'                     => $userData['user']['name'],
+                        'first_name'               => $userData['user']['name'],
+                        'last_name'                => 'last_name',
+                        'phone_number'             => $userData['user']['phone'] ?? "unll from HFS",
+                        'password'                 => bcrypt(Str::random(10)),
+                        'package'                  => $userData['user']['package_name'],
+                        'subscripition_start_at'   => $userData['user']['subscribed_at'],
+                        'subscripition_end_at'     => $userData['user']['expiration_date'],
                     ]);
                 }
 
