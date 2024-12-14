@@ -35,7 +35,7 @@ return [
 
     'paths' => ['api/*', 'broadcasting/auth', 'sanctum/csrf-cookie'], // Add 'broadcasting/auth'
     'allowed_methods' => ['*'],
-    'allowed_origins' => ['http://localhost:5173', 'https://tradingsociety.net'], // Add your front-end origin
+    'allowed_origins' => ['http://localhost:5173', 'http://localhost:5174', 'https://tradingsociety.net'], // Add your front-end origin
     'allowed_origins_patterns' => [],
     'allowed_headers' => ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
     'exposed_headers' => [],
