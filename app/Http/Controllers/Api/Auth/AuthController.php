@@ -154,7 +154,7 @@ class AuthController extends Controller
                     // Update existing user
                     $user->update([
                         'name' => $userData['user']['name'],
-                        // 'first_name' => $userData['first_name'],
+                        'first_name' => $userData['user']['name'],
                         // 'last_name' => $userData['last_name'],
                         'phone_number' => $userData['user']['phone'] ?? "unll from HFS",
                         'package' => $userData['user']['package_name'],
