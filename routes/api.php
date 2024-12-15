@@ -44,7 +44,7 @@ route::prefix('v1')->group(function () {
     route::get('category', [CategoryController::class, 'index'])->name('category.index');
 
     //sync with HFS
-    Route::post('/users/sync', [AuthController::class, 'syncUser']);
+    Route::post('sync', [AuthController::class, 'syncUser']);
 
 
     // all authenticted routes
