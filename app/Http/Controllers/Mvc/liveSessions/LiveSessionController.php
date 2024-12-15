@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Mvc\LiveSessions;
+namespace App\Http\Controllers\Mvc\liveSessions;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLiveSessionRequest;
 use App\Http\Requests\UpdateLiveSessionRequest;
 use App\Models\LiveSession;
 use App\Traits\MediaTrait;
-use Illuminate\Http\Request;
 
-class InstructorLiveSessionController extends Controller
+class LiveSessionController extends Controller
 {
     use MediaTrait;
     /**

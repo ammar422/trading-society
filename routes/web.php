@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mvc\Offer\OfferController;
 use App\Http\Controllers\Mvc\Auth\Admin\AdminAuthController;
 use App\Http\Controllers\Mvc\Admins\Users\AdminUsersController;
+use App\Http\Controllers\Mvc\liveSessions\LiveSessionController;
 use App\Http\Controllers\Mvc\Admins\Offres\AdminOffersController;
 use App\Http\Controllers\Mvc\Admins\Courses\AdminCourseController;
 use App\Http\Controllers\Mvc\CoursesAndCategories\CourseController;
@@ -15,7 +16,6 @@ use App\Http\Controllers\Mvc\Auth\Instructor\InstructorAuthController;
 use App\Http\Controllers\Mvc\Admins\Categories\AdminCategoryController;
 use App\Http\Controllers\Mvc\CoursesAndCategories\CourseVediosController;
 use App\Http\Controllers\Mvc\Admins\Instructors\AdminInstructorController;
-use App\Http\Controllers\Mvc\LiveSessions\InstructorLiveSessionController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -77,11 +77,11 @@ route::prefix('instructor')->group(function () {
 
 
         // live sessions 
-        route::get('live-sessions', [InstructorLiveSessionController::class, 'index'])->name('live-sessions.index');
-        route::get("new-live-sessions", [InstructorLiveSessionController::class, 'create'])->name('live-sessions.create');
-        route::get("edit-live-sessions/{id}", [InstructorLiveSessionController::class, 'edit'])->name('live-sessions.edit');
-        route::post("update-live-sessions/{id}", [InstructorLiveSessionController::class, 'update'])->name('live-sessions.update');
-        route::post("new-live-sessions", [InstructorLiveSessionController::class, 'store'])->name('live-sessions.store');
+        route::get('live-sessions', [LiveSessionController::class, 'index'])->name('live-sessions.index');
+        route::get("new-live-sessions", [LiveSessionController::class, 'create'])->name('live-sessions.create');
+        route::get("edit-live-sessions/{id}", [LiveSessionController::class, 'edit'])->name('live-sessions.edit');
+        route::post("update-live-sessions/{id}", [LiveSessionController::class, 'update'])->name('live-sessions.update');
+        route::post("new-live-sessions", [LiveSessionController::class, 'store'])->name('live-sessions.store');
     });
 });
 

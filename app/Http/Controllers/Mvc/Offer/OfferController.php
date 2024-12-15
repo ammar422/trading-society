@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\Offer;
 use App\Models\Instructor;
 use App\Traits\MediaTrait;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTradeRequest;
 use App\Http\Requests\UpdateTradeRequest;
