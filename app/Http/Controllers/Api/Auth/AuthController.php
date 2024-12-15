@@ -217,13 +217,13 @@ class AuthController extends Controller
 
         $data = $validator->validated();
 
-        // Check if the user already exists
-        $user = User::where('email', $data['email'])->first();
+        $user = User::where('email', $request->email)->first();
 
         if ($user) {
-            // Update user data
             $user->update([
                 'name'                   => $data['name'],
+                'first_name'             => $data['name'],
+                'last_name'              => $data['name'],
                 'phone_number'           => $data['phone_number'],
                 'package'                => $data['package'],
                 'subscripition_start_at' => $data['subscripition_start_at'],
@@ -233,16 +233,20 @@ class AuthController extends Controller
             return response()->json([
                 'status'    => true,
                 'message'   => 'User updated successfully.',
+                'token'     => $user->createToken('USER Token')->plainTextToken
             ], 200);
         }
 
-        // Create new user
-        $data['password'] = bcrypt(Str::random(10)); // Generate random password
+        $data['password']       = bcrypt(Str::random(10));
+        $data['first_name']     = $data['name'];
+        $data['last_name']      = $data['name'];
         $user = User::create($data);
+
 
         return response()->json([
             'status'    => true,
-            'message'   => 'User created successfully.',
+            'message'   => 'User created successfully, and logedin',
+            'token'     => $user->createToken('USER Token')->plainTextToken
         ], 201);
     }
 }

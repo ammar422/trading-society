@@ -89,6 +89,7 @@ class CourseController extends Controller
 
         // Define the package permissions
         $packagePermissions = [
+            'Start'         => ['beginners', 'basics'],
             'Essential'     => ['beginners', 'basics'],
             'Basic'         => ['beginners', 'basics'],
             'Premium'       => ['beginners', 'basics', 'advanced'],
