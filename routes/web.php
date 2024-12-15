@@ -1,21 +1,21 @@
 <?php
 
-use App\Http\Controllers\Mvc\Admins\Categories\AdminCategoryController;
-use App\Http\Controllers\Mvc\Admins\Courses\AdminCourseController;
-use App\Http\Controllers\Mvc\Admins\Instructors\AdminInstructorController;
-use App\Http\Controllers\Mvc\Admins\Offres\AdminOffersController;
-use App\Http\Controllers\Mvc\Admins\SuperAdmins\SuperAdminController;
-use App\Http\Controllers\Mvc\Admins\Users\AdminUsersController;
-use App\Http\Controllers\Mvc\Auth\Admin\AdminAuthController;
+use App\Models\Course;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mvc\Offer\OfferController;
+use App\Http\Controllers\Mvc\Auth\Admin\AdminAuthController;
+use App\Http\Controllers\Mvc\Admins\Users\AdminUsersController;
+use App\Http\Controllers\Mvc\Admins\Offres\AdminOffersController;
+use App\Http\Controllers\Mvc\Admins\Courses\AdminCourseController;
 use App\Http\Controllers\Mvc\CoursesAndCategories\CourseController;
+use App\Http\Controllers\Mvc\Admins\SuperAdmins\SuperAdminController;
 use App\Http\Controllers\Mvc\CoursesAndCategories\CategoryController;
 use App\Http\Controllers\Mvc\Auth\Instructor\InstructorAuthController;
+use App\Http\Controllers\Mvc\Admins\Categories\AdminCategoryController;
 use App\Http\Controllers\Mvc\CoursesAndCategories\CourseVediosController;
+use App\Http\Controllers\Mvc\Admins\Instructors\AdminInstructorController;
 use App\Http\Controllers\Mvc\LiveSessions\InstructorLiveSessionController;
-use App\Models\Category;
-use App\Models\Course;
 
 Route::get('/', function () {
     return view('welcome');
