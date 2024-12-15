@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Http;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -190,5 +191,58 @@ class AuthController extends Controller
             'status' => false,
             'message' => 'Invalid credentials'
         ], 401);
+    }
+
+
+
+
+    public function syncUser(Request $request)
+    {
+        // Validate incoming data
+        $validator = Validator::make($request->all(), [
+            'name'                      => 'required|string|max:255',
+            'email'                     => 'required|email',
+            'phone_number'              => 'required|string|max:20',
+            'package'                   => 'required|string|max:20',
+            'subscripition_start_at'    => 'required|date',
+            'subscripition_end_at'      => 'required|date',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status'    => false,
+                'message'   => $validator->errors()
+            ], 422);
+        }
+
+        $data = $validator->validated();
+
+        // Check if the user already exists
+        $user = User::where('email', $data['email'])->first();
+
+        if ($user) {
+            // Update user data
+            $user->update([
+                'name'                   => $data['name'],
+                'phone_number'           => $data['phone_number'],
+                'package'                => $data['package'],
+                'subscripition_start_at' => $data['subscripition_start_at'],
+                'subscripition_end_at'   => $data['subscripition_end_at'],
+            ]);
+
+            return response()->json([
+                'status'    => true,
+                'message'   => 'User updated successfully.',
+            ], 200);
+        }
+
+        // Create new user
+        $data['password'] = bcrypt(Str::random(10)); // Generate random password
+        $user = User::create($data);
+
+        return response()->json([
+            'status'    => true,
+            'message'   => 'User created successfully.',
+        ], 201);
     }
 }

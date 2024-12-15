@@ -49,6 +49,9 @@ route::prefix('v1')->group(function () {
     // all authenticted routes
     route::middleware('auth:sanctum')->group(function () {
 
+        //sync with HFS
+        Route::post('/users/sync', [AuthController::class, 'syncUser']);
+
         Route::post('save-fcm-token', [NotificationController::class, 'saveFcmToken']);
 
 
