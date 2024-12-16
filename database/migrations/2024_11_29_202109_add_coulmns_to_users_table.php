@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('package', ['Start', 'Essential', 'Basic', 'Premium', 'Pro', 'Ultimate'])->nullable();
+            $table->enum('package', ['Basic-init', 'Premium-init', 'Pro-init', 'Essential', 'Basic', 'Premium', 'Pro', 'Ultimate'])->nullable();
             $table->date('subscripition_start_at')->nullable();
             $table->date('subscripition_end_at')->nullable();
         });

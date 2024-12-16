@@ -86,10 +86,15 @@ class CourseController extends Controller
                 403
             );
         }
-
         // Define the package permissions
         $packagePermissions = [
-            'Start'         => ['beginners', 'basics'],
+
+            //demo
+            'Basic-init'    => ['beginners', 'basics'],
+            'Premium-init'  => ['beginners', 'basics', 'advanced'],
+            'Pro-init'      => ['beginners', 'basics', 'advanced', 'expert'],
+            //demo
+
             'Essential'     => ['beginners', 'basics'],
             'Basic'         => ['beginners', 'basics'],
             'Premium'       => ['beginners', 'basics', 'advanced'],
