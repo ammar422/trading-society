@@ -152,17 +152,18 @@ class AuthController extends Controller
 
                 if ($user) {
                     // Update existing user
+                    dd($user);
                     $user->update([
-                        'name' => $userData['user']['name'],
-                        'first_name' => $userData['user']['name'],
-                        // 'last_name' => $userData['last_name'],
-                        'phone_number' => $userData['user']['phone'] ?? "unll from HFS",
+                        'name'          => $userData['user']['name'],
+                        'first_name'    => $userData['user']['name'],
+                        // 'last_name'  => $userData['last_name'],
+                        'phone_number'  => $userData['user']['phone'] ?? "unll from HFS",
                         'package' => $userData['user']['package_name'],
                         'subscripition_start_at' => $userData['user']['subscribed_at'],
                         'subscripition_end_at' => $userData['user']['expiration_date'],
                     ]);
                 } else {
-                    dd($userData);
+                    // dd($userData);
                     // Create a new user
                     $user = User::create([
                         'email'                    => $userData['user']['email'],
