@@ -141,7 +141,6 @@ class AuthController extends Controller
 
         if ($response->successful()) {
             $token = $response->json('token');
-
             // Validate the token by calling HFS user data endpoint
             $userResponse = Http::withToken($token)->get('https://api.hfssociety.com/api/v1/get-login-user');
             // $userResponse = Http::withToken($token)->get('http://127.0.0.1:7000/api/v1/get-login-user'); // for testing only
@@ -163,12 +162,13 @@ class AuthController extends Controller
                         'subscripition_end_at' => $userData['user']['expiration_date'],
                     ]);
                 } else {
+                    // dd($userData);
                     // Create a new user
                     $user = User::create([
                         'email'                    => $userData['user']['email'],
-                        'name'                     => $userData['user']['name'],
-                        'first_name'               => $userData['user']['name'],
-                        'last_name'                => 'last_name',
+                        'name'                     => $userData['user']['name'] ?? 'hfs_user' . rand(1, 5000),
+                        'first_name'               => $userData['user']['name'] ?? 'hfs_first_name' . rand(1, 5000),
+                        'last_name'                => 'hfs_last_name' . rand(1, 5000),
                         'phone_number'             => $userData['user']['phone'] ?? "unll from HFS",
                         'password'                 => bcrypt(Str::random(10)),
                         'package'                  => $userData['user']['package_name'],
