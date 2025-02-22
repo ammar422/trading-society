@@ -162,7 +162,7 @@ class AuthController extends Controller
                         'subscripition_end_at' => $userData['user']['expiration_date'],
                     ]);
                 } else {
-                    // dd($userData);
+                    dd($userData);
                     // Create a new user
                     $user = User::create([
                         'email'                    => $userData['user']['email'],
