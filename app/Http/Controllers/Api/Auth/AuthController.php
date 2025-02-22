@@ -152,7 +152,7 @@ class AuthController extends Controller
 
                 if ($user) {
                     // Update existing user
-                    dd($user);
+                    dd($userData);
                     $user->update([
                         'name'          => $userData['user']['name'],
                         'first_name'    => $userData['user']['name'],
