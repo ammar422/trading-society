@@ -59,7 +59,6 @@ class AdminCourseController extends Controller
 
 
         $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->filter()->toArray();
-        dd($tokens);
 
         if (!empty($tokens)) {
             // Create a CloudMessage instance
@@ -69,7 +68,7 @@ class AdminCourseController extends Controller
                     'body' => $body,
                     'course_id' => $course_id
                 ]);
-
+            dd($message);
             // Send the message as a multicast to all FCM tokens
             $report = Firebase::messaging()->sendMulticast($message, $tokens);
 
