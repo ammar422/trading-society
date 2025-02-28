@@ -39,7 +39,7 @@ Route::get('fcm-token-test', function () {
     // Create a new CloudMessage instance  
     $message = CloudMessage::new()
         ->withNotification([
-            'title' => 'Test Notification',
+            'title' => 'abdo Notification',
             'body' => 'This is a test message.',
         ]);
 
