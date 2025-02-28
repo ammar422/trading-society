@@ -68,9 +68,9 @@ class AdminCourseController extends Controller
                     'body' => $body,
                     'course_id' => $course_id
                 ]);
-            dd($message);
             // Send the message as a multicast to all FCM tokens
             $report = Firebase::messaging()->sendMulticast($message, $tokens);
+            dd($report);
 
             // Check for any failed tokens
             if (count($report->failures()) > 0) {
