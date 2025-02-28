@@ -41,21 +41,23 @@ Route::get('fcm-token-test', function () {
         ->withNotification([
             'title' => 'Test Notification',
             'body' => 'This is a test message.',
-            // Include any additional data you wish to send  
         ]);
 
     // Send the message as a multicast to all FCM tokens  
     $report = Firebase::messaging()->sendMulticast($message, $tokens);
 
-    // Return the report to see how many notifications were sent successfully 
-    return response()->json([  
-        'success_count' => $report->success(), // Correct usage  
-        'failure_count' => $report->failure(), // Correct usage  
-        'tokens' => $tokens,  
-        'responses' => $report->responses(), // Provides detailed responses for each token  
-    ]);  
-});
+    // Check success and failure counts from the report  
+    $successCount = $report->success();
+    $failureCount = $report->failure();
 
+    // Return the report to see how many notifications were sent successfully  
+    return response()->json([
+        'success_count' => $successCount, // Correct usage  
+        'failure_count' => $failureCount, // Correct usage  
+        'tokens' => $tokens,
+        'responses' => $report->responses(), // Detailed responses for each token  
+    ]);
+});
 
 
 route::prefix('instructor')->group(function () {
