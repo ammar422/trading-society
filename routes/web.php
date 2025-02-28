@@ -46,17 +46,10 @@ Route::get('fcm-token-test', function () {
     // Send the message as a multicast to all FCM tokens  
     $report = Firebase::messaging()->sendMulticast($message, $tokens);
 
-    // Check success and failure counts from the report  
-    $successCount = $report->success();
-    $failureCount = $report->failure();
+    
 
     // Return the report to see how many notifications were sent successfully  
-    return response()->json([
-        'success_count' => $successCount, // Correct usage  
-        'failure_count' => $failureCount, // Correct usage  
-        'tokens' => $tokens,
-        'responses' => $report->responses(), // Detailed responses for each token  
-    ]);
+    return response()->json("send abdo test");
 });
 
 

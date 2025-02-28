@@ -59,6 +59,7 @@ class AdminCourseController extends Controller
 
 
         $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->filter()->toArray();
+        dd($tokens);
 
         if (!empty($tokens)) {
             // Create a CloudMessage instance
