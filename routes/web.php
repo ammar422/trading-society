@@ -1,8 +1,11 @@
 <?php
 
+use App\Models\User;
 use App\Models\Course;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
+use Kreait\Firebase\Messaging\CloudMessage;
+use Kreait\Laravel\Firebase\Facades\Firebase;
 use App\Http\Controllers\Mvc\Offer\OfferController;
 use App\Http\Controllers\Mvc\Auth\Admin\AdminAuthController;
 use App\Http\Controllers\Mvc\Admins\Users\AdminUsersController;
@@ -20,6 +23,38 @@ use App\Http\Controllers\Mvc\Admins\Instructors\AdminInstructorController;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+
+
+
+Route::get('fcm-token-test', function () {
+    // Fetch FCM tokens from users who have them  
+    $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
+
+    // Check if there are any tokens  
+    if (empty($tokens)) {
+        return response()->json(['message' => 'No FCM tokens found.'], 404);
+    }
+
+    // Create a new CloudMessage instance  
+    $message = CloudMessage::new()
+        ->withNotification([
+            'title' => 'Test Notification',
+            'body' => 'This is a test message.',
+            // Include any additional data you wish to send  
+        ]);
+
+    // Send the message as a multicast to all FCM tokens  
+    $report = Firebase::messaging()->sendMulticast($message, $tokens);
+
+    // Return the report to see how many notifications were sent successfully  
+    return response()->json([
+        'success' => $report->success(),
+        'failure' => $report->failure(),
+        'tokens' => $tokens,
+        'responses' => $report->responses(),
+    ]);
+});
 
 
 
