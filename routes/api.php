@@ -3,13 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Api\Auth\AuthController;
-use App\Http\Controllers\Api\Auth\AuthInstructorController;
 use App\Http\Controllers\Api\Offer\OfferController;
 use App\Http\Controllers\Api\OnlineSesions\ZoomController;
+use App\Http\Controllers\Api\Auth\AuthInstructorController;
 use App\Http\Controllers\Api\Instructor\InstructorController;
+use App\Http\Controllers\Api\Instructor\App\InstructorAppSignls;
+use App\Http\Controllers\Api\LiveSessions\LiveSessionController;
 use App\Http\Controllers\Api\CoursesAndCategories\CourseController;
 use App\Http\Controllers\Api\CoursesAndCategories\CategoryController;
-use App\Http\Controllers\Api\LiveSessions\LiveSessionController;
 
 route::prefix('v1')->group(function () {
 
@@ -27,10 +28,13 @@ route::prefix('v1')->group(function () {
 
     // instructor auth
     route::post('instructor_login', [AuthInstructorController::class, 'login'])->name('instructor_api_login');
-    //  instructor profile
     route::middleware('auth:instructor-api')->group(function () {
+        //  instructor profile
         route::get('instructor/profile', [AuthInstructorController::class, 'me']);
         route::post('instructor/edit/profile', [AuthInstructorController::class, 'editProfile']);
+
+        Route::apiResource('instructor/app/signls', InstructorAppSignls::class);
+        Route::post('instructor/app/signls/{id}', [InstructorAppSignls::class, 'update']);
     });
 
 
