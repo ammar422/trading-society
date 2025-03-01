@@ -27,6 +27,11 @@ route::prefix('v1')->group(function () {
 
     // instructor auth
     route::post('instructor_login', [AuthInstructorController::class, 'login'])->name('instructor_api_login');
+    //  instructor profile
+    route::middleware('auth:instructor-api')->group(function () {
+        route::get('instructor/profile', [AuthInstructorController::class, 'me']);
+        route::post('instructor/edit/profile', [AuthInstructorController::class, 'editProfile']);
+    });
 
 
     // instructor
