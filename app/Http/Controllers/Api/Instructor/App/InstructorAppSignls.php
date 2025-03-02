@@ -66,7 +66,7 @@ class InstructorAppSignls extends \Lynx\Base\Api
             'tp3'              => 'required|numeric',
             'tp4'              => 'required|numeric',
             'tp5'              => 'required|numeric',
-            'chart'            => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'chart'            => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description'      => 'required|string|max:500',
         ] : [
             'order_status'     => 'required|in:bending,active,deleted,hit_sl,hit_tp1,hit_tp2,hit_tp3,hit_tp4,hit_tp5',
@@ -79,7 +79,7 @@ class InstructorAppSignls extends \Lynx\Base\Api
             'tp3'              => 'required|numeric',
             'tp4'              => 'required|numeric',
             'tp5'              => 'required|numeric',
-            'chart'            => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'chart'            => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description'      => 'required|string|max:500',
         ];
     }
