@@ -11,7 +11,7 @@ class NotificationController extends Controller
     use ApiResponseTrait;
     public function index()
     {
-        $user = auth()->user();
+        $user = auth('user')->user();
         // $notifications = $user->notifications()->paginate(15);
 
         // return response()->json($notifications);

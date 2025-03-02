@@ -17,7 +17,7 @@ class OfferPolicy
 
     public function view(Instructor $Instructor, Offer $Offer): bool
     {
-        return $Offer->Instructor_id == $Instructor->id;
+        return $Offer->instructor_id == $Instructor->id;
     }
 
     public function create(Instructor $Instructor): bool
@@ -27,11 +27,11 @@ class OfferPolicy
 
     public function update(Instructor $Instructor, Offer $Offer): bool
     {
-        return $Offer->Instructor_id == $Instructor->id;
+        return $Offer->instructor_id == $Instructor->id;
     }
 
     public function delete(Instructor $Instructor, Offer $Offer): bool
     {
-        return $Offer->Instructor_id == $Instructor->id;
+        return $Offer->instructor_id == $Instructor->id;
     }
 }
