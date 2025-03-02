@@ -29,8 +29,8 @@ class NewDealUploadedNotification extends Notification
     {
         return [
             'offer_id' => $this->offer->id,
-            'title' => $this->offer->title,
-            'message' => "New deal post has been uploaded!",
+            'pair' => $this->offer->pair,
+            'message' => "New signal posted by " . $this->offer->instructor->name,
         ];
     }
 

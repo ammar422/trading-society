@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api\Instructor\App;
 
+use App\Models\User;
 use App\Models\Offer;
 use App\Policies\OfferPolicy;
 use App\Http\Resources\OfferResource;
+use App\Notifications\NewDealUploadedNotification;
 
 class InstructorAppSignls extends \Lynx\Base\Api
 {
@@ -110,6 +112,11 @@ class InstructorAppSignls extends \Lynx\Base\Api
     public function afterStore($entity): void
     {
         // dd($entity->id);
+        $users = User::all();
+        foreach ($users as $user) {
+            $user_id = $user->id;
+            $user->notify(new NewDealUploadedNotification($entity, $user_id));
+        }
     }
 
     /**
