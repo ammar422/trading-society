@@ -66,6 +66,7 @@ route::prefix('v1')->group(function () {
 
         // user profile 
         route::get('user', [AuthController::class, 'getUserData'])->name('user.data');
+        route::get('user/check/subscripition', [AuthController::class, 'checkSubscripition']);
 
 
 

@@ -250,4 +250,18 @@ class AuthController extends Controller
             'token'     => $user->createToken('USER Token')->plainTextToken
         ], 201);
     }
+
+
+    public function checkSubscripition()
+    {
+        $user = auth()->user();
+        $user->subscripition_end_at;
+
+        if ($user && $user->subscripition_end_at && $user->package && $user->subscripition_end_at >= now()->toDateString()) {
+            return lynx()->message('subscriped')->data([
+                'package' => $user->package
+            ])->status(200)->response();
+        }
+        return lynx()->message('not-subscriped')->status(401)->response();
+    }
 }
