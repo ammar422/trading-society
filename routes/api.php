@@ -5,12 +5,15 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Offer\OfferController;
 use App\Http\Controllers\Api\OnlineSesions\ZoomController;
+use App\Http\Controllers\V2\Api\Admin\AuthAdminController;
 use App\Http\Controllers\Api\Auth\AuthInstructorController;
+use App\Http\Controllers\V2\Api\Admin\SuperAdminController;
 use App\Http\Controllers\Api\Instructor\InstructorController;
 use App\Http\Controllers\Api\Instructor\App\InstructorAppSignls;
 use App\Http\Controllers\Api\LiveSessions\LiveSessionController;
 use App\Http\Controllers\Api\CoursesAndCategories\CourseController;
 use App\Http\Controllers\Api\CoursesAndCategories\CategoryController;
+use App\Http\Controllers\V2\Api\Admin\InstructorController as AdminInstructorController;
 
 route::prefix('v1')->group(function () {
 
@@ -105,5 +108,27 @@ route::prefix('v1')->group(function () {
     // offer for instructor
     route::middleware('auth:instructor-api')->group(function () {
         route::post('instructor/trade-alert', [OfferController::class, 'store']);
+    });
+
+
+
+    //admin dash
+
+    Route::prefix('app/admin')->group(function () {
+        // admin auth
+        Route::post('login', [AuthAdminController::class, 'login']);
+        Route::middleware('auth:admin')->group(function () {
+            //admin profile
+            Route::get('profile', [AuthAdminController::class, 'me']);
+            Route::post('edit/profile', [AuthAdminController::class, 'editProfile']);
+
+            //super admin CRUD
+            Route::apiResource('super-admin', SuperAdminController::class);
+            Route::post('super-admin/{id}', [SuperAdminController::class , 'update']);
+
+            //instructors CRUD
+            Route::apiResource('instructors', AdminInstructorController::class);
+            Route::post('instructors/{id}', [AdminInstructorController::class , 'update']);
+        });
     });
 });

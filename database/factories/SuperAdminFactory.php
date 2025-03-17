@@ -17,9 +17,9 @@ class SuperAdminFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
-            'email' => $this->faker->safeEmail(),
-            'password' => bcrypt('123456789'),
+            'name' =>'admin',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('123456'),
             'photo' => $this->faker->image()
         ];
     }

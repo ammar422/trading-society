@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Instructor;
+use App\Models\SuperAdmin;
 use Illuminate\Database\Seeder;
 
 class InstructorSeeder extends Seeder
@@ -13,5 +14,6 @@ class InstructorSeeder extends Seeder
     public function run(): void
     {
         Instructor::factory(config('constants.FACTORY_COUNT'))->create();
+        SuperAdmin::factory()->create();
     }
 }
