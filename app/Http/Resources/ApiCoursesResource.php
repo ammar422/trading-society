@@ -5,18 +5,11 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CoursesResource extends JsonResource
+class ApiCoursesResource extends JsonResource
 {
-    protected $courseVideos;
-
-    public function __construct($resource, $courseVideos = null)
-    {
-        parent::__construct($resource);
-        $this->courseVideos = $courseVideos;
-    }
-
     public function toArray($request): array
     {
+    //    return parent::toArray($request);
         return [
             'id'                     => $this->id,
             'category_name'          => $this->category->name,
@@ -26,7 +19,7 @@ class CoursesResource extends JsonResource
             'course_instructor_name' => $this->instructor->name,
             'instructor_photo'       => $this->instructor->photo,
             'course_photo'           => $this->photo,
-            'course_videos'          => VedioResource::collection($this->courseVideos) // Use the ordered videos  
+            'course_videos'          => VedioResource::collection($this->courseVedios) 
         ];
     }
 }

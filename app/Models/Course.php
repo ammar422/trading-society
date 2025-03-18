@@ -27,12 +27,12 @@ class Course extends Model
 
 
 
-    public function photo(): Attribute
-    {
-        return Attribute::make(
-            get: fn($photo) =>  env('APP_URL') . '/uploads/' . $photo
-        );
-    }
+    // public function photo(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn($photo) =>  env('APP_URL') . '/uploads/' . $photo
+    //     );
+    // }
 
 
 

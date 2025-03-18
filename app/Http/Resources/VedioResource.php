@@ -15,14 +15,14 @@ class VedioResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'  => $this->id,
-            'course_name'  => $this->course->title,
-            'video_url'  =>  $this->vedio_url,
-            'vedio_time'  => $this->duration,
-            'vedio_description'  => $this->description,
-            'vedio_image'  => $this->image,
-            'vedio_order'  => $this->order,
-            'vedio_uploaded_at'  => $this->created_at,
+            'id'                => $this->id,
+            'course_name'       => $this->course->title,
+            'video_url'         =>  $this->vedio_url,
+            'vedio_time'        => $this->duration,
+            'vedio_description' => $this->description,
+            'vedio_image'       => $this->image,
+            'vedio_order'       => $this->order,
+            'vedio_uploaded_at' => $this->created_at,
         ];
     }
 }
