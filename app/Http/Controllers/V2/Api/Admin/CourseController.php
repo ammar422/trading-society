@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\V2\Api\Admin;
 
 use App\Models\Course;
-use Illuminate\Support\Str;
 use App\Policies\CoursePolicy;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\ApiCoursesResource;

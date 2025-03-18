@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\Instructor\App\InstructorAppSignls;
 use App\Http\Controllers\Api\LiveSessions\LiveSessionController;
 use App\Http\Controllers\Api\CoursesAndCategories\CourseController;
 use App\Http\Controllers\Api\CoursesAndCategories\CategoryController;
+use App\Http\Controllers\V2\Api\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\V2\Api\Admin\CourseController as AdminCourseController;
 use App\Http\Controllers\V2\Api\Admin\InstructorController as AdminInstructorController;
 
@@ -134,6 +135,10 @@ route::prefix('v1')->group(function () {
             //courses CRUD
             Route::apiResource('courses', AdminCourseController::class);
             Route::post('courses/{id}', [AdminCourseController::class , 'update']);
+
+            //categories CRUD
+            Route::apiResource('categories', AdminCategoryController::class);
+            Route::post('categories/{id}', [AdminCategoryController::class , 'update']);
         });
     });
 });
