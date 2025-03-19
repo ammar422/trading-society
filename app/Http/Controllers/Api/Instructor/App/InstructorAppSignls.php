@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Offer;
 use App\Policies\OfferPolicy;
 use App\Http\Resources\OfferResource;
+use Kreait\Firebase\Messaging\CloudMessage;
+use Kreait\Laravel\Firebase\Facades\Firebase;
 use App\Notifications\NewDealUploadedNotification;
 
 class InstructorAppSignls extends \Lynx\Base\Api
@@ -115,8 +117,28 @@ class InstructorAppSignls extends \Lynx\Base\Api
         $users = User::all();
         foreach ($users as $user) {
             $user_id = $user->id;
-            dd($user_id);
             $user->notify(new NewDealUploadedNotification($entity, $user_id));
+        }
+
+
+        $title = 'Notification for offer';
+        $body = "offer pair: " . $entity->pair;
+        $offer_id = $entity->id;
+
+        $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->filter()->toArray();
+
+        if (!empty($tokens)) {
+
+            // Create a CloudMessage instance
+            $message = CloudMessage::new()
+                ->withNotification([
+                    'title' => $title,
+                    'body' => $body,
+                    'offer_id' => $offer_id
+                ]);
+
+            // Send the message as a multicast to all FCM tokens
+            $report = Firebase::messaging()->sendMulticast($message, $tokens);
         }
     }
 
