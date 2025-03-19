@@ -135,6 +135,7 @@ route::prefix('v1')->group(function () {
             //courses CRUD
             Route::apiResource('courses', AdminCourseController::class);
             Route::post('courses/{id}', [AdminCourseController::class , 'update']);
+            Route::post('course/video/add' , [AdminCourseController::class , 'addTOCourse']);
 
             //categories CRUD
             Route::apiResource('categories', AdminCategoryController::class);

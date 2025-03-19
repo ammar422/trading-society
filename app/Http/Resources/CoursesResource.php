@@ -26,7 +26,7 @@ class CoursesResource extends JsonResource
             'course_instructor_name' => $this->instructor->name,
             'instructor_photo'       => $this->instructor->photo,
             'course_photo'           => $this->photo,
-            'course_videos'          => VedioResource::collection($this->courseVideos) // Use the ordered videos  
+            'course_videos'          => VedioResource::collection($this->courseVideos)
         ];
     }
 }

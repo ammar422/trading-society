@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Policies\CoursePolicy;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\ApiCoursesResource;
+use App\Http\Requests\V2\ApiVedioCourseStorRequest;
 
 class CourseController extends \Lynx\Base\Api
 {
@@ -167,5 +168,23 @@ class CourseController extends \Lynx\Base\Api
     {
         // do something
         // $entity->file
+    }
+
+    public function addTOCourse(ApiVedioCourseStorRequest $request)
+    {
+         $course = Course::where('id', request('course_id'))->first();
+        if ($course) {
+            $videos = $request->validated('video');
+            foreach ($videos as $video) {
+                $video['course_id'] = $course->id;
+                $video['created_at'] = now();
+                $video['updated_at'] = now();
+                $course->courseVedios()->insert($video);
+            }
+            return lynx()->message('videos added successfuly')->data([
+                'course' => new ApiCoursesResource($course->load('courseVedios'))
+            ])->response();
+        }
+        return lynx()->message('faild to add videos')->status(402)->response();
     }
 }

@@ -25,18 +25,18 @@ class ApiStoreTradeRequest extends FormRequest
     {
         return [
             // 'instructor_id' => 'required|exists:instructors,id',
-            'order_status' => 'required|string',
-            'pair' => 'required|string',
-            'price' => 'required|numeric|min:0.01',
-            'order_type' => 'required|string',
-            'sl' => 'nullable|numeric',
-            'tp1' => 'nullable|numeric',
-            'tp2' => 'nullable|numeric',
-            'tp3' => 'nullable|numeric',
-            'tp4' => 'nullable|numeric',
-            'tp5' => 'nullable|numeric',
-            'chart' => 'image|mimes:jpeg,png,jpg,gif',
-            'description' => 'nullable|string|max:255',
+            'order_status'  => 'required|string',
+            'pair'          => 'required|string',
+            'price'         => 'required|numeric|min:0.01',
+            'order_type'    => 'required|string',
+            'sl'            => 'nullable|numeric',
+            'tp1'           => 'nullable|numeric',
+            'tp2'           => 'nullable|numeric',
+            'tp3'           => 'nullable|numeric',
+            'tp4'           => 'nullable|numeric',
+            'tp5'           => 'nullable|numeric',
+            'chart'         => 'image|mimes:jpeg,png,jpg,gif',
+            'description'   => 'nullable|string|max:255',
         ];
     }
 

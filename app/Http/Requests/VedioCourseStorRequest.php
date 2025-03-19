@@ -22,11 +22,11 @@ class VedioCourseStorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'course_id' => 'required|exists:courses,id',
-            'vedio_url' => 'required|file|mimes:mp4,avi,mov,mkv',
-            'duration' => 'required|string',
-            'description' => 'required|string|max:1000',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'course_id'  => 'required|exists:courses,id',
+            'vedio_url'  => 'required|string',
+            'duration'   => 'required|string',
+            'description'=> 'required|string|max:1000',
+            'image'      => 'required|image|mimes:jpeg,png,jpg,gif',
         ];
     }
 }
