@@ -113,6 +113,7 @@ class InstructorAppSignls extends \Lynx\Base\Api
     {
         // dd($entity->id);
         $users = User::all();
+        dd($users);
         foreach ($users as $user) {
             $user_id = $user->id;
             $user->notify(new NewDealUploadedNotification($entity, $user_id));
