@@ -162,6 +162,33 @@ class InstructorAppSignls extends \Lynx\Base\Api
     public function afterUpdate($entity): void
     {
         // dd($entity->id);
+        // dd($entity->id);
+        $users = User::all();
+        foreach ($users as $user) {
+            $user_id = $user->id;
+            $user->notify(new NewDealUploadedNotification($entity, $user_id));
+        }
+
+
+        $title = 'Notification for offer';
+        $body = "offer pair: " . $entity->pair;
+        $offer_id = $entity->id;
+
+        $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->filter()->toArray();
+
+        if (!empty($tokens)) {
+
+            // Create a CloudMessage instance
+            $message = CloudMessage::new()
+                ->withNotification([
+                    'title' => $title,
+                    'body' => $body,
+                    'offer_id' => $offer_id
+                ]);
+
+            // Send the message as a multicast to all FCM tokens
+            $report = Firebase::messaging()->sendMulticast($message, $tokens);
+        }
     }
 
     /**
