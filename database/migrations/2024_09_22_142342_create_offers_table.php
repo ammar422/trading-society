@@ -18,12 +18,12 @@ return new class extends Migration
             $table->string('pair');
             $table->decimal('price', 10, 2);
             $table->string('order_type'); // e.g., 'buy' or 'sell'  
-            $table->decimal('sl', 65, 12)->nullable(); // Stop Loss  
-            $table->decimal('tp1', 65, 12)->nullable(); // Take Profit 1  
-            $table->decimal('tp2', 65, 12)->nullable();
-            $table->decimal('tp3', 65, 12)->nullable();
-            $table->decimal('tp4', 65, 12)->nullable();
-            $table->decimal('tp5', 65, 12)->nullable();
+            $table->string('sl')->nullable(); // Stop Loss  
+            $table->string('tp1')->nullable(); // Take Profit 1  
+            $table->string('tp2')->nullable();
+            $table->string('tp3')->nullable();
+            $table->string('tp4')->nullable();
+            $table->string('tp5')->nullable();
             $table->string('chart')->nullable(); // URL or path to the chart image  
             $table->text('description')->nullable();
             $table->timestamps();
