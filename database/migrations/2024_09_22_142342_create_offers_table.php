@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('instructor_id')->constrained()->on('instructors')->onDelete('cascade');
             $table->string('order_status');
             $table->string('pair');
-            $table->decimal('price', 10, 2);
+            $table->string('price');
             $table->string('order_type'); // e.g., 'buy' or 'sell'  
             $table->string('sl')->nullable(); // Stop Loss  
             $table->string('tp1')->nullable(); // Take Profit 1  

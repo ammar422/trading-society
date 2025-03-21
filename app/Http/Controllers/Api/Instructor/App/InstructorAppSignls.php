@@ -60,7 +60,7 @@ class InstructorAppSignls extends \Lynx\Base\Api
         return $type == 'store' ? [
             'order_status'     => 'sometimes|nullable|string',
             'pair'             => 'sometimes|nullable|string|max:255',
-            'price'            => 'sometimes|nullable|numeric|min:0',
+            'price'            => 'sometimes|nullable|string',
             'order_type'       => 'sometimes|nullable|string|max:255',
             'sl'               => 'sometimes|nullable|string',
             'tp1'              => 'sometimes|nullable|string',
@@ -73,7 +73,7 @@ class InstructorAppSignls extends \Lynx\Base\Api
         ] : [
             'order_status'     => 'sometimes|nullable|string',
             'pair'             => 'sometimes|nullable|string|max:255',
-            'price'            => 'sometimes|nullable|numeric|min:0',
+            'price'            => 'sometimes|nullable|string',
             'order_type'       => 'sometimes|nullable|string|max:255',
             'sl'               => 'sometimes|nullable|string',
             'tp1'              => 'sometimes|nullable|string',
