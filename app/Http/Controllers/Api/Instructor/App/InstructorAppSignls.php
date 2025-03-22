@@ -114,6 +114,8 @@ class InstructorAppSignls extends \Lynx\Base\Api
     public function afterStore($entity): void
     {
         // dd($entity->id);
+
+        //database and pusher
         $users = User::all();
         foreach ($users as $user) {
             $user_id = $user->id;
@@ -121,8 +123,8 @@ class InstructorAppSignls extends \Lynx\Base\Api
         }
 
 
-        $title = 'Notification for offer';
-        $body = "offer pair: " . $entity->pair;
+        $title = 'Notification for new signal';
+        $body = "signal pair: " . $entity->pair;
         $offer_id = $entity->id;
 
         $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->filter()->toArray();
@@ -163,6 +165,8 @@ class InstructorAppSignls extends \Lynx\Base\Api
     {
         // dd($entity->id);
         // dd($entity->id);
+
+        //database and pusher
         $users = User::all();
         foreach ($users as $user) {
             $user_id = $user->id;
@@ -170,8 +174,8 @@ class InstructorAppSignls extends \Lynx\Base\Api
         }
 
 
-        $title = 'Notification for offer';
-        $body = "offer pair: " . $entity->pair;
+        $title = 'Notification for signal updated';
+        $body = "signal pair: " . $entity->pair;
         $offer_id = $entity->id;
 
         $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->filter()->toArray();
