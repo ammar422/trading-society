@@ -68,9 +68,8 @@ class AuthAdminController extends Controller
     {
         $data = $request->validated();
         $user = auth('instructor-api')->user();
-        if ($request->hasFile('photo')) {
-            $path =  $this->imageProccessing($user, $request->file('photo'));
-            $data['photo'] = $path;
+        if ($request->hasFile('password')) {
+            $data['password'] = bcrypt(request('password'));
         }
         $user->update($data);
         return $this->respondWithUserData($user, __('users::auth.data_udated'));

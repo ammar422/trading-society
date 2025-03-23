@@ -30,11 +30,11 @@ class UpdateProfileRequest extends FormRequest
         $user = auth()->guard('instructor-api')->user();
 
         return [
-            'name'                  => 'required|string',
             'email'                 => 'required|string|email',
-            'photo'                 => 'sometimes|nullable|image|mimetypes:image/*|max:2048',
+            'password'              => ['sometimes', 'required', 'string', 'confirmed', Password::min(6)->numbers()],
+            'password_confirmation' => 'required_with:password|same:password',
             'old_password'          => [
-                'required',
+                'required_with:password',
                 'string',
                 function ($attribute, $value, $fail) use ($user) {
                     // Check if the provided old password matches the current user's password  
@@ -43,8 +43,7 @@ class UpdateProfileRequest extends FormRequest
                     }
                 },
             ],
-            'password'              => ['sometimes', 'required', 'string', 'confirmed', Password::min(6)->numbers()],
-            'password_confirmation' => 'required_with:password|same:password',
+
         ];
     }
 
